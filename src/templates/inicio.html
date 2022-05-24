@@ -1,0 +1,41 @@
+{%extends './base.html'%}
+
+{%block titulo%}
+Home
+{%endblock%}
+
+{%block linkCSS%}
+<link rel="stylesheet" href="{{url_for('static',filename='css/inicio.css')}}">
+{%endblock%}
+
+<link rel="stylesheet" href="static/css/inicio.css">
+{%block body%}
+
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            SuperMarket
+        </div>
+        <div class="links">
+            <ul>
+                <li><a href="{{url_for('catalogo')}}">Explorar</a></li>
+                <li><a href="{{url_for('login')}}">Trabajador</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="presentacion">
+        <div class="titulo">LOS <span>MONITOS
+
+            </span><br> DE LA <span>NONA</span>
+            <h3>Supermarket</h3>
+        </div>
+        <div class="div2">
+            <img src="../static/img/carro.png" alt="">
+            <center>
+                <a href="{{url_for('catalogo')}}"><Button>Explorar</Button></a>
+            </center>
+        </div>
+    </section>
+</body>
+{%endblock%}

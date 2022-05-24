@@ -1,0 +1,195 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+
+}
+
+
+.navbar {
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 25px;
+    color: white;
+    font-size: 14px;
+    background-color: rgb(34, 40, 49);
+}
+
+
+.list ul li {
+    list-style: none;
+    text-align: center;
+    text-transform: capitalize;
+    display: inline;
+    margin: 5px;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    transition: .35s;
+
+}
+
+.navbar a:hover {
+    color: rgb(255, 189, 105);
+}
+
+.list {
+    list-style: none;
+    display: flex;
+}
+
+#toggler,
+.navbar label {
+    display: none;
+}
+
+@media screen and (max-width:600px) {
+    .menu {
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+    }
+
+    .list {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .list ul li {
+        display: block;
+        text-align: center;
+    }
+
+    .navbar label {
+        display: inline-flex;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    #toggler:checked~.menu {
+        max-height: 100%;
+    }
+}
+
+
+.user .nombreUsuario {
+    font-size: 20px;
+    text-transform: capitalize;
+    font-weight: 550;
+
+}
+
+.user .rol {
+    font-size: 9px;
+    font-weight: 100;
+}
+
+.user .rut {
+    font-size: 12px;
+    font-weight: 10;
+}
+
+.opciones ul li {
+    display: inline;
+    margin-left: 10px;
+}
+
+.opciones ul li a {
+    color: rgb(238, 238, 238);
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.seccion1 {
+    width: 80%;
+    margin: 25px auto;
+    text-align: center;
+
+}
+
+.seccion1 .titulo {
+    position: absolute;
+    right: 5%;
+    bottom: 4%;
+    text-align: right;
+    font-size: 13px;
+    font-weight: 550;
+    color: rgba(57, 62, 70, 0.7);
+}
+
+.seccion1 .titulo span {
+    text-align: right;
+    font-size: 10px;
+    font-weight: 200;
+}
+
+.seccion1 .bienvenida {
+    text-align: center;
+    font-size: 3em;
+    text-transform: capitalize;
+
+}
+
+.seccion1 .bienvenida p {
+    margin-top: 10px;
+    font-size: 14px;
+
+}
+
+.seccion1 .bienvenida>span {
+    text-align: center;
+    color: rgb(57, 62, 70);
+}
+
+.line {
+    width: 80%;
+    height: 1px;
+    background-color: rgba(0, 172, 181, 0.168);
+    margin: 20px auto 20px
+}
+
+.opcionesAdm {
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: space-around;
+    margin: auto;
+
+}
+
+.opcionesAdm>a>div {
+    background-color: rgb(57, 62, 70);
+    padding: 10px;
+    width: 250px;
+    border-radius: 10px;
+    margin: 5px;
+    transition: .5s;
+    font-size: 15px;
+
+}
+
+.opcionesAdm>a {
+    color: rgb(238, 238, 238);
+    text-decoration: none;
+}
+
+.opcionesAdm>a>div:hover {
+
+    box-shadow: 1px 1px 5px rgb(34, 40, 49);
+}
+
+.copyr {
+    position: absolute;
+    right: 5%;
+    bottom: 1%;
+    font-size: 11px;
+    color: rgba(57, 62, 70, 0.7);
+
+}

@@ -1,0 +1,66 @@
+{%extends './base.html'%}
+
+
+{%block linkCSS%}
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='../static/css/adminstrador.css') }}">
+{%endblock%}
+
+
+{%block titulo%}Administrador - pdv{%endblock%}
+
+{%block body%}
+<nav class="navbar">
+    <div class="user">
+        <div class="nombreUsuario">{{data.nombre}}</div>
+        <div class="rol">ADMINISTRADOR</div>
+        <div class="rut">{{data.rut}}</div>
+
+
+    </div>
+    <input type="checkbox" name="" id="toggler">
+    <label for="toggler"><i class="fa-solid fa-bars"></i></label>
+    <div class="menu">
+        <div class="list">
+            <ul>
+                <li><a href="">Gestionar Inventario</a></li>
+                <li><a href="{{url_for('loggout')}}">Cerrar Sesión</a></li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+<section class=" seccion1">
+
+    <div class="bienvenida">
+        Bienvenido <br>
+        <span>{{data.nombre}}</span> <br>
+        <P>Escoja una opción del sistema:</P>
+    </div>
+    <div class="line"></div>
+
+    <div class="opcionesAdm">
+        <a href="{{url_for('crud_user')}}" target="_blank">
+            <div>Administrar Trabajadores</div>
+        </a>
+        <a href="{{url_for('crud_inventario')}}">
+            <div>Gestionar Inventario</div>
+        </a>
+        <a href=""target="_blank">
+            <div>Administrar jornada</div>
+        </a>
+        <a href=""target="_blank">
+            <div>Informes de Ventas</div>
+        </a><a href=""target="_blank">
+            <div>Buscar Ventas</div>
+        </a>
+        <a href=""target="_blank">
+            <div>Buscar Jornadas</div>
+        </a>
+        <a href=""target="_blank">
+            <div>Registro de Trabajadores</div>
+        </a>
+    </div>
+</section>
+<div class="copyr">&copy; powered by</div>
+
+{%endblock%}

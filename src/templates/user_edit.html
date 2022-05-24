@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/edit_user.css')}}">
+
+    <title>EDITOR DE USUARIO</title>
+</head>
+
+<body>
+
+    <div class="grid">
+        <div class="formulario">
+            <h1>editor de usuarios </h1>
+            {% for i in data.usuario %}
+            <form action="/crud_user/updateUser/{{i[0]}}" method="POST">
+                <label for="rut">Rut:</label>
+                <input class="block" type="text" name="rut" id="" disabled value="{{i[0]}}" placeholder="Rut">
+                <label class="block" for="nombres"> Nombre Completo:</label>
+                <input type="text" class="w250" name="nombre" value="{{i[1]}}" id="" required
+                    placeholder="Nombre Completo">
+
+                <label class="block" for="rol">Tipo de Usuario:</label>
+                <input type="radio" name="rol" required value="0" id="">
+                <label for="rol">Vendedor</label>
+                <input type="radio" name="rol" required value="1" id="">
+                <label for="rol">administrador</label>
+
+                <label class="block" for="password"> Contraseña:</label>
+                <input type="text" class="w250" name="password" value="{{data.password}}" id="" required
+                    placeholder="Contraseña">
+
+                <input type="submit" class="boton block" required value="Editar Usuario">
+            </form>
+            {%endfor%}
+        </div>
+        <div class="registros">
+            <h1>Registros
+                <a href=""><i class="fa-solid fa-arrows-rotate"></i></a>
+            </h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>RUT</th>
+                        <th>Nombre</th>
+                        <th>rol</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in data.registros %}
+                    <tr>
+                        <td>{{i[0]}}</td>
+                        <td>{{i[1]}}</td>
+                        <td>{{i[2]}}</td>
+                        <td>
+                            <a href="/crud_user/deleteUser/{{i[0]}}"><i class="fa-solid fa-trash"></i></a>
+                        </td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</body>
+
+</html>

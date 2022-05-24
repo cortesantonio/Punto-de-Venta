@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="../static/css/catalogo.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            SuperMarket
+        </div>
+        <div class="links">
+            <ul>
+                <li><a href="{{url_for('home')}}">Inicio</a></li>
+                <li><a href="{{url_for('login')}}">Trabajador</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="txt">
+            <div class="titulo">Catalogo</div>
+            <div class="line"></div>
+            <div class="subtitulo">Encuentra tus productos que necesitas aqui.</div>
+        </div>
+        <div class="buscar">
+            <form action="/catalogo" method="GET">
+                <input class="input" type="text" name='search' placeholder="Ingrese nombre o código de Producto...">
+                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+
+            </form>
+        </div>
+        <div class="grid">
+            {% for i in data.productos %}
+            
+            <div class="cardProducto">
+                <div class="imagen">
+                    <img height="100px" src="{{ i[4] }}" alt="">
+                </div>
+                <div class="titulo">{{ i[1] }}<span> cod: {{ i[0] }}</span>
+                </div>
+                <div class="descripcion">{{ i[2] }}</div>
+                <div class="info">
+                    <div class="status">Disponible en Tienda</div>
+                    <div class="precio">${{i[3]}}</div>
+                </div>
+            </div>
+
+            {%endfor%}
+        </div>
+    </div>
+</body>
+
+</html>

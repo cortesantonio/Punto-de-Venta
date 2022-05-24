@@ -1,0 +1,94 @@
+* {
+    padding: 0px;
+    margin: 0px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(34, 40, 49);
+    padding: 25px;
+    color: rgb(0, 173, 181);
+}
+
+.links {
+    margin: auto;
+    margin-right: 20px;
+}
+
+.links ul li {
+    display: inline;
+}
+
+.links ul li a {
+    color: rgb(0, 173, 181);
+    text-decoration: none;
+    transition: .3s;
+    margin-left: 15px;
+
+}
+
+
+
+.presentacion {
+    width: 90%;
+    margin: 20px auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+}
+
+.presentacion .titulo {
+    font-size: 6em;
+    color: rgb(0, 173, 181);
+}
+
+.presentacion .titulo>span {
+    font-weight: 700;
+}
+
+.presentacion .titulo h3 {
+    font-size: .3em;
+    font-weight: 300;
+    color: rgb(34, 40, 49);
+}
+
+.div2 {
+    text-align: center;
+    margin: auto;
+}
+
+.div2 img {
+    width: 400px;
+}
+
+.div2 a button {
+    padding: 15px;
+    width: 150px;
+    background-color: rgb(34, 40, 49);
+    color: rgb(222, 253, 255);
+    font-weight: 900;
+}
+
+@media screen and (max-width:860px) {
+    .presentacion {
+        width: 90%;
+        margin: 20px auto;
+        display: grid;
+        grid-template-columns: 1fr;
+
+    }
+
+    .presentacion .titulo {
+        font-size: 4.5em;
+        color: rgb(0, 173, 181);
+    }
+
+    .div2 img {
+        width: 250px;
+        margin: auto;
+    }
+
+
+}

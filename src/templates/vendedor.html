@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/vendedor.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+    <title>vendedor</title>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="user">
+            <div class="nombreUsuario">{{data.nombre}}</div>
+            <div class="rol">VENDEDOR</div>
+            <div class="rut">{{data.rut}}</div>
+
+
+        </div>
+        <input type="checkbox" name="" id="toggler">
+        <label for="toggler"><i class="fa-solid fa-bars"></i></label>
+        <div class="menu">
+            <div class="list">
+
+                <ul>
+                    <li><a href="">Ventas</a></li>
+                    <li><a href="">Catalogo de Productos</a></li>
+                    <li><a href="" style="color: rgba(255, 149, 149, 0.935);">Cerrar Sesión</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container"></div>
+
+</body>
+
+</html>

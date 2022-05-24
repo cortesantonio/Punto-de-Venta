@@ -1,0 +1,82 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+body{
+    background-color: rgb(34, 40, 49);
+}
+.contain{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 80%;
+    margin: 75px auto;
+    
+}
+
+.contain > div{
+    margin: 25px;
+    background-color: rgb(238, 238, 238);
+    color: rgb(57, 62, 70);
+    border-radius: 5px;
+    border: 1px solid rgb(0, 172, 181);
+
+}
+.info   {
+    padding: 25px;
+    margin: auto;
+}
+.info .tit {
+    text-align: center;
+}
+.info .text{
+    margin-top: 20px;
+    text-align: justify;
+}
+.info .imagenes{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: auto;
+}
+.info .imagenes > div{
+    width: 100px;
+    margin: 25px auto;
+    height: 100px;
+    border: 1px solid ;
+}
+
+.logincontain .tit{
+    font-size: 1.2em;
+    margin-top: 20px;
+    text-align: center;
+    
+}
+.logincontain form input{
+    display: block;
+    width: 250px;
+    padding: 12px;
+    margin: 20px auto;
+    border: none;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.215);
+    transition: .5s;
+}
+
+.logincontain form input:focus{
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.523);
+    transition: .3s;
+}
+.alerta{
+    text-align: center;
+    color: red;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+@media screen and (max-width:768px) {
+    .contain{
+        display: grid;
+        grid-template-columns: 1fr;
+        
+    }
+}

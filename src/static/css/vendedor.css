@@ -1,0 +1,97 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+
+}
+
+
+.navbar {
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 25px;
+    color: white;
+    font-size: 14px;
+    background-color: rgb(34, 40, 49);
+}
+
+
+.list ul li {
+    list-style: none;
+    text-align: center;
+    text-transform: capitalize;
+    display: inline;
+    margin: 5px;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    transition: .35s;
+
+}
+
+.navbar a:hover {
+    color: rgb(255, 189, 105);
+}
+
+.list {
+    list-style: none;
+    display: flex;
+}
+
+#toggler,
+.navbar label {
+    display: none;
+}
+
+@media screen and (max-width:600px) {
+    .menu {
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+    }
+
+    .list {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .list ul li {
+        display: block;
+        text-align: center;
+    }
+
+    .navbar label {
+        display: inline-flex;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    #toggler:checked~.menu {
+        max-height: 100%;
+    }
+}
+
+body {
+    background-color: rgb(238, 238, 238);
+}
+
+.container {
+    width: 90%;
+    height: 70vh;
+    margin: 25px auto;
+    border: 1px solid;
+
+}
+.nombreUsuario{
+    text-transform: capitalize;
+}
+.rol{
+    font-size: 9px;
+    font-weight: 100;
+}

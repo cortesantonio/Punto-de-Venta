@@ -1,0 +1,49 @@
+{%extends './base.html'%}
+
+
+{%block linkCSS%}
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/login.css')}}">
+
+{%endblock%}
+
+{%block titulo%}
+Login - Supermarket
+{%endblock%}
+
+{%block body%}
+
+<div class="contain">
+  <div class="logincontain">
+    <div class="tit">LOGIN</div>
+    <form action="/login" method="POST">
+      <input type="text" name="rut" placeholder="Rut" id="">
+      <input type="password" name="password" placeholder="Password" id="">
+      <input style="background-color: rgb(57, 62, 70); color:rgb(255, 255, 255);" type="submit" value="Entrar">
+    </form>
+    <center><a href="/">Volver a Inicio</a></center>
+    {%with messages=get_flashed_messages() %}
+    {%if messages%}
+    {%for message in messages%}
+    <div class="alerta" role="alert">
+      {{message}}
+    </div>
+    {%endfor%}
+    {%endif%}
+    {%endwith%}
+  </div>
+  <div class="info">
+    <div class="tit">Sistema de Ventas.</div>
+    <div class="text">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint placeat
+      sequi excepturi alias natus qui.
+    </div>
+    <div class="imagenes">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+</div>
+
+
+{%endblock%}
