@@ -17,9 +17,9 @@ create table Usuario(
 	rut varchar(50),
     password varchar(200),
     nombre varchar(200),
-    id_TipoUsuario int,
+    rol int,
     primary key (rut),
-    FOREIGN KEY (id_TipoUsuario) REFERENCES Tipo_Usuario(id)
+    FOREIGN KEY (rol) REFERENCES Tipo_Usuario(id)
 );
 
 
@@ -28,6 +28,7 @@ create table Producto(
     nombre varchar(200),
     descripcion varchar(255),
     precio int,
+    img text,
     primary key (id)
 );
 
@@ -37,8 +38,10 @@ create table Boleta(
 	detalles text, 
 	total int,
 	fecha date,
-    vendedor_emisor varchar(30),
-	primary key (id)
+    vendedor_emisor varchar(50),
+	primary key (id),
+	FOREIGN KEY (vendedor_emisor) REFERENCES usuario(rut)
+
 );
 
 
@@ -52,7 +55,8 @@ create table Factura(
 	iva int,
 	neto int,
 	fecha date,
-	vendedor_emisor varchar(30),
+	vendedor_emisor varchar(50),
+	FOREIGN KEY (vendedor_emisor) REFERENCES usuario(rut),
 
 	primary key (id)
 );
