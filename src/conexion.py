@@ -80,13 +80,13 @@ class DAO:
 #   FUNCION PARA OBTENER TODOS LOS PRODUCTOS DE LA BASE DE DATOS Y LISTARLO EN CATALOGO.
     def listarProducto(self):
         cursor = self.cnx.cursor()
-        cursor.execute("SELECT * FROM producto")
+        cursor.execute("select img, producto.id, nombre,categoria_producto.categoria,descripcion, precio from producto inner join categoria_producto on categoria_producto.id = producto.id_categoria;")
         return cursor.fetchall()
 
 # FUNCION PARA FILTRAR BUSQUEDA EN CATALOGO
     def buscarProducto(self, busqueda):
         cursor = self.cnx.cursor()
-        sql = ("select * from producto where nombre like %s or id like %s")
+        sql = ("select img, producto.id, nombre,categoria_producto.categoria,descripcion, precio from producto inner join categoria_producto on categoria_producto.id = producto.id_categoria where nombre like %s or producto.id like %s")
         bsq_format = str((busqueda+'%'))
         data = (bsq_format,bsq_format)
         cursor.execute(sql, data)
@@ -143,7 +143,7 @@ class DAO:
 # ADM PRODUCTOS/
     def readProduct(self):
         cursor = self.cnx.cursor()
-        cursor.execute("SELECT img,id,nombre, categoria,descripciom, precio FROM producto")
+        cursor.execute("select img, producto.id, nombre,categoria_producto.categoria,descripcion, precio from producto inner join categoria_producto on categoria_producto.id = producto.id_categoria;")
         return cursor.fetchall()
 
     def addProduct(self,id, nombre, descripcion, precio, img,id_categoria):
@@ -160,7 +160,7 @@ class DAO:
         cursor.execute(sql, data)
         self.cnx.commit()
 
-    def updateProduct(self,id_antiguo,id, nombre, descripcion, precio, img):
+    def updateProduct(self,id_antiguo,id, nombre, descripcion, precio, img,categoria):
         cursor = self.cnx.cursor()
         sql = 'update producto set id = %s, nombre = %s, descripcion =  %s ,precio =%s,img =%s where id = %s'
         data = (id, nombre, descripcion, precio, img,id_antiguo)

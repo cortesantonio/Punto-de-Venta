@@ -79,7 +79,7 @@ def login():
 def loggout():
     if 'rut' in session:
         session.pop('rut')
-    return redirect('/login')
+        return redirect('/login')
 
 # FUNCION DE ADMINISTRADOR: ADMINISTRAR USUARIOS / 15:57 = registro en base de datos funcionando, falta listar en pantalla ,editar y eliminar
 @app.route('/crud_user', methods=["GET", "POST"])
@@ -144,15 +144,16 @@ def crud_inventario():
         descripcion =request.form['descripcion']
         precio = request.form['precio']
         img =request.form['url_img']
-        dao.addProduct(codigo,nombre,descripcion,precio,img)
+        categoria = request.form['categoria']
+        dao.addProduct(codigo,nombre,descripcion,precio,img,categoria)
         data = {
-            'productos': dao.listarProducto()
+            'productos': dao.readProduct()
             }
         flash('product added!')
         return render_template('adm inventario.html', data=data)
     else:
         data = {
-            'productos': dao.listarProducto()
+            'productos': dao.readProduct()
             }
         return render_template('adm inventario.html', data=data)
 
@@ -166,7 +167,9 @@ def updateProduct(antiguo_codigo):
         descripcion =request.form['new_descripcion']
         precio = request.form['new_precio']
         img =request.form['new_url']
-        dao.updateProduct(codigo_antiguo,codigo,nombre,descripcion,precio,img)
+        categoria = ''
+
+        dao.updateProduct(codigo_antiguo,codigo,nombre,descripcion,precio,img,categoria)
         data = {
             'productos': dao.listarProducto()
 

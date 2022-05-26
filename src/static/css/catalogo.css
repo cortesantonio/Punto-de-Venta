@@ -1,9 +1,10 @@
-*{
+* {
     padding: 0px;
     margin: 0px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
-.navbar{
+
+.navbar {
     display: flex;
     justify-content: space-between;
     background-color: rgb(34, 40, 49);
@@ -11,106 +12,141 @@
     color: rgb(0, 173, 181);
 }
 
-.links{
+.links {
     margin: auto;
     margin-right: 20px;
 }
-.links ul li{
+
+.links ul li {
     display: inline;
 }
+
 .links ul li a {
     color: rgb(0, 173, 181);
     text-decoration: none;
     transition: .3s;
     margin-left: 15px;
-    
+
 }
 
-.line{
+.line {
     width: 80%;
     height: 1px;
     margin: auto;
     background-color: rgba(0, 0, 0, 0.138);
 }
-.container{
+
+.container {
     width: 80%;
     margin: 50px auto;
 }
 
-.txt{
+.txt {
     text-align: center;
 }
-.titulo{
+
+.titulo {
     text-transform: capitalize;
     font-size: 3em;
     margin-bottom: 10px;
 }
-.subtitulo{
+
+.subtitulo {
     font-size: 14px;
     font-weight: 100;
-        margin: 25px auto 25px;
+    margin: 25px auto 25px;
 
 }
+.titulo2{
+    font-size: 18px;
+    text-transform: capitalize;
+    text-align: center;
 
-.buscar{
+}
+.titulo2 span{
+    font-size: 14px;
+    color: gray;
+}
+.subtitulo2{
+    text-align: center;
+    font-size: 15px;
+    color: gray;
+    margin-bottom: 15px;
+}
+.descripcion2{
+    margin-bottom: 25px;
+    text-align: center;
+    font-size:15px ;
+    text-transform: capitalize;
+    color: rgb(83, 83, 83);
+}
+
+.buscar {
     text-align: center;
     width: 80%;
     margin: 10px auto 10px;
 }
-.buscar form .input{
-padding: 5px;
-width: 50%;
-margin: auto;
-border-radius:5px ;
-border: none;
-box-shadow: 0px 0px 2px rgb(34, 40, 49) ;
+
+.buscar form .input {
+    padding: 5px;
+    width: 50%;
+    margin: auto;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0px 0px 2px rgb(34, 40, 49);
 }
-.buscar form button{
+
+.buscar form button {
     padding: 5px;
     border: none;
-    background-color:rgb(34, 40, 49) ;
+    background-color: rgb(34, 40, 49);
     color: white;
     border-radius: 50%;
 }
 
-.grid{
+.grid {
     display: grid;
-    grid-template-columns: repeat(4,1fr);
+    grid-template-columns: repeat(4, 1fr);
 }
-@media screen and (max-width:768px){
-    .grid{
+
+@media screen and (max-width:768px) {
+    .grid {
         display: grid;
-        grid-template-columns: repeat(3,1fr);
+        grid-template-columns: repeat(3, 1fr);
     }
-    
+
 }
-@media screen and (max-width:600px){
-    .grid{
+
+@media screen and (max-width:600px) {
+    .grid {
         display: grid;
-        grid-template-columns: repeat(2,1fr);
+        grid-template-columns: repeat(2, 1fr);
     }
-    
+
 }
-@media screen and (max-width:420px){
-    .grid{
+
+@media screen and (max-width:420px) {
+    .grid {
         display: grid;
-        grid-template-columns: repeat(1,1fr);
+        grid-template-columns: repeat(1, 1fr);
     }
-    
+
 }
-.grid >div{
-    background-color:white ;
+
+.grid>div {
+    background-color: white;
     border-radius: 5px;
     box-shadow: 0px 1px 5px rgba(34, 40, 49, 0.365);
     margin: 5px;
     padding: 15px;
 }
 
-.cardProducto .titulo{
+.cardProducto .titulo {
     text-align: center;
     font-size: 18px;
 }
-.cardProducto .titulo span{
+
+.cardProducto .titulo span {
     text-align: center;
     font-size: 13px;
     color: rgba(128, 128, 128, 0.618);
@@ -122,26 +158,32 @@ box-shadow: 0px 0px 2px rgb(34, 40, 49) ;
     text-align: center;
 
 }
-.imagen img{
+
+.imagen img {
     max-width: 100%;
     max-height: 100%;
 }
-.descripcion{
+
+.descripcion {
     font-size: 12px;
     text-align: center;
-    
+
 }
 
-.info{
+.info {
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
 }
-.info .status { 
+
+.info .status {
     color: green;
-    font-size: 11px;
+    font-size: 14px;
+    font-weight: 100;
 }
+
 .info .precio {
     color: black;
-    font-size: 14px;
+    font-size: 15px;
+    font-weight: 500;
 }

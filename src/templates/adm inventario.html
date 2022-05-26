@@ -20,16 +20,21 @@
             <label for="nombre">Nombre de Producto:</label>
             <input type="text" name="nombreproducto" id="">
             <label for="precio">Precio:</label>
-            <input type="text" name="precio" id="">
+            <input type="number" name="precio" id="">
+
             <div class="categoria">
                 <label class="block" for="categoria">Categoria:</label>
+
                 <input type="radio" value="1" name="categoria"> <label for="categoria">Frutas y Verduras</label>
 
                 <input type="radio" value="2" name="categoria" id=""><label for="categoria">Carnes y Pescados</label>
 
                 <input type="radio" value="3" name="categoria"><label for="categoria">Panaderia y Pasteleria</label>
 
+                <input type="radio" value="4" name="categoria"><label for="categoria">Abarrotes</label>
+
             </div>
+
             <label style="display: block;margin-top: 20px;" for="descripcion">Descripción:</label>
             <textarea name="descripcion" id="" cols="30" placeholder="Descripcion del Producto..."
                 rows="5"></textarea><br>
@@ -70,46 +75,19 @@
 
                 {% for i in data.productos %}
                 <tr>
-                    <td><img src="{{i[4]}}" width="50px" alt=""></td>
-                    <td>{{i[0]}}</td>
+                    <td><img src="{{i[0]}}" width="50px" alt=""></td>
                     <td>{{i[1]}}</td>
                     <td>{{i[2]}}</td>
-                    <td>${{i[3]}}</td>
+                    <td>{{i[3]}}</td>
+                    <td>{{i[4]}}</td>
+                    <td>${{i[5]}}</td>
+
                     <td>
-                        <input type="checkbox" id="btn-modal">
-                        <label for="btn-modal" class="lbl-modal">Editar </label>
-                        <div class="modal">
-                            <div class="contenedor">
-
-                                <header>Editor de producto {{i[0]}}.</header>
-                                <label class="label" for="btn-modal">x</label>
-
-                                <div class="contenido">
-
-                                    <h3>
-                                        Ingrese los nuevos valores de: {{i[1]}}
-                                    </h3>
-
-                                    <form class="formEdit" action="/crud_inventario/edit/{{i[0]}}" method="POST">
-                                        <label for="">nuevo codigo:</label>
-                                        <input type="number" value=" {{ i[0] }} " name="new_codigo" id="">
-                                        <label for="">nuevo nombre:</label>
-                                        <input type="text" value="{{i[1]}}" name="new_nombre" id="">
-                                        <label for="">nueva descripcion:</label>
-                                        <input type="text" value="{{i[2]}}" name="new_descripcion" id="">
-                                        <label for="">nuevo precio:</label>
-                                        <input type="text" value="{{i[3]}}" name="new_precio" id="">
-                                        <label for="">nueva URL de Imgen:</label>
-                                        <textarea name="new_url" id="" cols="30" rows="10">{{i[4]}}</textarea>
-
-                                        <input type="submit" id="btn" value="Editar">
-
-
-                                </div>
-                            </div>
-                        </div>
+                        <a href="crud_inventario/edit/{{i[1]}}">Editar</a>
                     </td>
-                    <td><a href="crud_inventario/delete/{{i[0]}}">Eliminar</a></td>
+
+                    <td><a href="crud_inventario/delete/{{i[1]}}">Eliminar</a></td>
+
                 </tr>
                 {%endfor%}
 
@@ -119,7 +97,7 @@
             </tbody>
         </table>
     </div>
-
+    <script src="../static/js/admInventario.js"></script>
 </body>
 
 </html>
