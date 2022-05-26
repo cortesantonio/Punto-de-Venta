@@ -86,7 +86,7 @@ class DAO:
 # FUNCION PARA FILTRAR BUSQUEDA EN CATALOGO
     def buscarProducto(self, busqueda):
         cursor = self.cnx.cursor()
-        sql = ("select * from producto where nombre like %s or codigo like %s")
+        sql = ("select * from producto where nombre like %s or id like %s")
         bsq_format = str((busqueda+'%'))
         data = (bsq_format,bsq_format)
         cursor.execute(sql, data)
@@ -110,11 +110,11 @@ class DAO:
 
     def readAllUser(self):
         cursor = self.cnx.cursor()
-        cursor.execute("SELECT rut, nombre,rol FROM usuario")
+        cursor.execute("select rut, nombre, tipo from tipo_usuario inner join usuario on tipo_usuario.id = usuario.rol"                 )
         return cursor.fetchall()
     def searchUser(self, rut):
         cursor = self.cnx.cursor()
-        sql =("SELECT rut, nombre,rol FROM usuario where rut = %s")
+        sql =("select rut, nombre, tipo from tipo_usuario inner join usuario on tipo_usuario.id = usuario.rol where rut = %s")
         data = (rut,)
         cursor.execute(sql, data)
         return cursor.fetchall()
@@ -141,25 +141,29 @@ class DAO:
 # ADMINISTRAR USUARIOS
 
 # ADM PRODUCTOS/
-
-    def addProduct(self,codigo, nombre, descripcion, precio, img):
+    def readProduct(self):
         cursor = self.cnx.cursor()
-        sql = ("insert into producto values(%s,%s,%s,%s,%s)")
-        data = (codigo,nombre,descripcion,precio,img)
+        cursor.execute("SELECT img,id,nombre, categoria,descripciom, precio FROM producto")
+        return cursor.fetchall()
+
+    def addProduct(self,id, nombre, descripcion, precio, img,id_categoria):
+        cursor = self.cnx.cursor()
+        sql = ("insert into producto values(%s,%s,%s,%s,%s,%s)")
+        data = (id,nombre,descripcion,precio,img,id_categoria)
         cursor.execute(sql, data)
         self.cnx.commit()
-        return 'ok'
+        return 'ok'                                        
     def deleteProduct(self,codigo):
         cursor = self.cnx.cursor()
-        sql = ("delete from producto where codigo= %s")
+        sql = ("delete from producto where id= %s")
         data = (codigo,)
         cursor.execute(sql, data)
         self.cnx.commit()
 
-    def updateProduct(self,codigo_antiguo,codigo, nombre, descripcion, precio, img):
+    def updateProduct(self,id_antiguo,id, nombre, descripcion, precio, img):
         cursor = self.cnx.cursor()
-        sql = 'update producto set codigo = %s, nombre = %s, descripcion =  %s ,precio =%s,img =%s where codigo = %s'
-        data = (codigo, nombre, descripcion, precio, img,codigo_antiguo)
+        sql = 'update producto set id = %s, nombre = %s, descripcion =  %s ,precio =%s,img =%s where id = %s'
+        data = (id, nombre, descripcion, precio, img,id_antiguo)
         cursor.execute(sql, data)
         self.cnx.commit()
         

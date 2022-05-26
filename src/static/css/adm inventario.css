@@ -182,3 +182,10 @@ table {
 textarea{
     padding: 5px;
 }
+.block{
+    display: block;
+}
+.categoria > label {
+    margin-right: 15px;
+    margin-left: 5px;
+}
