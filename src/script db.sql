@@ -97,16 +97,3 @@ create table detalles(
     
     
 );
-
-create table jornada(
-	fecha date,
-    id_informe date,
-    id_trabajador varchar(50),
-    EstadoJornada date,
-    primary key (fecha),
-    FOREIGN KEY (EstadoJornada) REFERENCES Estado_Jornada(id_Jornada),
-	FOREIGN KEY (id_trabajador) REFERENCES usuario(rut)
-
-    
-
-);
