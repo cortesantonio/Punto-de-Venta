@@ -1,44 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
+{%extends './base.html'%}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/css/vendedor.css">
+{%block titulo%}
+Punto de venta
+{%endblock%}
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+{%block linkCSS%}
+<link rel="stylesheet" href="../static/css/vendedor.css">
 
+{%endblock%}
 
-    <title>vendedor</title>
-</head>
-
-<body>
-    <nav class="navbar">
-        <div class="user">
-            <div class="nombreUsuario">{{data.nombre}}</div>
-            <div class="rol">VENDEDOR</div>
-            <div class="rut">{{data.rut}}</div>
+{%block body%}
 
 
+<nav class="navbar">
+    <div class="user">
+        <div class="nombreUsuario">{{data.nombre}}</div>
+        <div class="rol">VENDEDOR</div>
+        <div class="rut">{{data.rut}}</div>
+
+
+    </div>
+    <input type="checkbox" name="" id="toggler">
+    <label for="toggler"><i class="fa-solid fa-bars"></i></label>
+    <div class="menu">
+        <div class="list">
+
+            <ul>
+                <li><a href="">Catalogo de Productos</a></li>
+                <li><a href="{{url_for('loggout')}}">Cerrar Sesión</a></li>
+            </ul>
         </div>
-        <input type="checkbox" name="" id="toggler">
-        <label for="toggler"><i class="fa-solid fa-bars"></i></label>
-        <div class="menu">
-            <div class="list">
+    </div>
+</nav>
+<div class="container">
+    <button id="myBtn">Nueva Venta</button>
+    <button id="">Consultar Precio</button>
 
-                <ul>
-                    <li><a href="">Ventas</a></li>
-                    <li><a href="">Catalogo de Productos</a></li>
-                    <li><a href="" style="color: rgba(255, 149, 149, 0.935);">Cerrar Sesión</a></li>
-                </ul>
-            </div>
+</div>
+
+
+
+
+<!-- Trigger/Open The Modal -->
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Que tipo de venta desea realizar?</p>
+        <div class="flex">
+            <a href="">Factura</a>
+            <a href="">Boleta</a>
         </div>
-    </nav>
-    <div class="container"></div>
 
-</body>
+    </div>
 
-</html>
+</div>
+
+<script src="static/js/vendedor.js"></script>
+{%endblock%}

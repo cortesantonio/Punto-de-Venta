@@ -2,7 +2,7 @@ from flask import *
 import flask
 from conexion import *
 from flask import session
-from time import strftime,gmtime
+import time
 
 dao = DAO()
 app = Flask(__name__)
@@ -11,6 +11,12 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     return render_template('inicio.html')
+
+
+
+
+
+
 
 #CATALOGO DE LA TIENDA. VISIBLE PARA EL PUBLICO EN GENERAL
 @app.route('/catalogo', methods= ['GET','POST'])
@@ -32,6 +38,11 @@ def catalogo():
             'productos': dao.listarProducto()
             }
         return render_template('catalogo.html' ,data=data)
+
+
+
+
+
 
 
 
@@ -62,7 +73,8 @@ def login():
                         'rut':rut,
                         'nombre':nombre
                     }
-                    return render_template('vendedor.html',data=data)
+                   
+                    return  redirect('/puntodeventa')
                 else:
                     return '<h1>Su cargo no fue indicado correctamente en el Sistema.</h1> <h5>Póngase en contacto con el Administrador del sistema</h5> '
             else:
@@ -75,12 +87,38 @@ def login():
     else:
         return render_template('login.html')
 
+
+
 # FUNCION PARA CERRAR SESION DE USUARIO
 @app.route('/loggout')
 def loggout():
     if 'rut' in session:
         session.pop('rut')
         return redirect('/login')
+
+
+
+### en desarrollo
+@app.route('/puntodeventa', methods=['POST','GET'])
+def puntodeventa():
+    
+    
+    print(len(session))
+    data = {
+        'rut':session['rut'],
+        'nombre':'sda'
+    }
+    return render_template('vendedor.html', data = data)
+
+
+
+@app.route('/puntodeventa/opciones', methods=['POST','GET'])
+def puntodeventaOpciones():
+    pass
+
+
+
+
 
 # FUNCION DE ADMINISTRADOR: ADMINISTRAR USUARIOS 
 @app.route('/crud_user', methods=["GET", "POST"])
@@ -105,6 +143,9 @@ def crud_user():
             'usuarios': dao.readAllUser()
             }
         return render_template('adm usuarios.html', data=data)
+
+
+
 @app.route('/crud_user/edit/<rut>')
 def get_user(rut):
     data= { 
@@ -114,6 +155,10 @@ def get_user(rut):
 
     }
     return render_template('user_edit.html', data = data)
+
+
+
+
 @app.route('/crud_user/updateUser/<rut>', methods=["GET", "POST"])
 def updateUser(rut):
         password = request.form['password']
@@ -127,11 +172,26 @@ def updateUser(rut):
         }
         
         return ' <script >window.close(); </script>  '     
+
+
+
+
 @app.route('/crud_user/deleteUser/<rut>', methods=["GET", "POST"])
 def deleteUser(rut):
         dao.deleteUser(rut)
         return redirect('/crud_user')
         
+
+
+
+
+
+
+
+
+
+
+
 
     #ADMINISTRAR INVENTARIO 
 #metodo para agregar productos a inventario
@@ -155,6 +215,10 @@ def crud_inventario():
             'productos': dao.readProduct()
             }
         return render_template('adm inventario.html', data=data)
+
+
+
+
 # metodo para editar productos
 @app.route('/crud_inventario/edit/<antiguo_codigo>' , methods=["GET", "POST"] )
 def updateProduct(antiguo_codigo):
@@ -179,6 +243,10 @@ def updateProduct(antiguo_codigo):
 
             }
         return render_template('product_edit.html', data=data)
+
+
+
+
 #elimina productos del inventario.
 @app.route('/crud_inventario/delete/<codigo>' , methods=["GET", "POST"])
 def deleteProduct(codigo):
@@ -186,24 +254,34 @@ def deleteProduct(codigo):
     return redirect('/crud_inventario')
 
 
+
+
+
+
+
+
+
 # FUNCION DE ADMINISTRADOR: Jornadas
 
 @app.route('/gestor de jornada', methods= ['GET','POST'])
 def jornadas():
     if request.method=='GET':
-        fecha= strftime("%Y-%m-%d", gmtime())
+        fecha= time.strftime('%Y-%m-%d', time.localtime())
+        fechaFormateada = time.strftime('%d-%m-%Y', time.localtime())
         data = {
             'estado':dao.verJornada(fecha),
-            'fecha':fecha
+            'fecha':fechaFormateada
 
         }
         return render_template('gestorJornadas.html', data= data)
 
 
+
+
 @app.route('/gestor de jornada/switch' , methods=['POST','GET'])
 def activarJornada():
     if request.method == 'GET':
-        fecha= strftime("%Y-%m-%d", gmtime())
+        fecha= time.strftime('%Y-%m-%d', time.localtime())
         verJornada = dao.verJornada(fecha)
         if verJornada== 'No iniciada':
             dao.crearJornada(fecha)
@@ -213,6 +291,7 @@ def activarJornada():
         elif verJornada == 'cerrada':
             dao.activarJornada(fecha)
     return redirect('/gestor de jornada')
+
 
 
 
