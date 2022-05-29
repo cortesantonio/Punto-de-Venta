@@ -105,14 +105,15 @@ def loggout():
 ### en desarrollo
 @app.route('/puntodeventa', methods=['POST','GET'])
 def puntodeventa():
-    
-    
     if len(session) > 0 :
-        data = {
-            'rut':session['rut'],
-            'nombre':'sda'
-        }
-        return render_template('vendedor.html', data = data)
+        if dao.rolUsuario(session['rut']) == 0:
+            data = {
+                'rut':session['rut'],
+                'nombre':dao.getName(session['rut'])
+            }
+            return render_template('vendedor.html', data = data)
+        else:
+            return redirect('/login')
     else:
         return redirect('/login')
 
@@ -129,11 +130,14 @@ def puntodeventaOpciones():
 @app.route('/administracion')
 def administracion():
     if len(session) > 0 :
-        data = {
-            'rut':session['rut'],
-            'nombre':dao.getName(session['rut'])
-        }
-        return render_template('administrador.html', data=data)
+        if dao.rolUsuario(session['rut']) == 1:
+            data = {
+                'rut':session['rut'],
+                'nombre':dao.getName(session['rut'])
+            }
+            return render_template('administrador.html', data = data)
+        else:
+            return redirect('/login')
     else:
         return redirect('/login')
 
