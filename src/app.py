@@ -50,7 +50,6 @@ def catalogo():
 @app.route('/login', methods= ["GET", "POST"])
 def login():   
     if request.method=='POST':
-
         rut = request.form['rut']
         password = request.form['password']
         i = dao.findUser(rut)
@@ -62,18 +61,10 @@ def login():
                 session['rut'] = rut
                 if r ==1:   
                     # 1 for admin
-                    data = {
-                        'rut':rut,
-                        'nombre':nombre
-                        }
-                    return render_template('administrador.html', data=data)
+                    return  redirect('/administracion')
                 elif r==0:
                         # 0 for seller
-                    data = {
-                        'rut':rut,
-                        'nombre':nombre
-                    }
-                   
+                    
                     return  redirect('/puntodeventa')
                 else:
                     return '<h1>Su cargo no fue indicado correctamente en el Sistema.</h1> <h5>Póngase en contacto con el Administrador del sistema</h5> '
@@ -85,8 +76,19 @@ def login():
             flash('Usuario no encontrado')
             return render_template('login.html')
     else:
-        return render_template('login.html')
-
+        if len(session) > 0 :
+            usuarioActivo = session['rut']
+            r = dao.rolUsuario(usuarioActivo)
+            if r ==1:   
+                    # 1 for admin
+                return  redirect('/administracion')
+            elif r==0:
+                    
+                return  redirect('/puntodeventa')
+            else:
+                return render_template('login.html')
+        else:
+            return render_template('login.html')
 
 
 # FUNCION PARA CERRAR SESION DE USUARIO
@@ -94,6 +96,8 @@ def login():
 def loggout():
     if 'rut' in session:
         session.pop('rut')
+        return redirect('/login')
+    else: 
         return redirect('/login')
 
 
@@ -103,12 +107,14 @@ def loggout():
 def puntodeventa():
     
     
-    print(len(session))
-    data = {
-        'rut':session['rut'],
-        'nombre':'sda'
-    }
-    return render_template('vendedor.html', data = data)
+    if len(session) > 0 :
+        data = {
+            'rut':session['rut'],
+            'nombre':'sda'
+        }
+        return render_template('vendedor.html', data = data)
+    else:
+        return redirect('/login')
 
 
 
@@ -117,6 +123,19 @@ def puntodeventaOpciones():
     pass
 
 
+
+
+
+@app.route('/administracion')
+def administracion():
+    if len(session) > 0 :
+        data = {
+            'rut':session['rut'],
+            'nombre':dao.getName(session['rut'])
+        }
+        return render_template('administrador.html', data=data)
+    else:
+        return redirect('/login')
 
 
 
