@@ -1,0 +1,60 @@
+
+section {
+    width: 80%;
+    margin: 50px auto;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+}
+
+section>div {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 3px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.419);
+}
+
+section h5 {
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: 400;
+    margin: 10px auto 10px;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+}
+
+section h5 span {
+    font-size: 1.8em;
+}
+
+section a {
+    display: block;
+    text-align: center;
+    margin: 10px auto 10px;
+    text-transform: capitalize;
+    padding: 7px;
+    width: 80%;
+    text-decoration: none;
+    background-color: rgb(0, 0, 75);
+    color: white;
+}
+
+button {
+    display: block;
+    text-align: center;
+    margin: 10px auto 10px;
+    text-transform: capitalize;
+    padding: 7px;
+    width: 80%;
+    text-decoration: none;
+    background-color: rgb(0, 0, 75);
+    color: white;
+}
+
+.estadoJornada form p {
+    text-align: justify;
+    color: gray;
+}
+.ventas p {
+    text-align: center;
+    color: gray;
+}

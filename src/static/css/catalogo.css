@@ -1,41 +1,3 @@
-* {
-    padding: 0px;
-    margin: 0px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    background-color: rgb(34, 40, 49);
-    padding: 25px;
-    color: rgb(0, 173, 181);
-}
-
-.links {
-    margin: auto;
-    margin-right: 20px;
-}
-
-.links ul li {
-    display: inline;
-}
-
-.links ul li a {
-    color: rgb(0, 173, 181);
-    text-decoration: none;
-    transition: .3s;
-    margin-left: 15px;
-
-}
-
-.line {
-    width: 80%;
-    height: 1px;
-    margin: auto;
-    background-color: rgba(0, 0, 0, 0.138);
-}
-
 .container {
     width: 80%;
     margin: 50px auto;
@@ -57,26 +19,30 @@
     margin: 25px auto 25px;
 
 }
-.titulo2{
+
+.titulo2 {
     font-size: 18px;
     text-transform: capitalize;
     text-align: center;
 
 }
-.titulo2 span{
+
+.titulo2 span {
     font-size: 14px;
     color: gray;
 }
-.subtitulo2{
+
+.subtitulo2 {
     text-align: center;
     font-size: 15px;
     color: gray;
     margin-bottom: 15px;
 }
-.descripcion2{
+
+.descripcion2 {
     margin-bottom: 25px;
     text-align: center;
-    font-size:15px ;
+    font-size: 15px;
     text-transform: capitalize;
     color: rgb(83, 83, 83);
 }
@@ -111,7 +77,6 @@
 
 @media screen and (max-width:768px) {
     .grid {
-        display: grid;
         grid-template-columns: repeat(3, 1fr);
     }
 
@@ -119,7 +84,6 @@
 
 @media screen and (max-width:600px) {
     .grid {
-        display: grid;
         grid-template-columns: repeat(2, 1fr);
     }
 
@@ -127,36 +91,29 @@
 
 @media screen and (max-width:420px) {
     .grid {
-        display: grid;
         grid-template-columns: repeat(1, 1fr);
     }
-
 }
 
 .grid>div {
     background-color: white;
-    border-radius: 5px;
-    box-shadow: 0px 1px 5px rgba(34, 40, 49, 0.365);
-    margin: 5px;
+    border-radius: 3px;
+    box-shadow: 0px 1px 5px rgba(34, 34, 34, 0.585);
+    margin: 4px;
     padding: 15px;
 }
 
 .cardProducto .titulo {
-    text-align: center;
     font-size: 18px;
 }
 
 .cardProducto .titulo span {
-    text-align: center;
     font-size: 13px;
     color: rgba(128, 128, 128, 0.618);
-    text-transform: lowercase;
 }
 
 .imagen {
-    margin: auto;
     text-align: center;
-
 }
 
 .imagen img {
@@ -165,7 +122,7 @@
 }
 
 .descripcion {
-    font-size: 12px;
+    font-size: 10px;
     text-align: center;
 
 }
@@ -174,16 +131,15 @@
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
+    font-size: 14px;
+
 }
 
 .info .status {
     color: green;
-    font-size: 14px;
     font-weight: 100;
 }
 
 .info .precio {
     color: black;
-    font-size: 15px;
-    font-weight: 500;
 }

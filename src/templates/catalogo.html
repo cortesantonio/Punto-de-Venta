@@ -1,27 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
+{%extends './base.html'%}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="../static/css/catalogo.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>Document</title>
-</head>
+{%block linkCSS%}
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='../static/css/catalogo.css') }}">
+{%endblock%}
+
+{%block titulo%}Administrador - pdv{%endblock%}
+
+{%block body%}
 
 <body>
     <nav class="navbar">
-        <div class="logo">
-            SuperMarket
+        <div class="">
+            SuperMarket <br>
+            Los Monitos de la Nona
         </div>
-        <div class="links">
-            <ul>
-                <li><a href="{{url_for('home')}}">Inicio</a></li>
-                <li><a href="{{url_for('login')}}">Trabajador</a></li>
-            </ul>
+        <input type="checkbox" name="" id="toggler">
+        <label for="toggler"><i class="fa-solid fa-bars"></i></label>
+        <div class="menu">
+            <div class="list">
+                <ul>
+                    <li><a href="{{url_for('home')}}">Inicio</a></li>
+                    <li><a href="{{url_for('login')}}">Trabajador</a></li>
+                </ul>
+            </div>
         </div>
     </nav>
 
@@ -29,7 +30,7 @@
         <div class="txt">
             <div class="titulo">Catalogo</div>
             <div class="line"></div>
-            <div class="subtitulo">Encuentra tus productos que necesitas aqui.</div>
+            <div class="subtitulo">Encuentra los productos que necesitas aqui.</div>
         </div>
         <div class="buscar">
             <form action="/catalogo" method="GET">
@@ -40,7 +41,7 @@
         </div>
         <div class="grid">
             {% for i in data.productos %}
-            
+
             <div class="cardProducto">
                 <div class="imagen">
                     <img height="100px" src="{{ i[0] }}" alt="">
@@ -59,5 +60,4 @@
         </div>
     </div>
 </body>
-
-</html>
+{%endblock%}

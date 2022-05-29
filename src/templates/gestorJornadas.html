@@ -1,0 +1,46 @@
+{%extends './base.html'%}
+
+{%block titulo%}
+Gestor de Jornada{%endblock%}
+
+{%block linkCSS%}
+<link rel="stylesheet" href="../static/css/gestorJornadas.css">
+
+{%endblock%}
+
+{%block body%}
+
+
+
+<header class="head">Gestor de Jornada</header>
+<section>
+    <div class="estadoJornada">
+        <form name="jornada" action="/gestor de jornada/switch" method="GET">
+            <h5>
+                La Jornada esta: <br />
+                <span>{{data.estado}}</span>
+            </h5>
+            <button type="submit"><i class="fa-solid fa-power-off"></i></button>
+
+            <h4>*Importante</h4>
+            <p>Si cierra la jornda ya no podra volverla a abrir por hoy.</p>
+        </form>
+    </div>
+    <div class="ventas">
+        <h5>ventas del dia
+            <br> <span>$</span>
+        </h5>
+        <p>Ventas realizadas hoy {{data.fecha}}</p>
+
+        <a href=""><i class="fa-solid fa-arrows-rotate"></i> </a>
+        <a href="">Obtener Informe del dia </a>
+    </div>
+    <div class="trabajador">
+        <h5>Buscar trabajador <br> en jornada</h5>
+        <a href="">buscar</a>
+    </div>
+</section>
+
+
+
+{%endblock%}

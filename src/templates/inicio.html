@@ -1,26 +1,30 @@
 {%extends './base.html'%}
 
 {%block titulo%}
-Home
+Los Monitos de la Nona: Inicio
 {%endblock%}
 
 {%block linkCSS%}
 <link rel="stylesheet" href="{{url_for('static',filename='css/inicio.css')}}">
 {%endblock%}
 
-<link rel="stylesheet" href="static/css/inicio.css">
 {%block body%}
 
 <body>
     <nav class="navbar">
-        <div class="logo">
-            SuperMarket
+        <div class="">
+            SuperMarket <br>
+            Los Monitos de la Nona
         </div>
-        <div class="links">
-            <ul>
-                <li><a href="{{url_for('catalogo')}}">Explorar</a></li>
-                <li><a href="{{url_for('login')}}">Trabajador</a></li>
-            </ul>
+        <input type="checkbox" name="" id="toggler">
+        <label for="toggler"><i class="fa-solid fa-bars"></i></label>
+        <div class="menu">
+            <div class="list">
+                <ul>
+                    <li><a href="{{url_for('catalogo')}}">Explorar</a></li>
+                    <li><a href="{{url_for('login')}}">Trabajador</a></li>
+                </ul>
+            </div>
         </div>
     </nav>
 

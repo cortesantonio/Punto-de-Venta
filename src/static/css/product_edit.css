@@ -1,0 +1,103 @@
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 50px auto;
+    width: 90%;
+    gap: 20px;
+
+
+}
+
+.grid>div {
+    border: none;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.428);
+    border-radius:5px ;
+    padding: 10px;
+}
+.registros h1{
+    margin-bottom: 20px;
+    font-weight: 400;
+}
+.registros h1 a {
+    color: black;
+    font-size: 19px;
+}
+
+.formulario h1 {
+    text-transform: capitalize;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+
+.formulario {
+    text-align: center;
+}
+
+.block {
+    display: block;
+}
+
+textarea {
+    padding: 10px;
+}
+
+form input {
+    padding: 7px;
+    text-align: center;
+    margin: auto;
+}
+
+.categoria input {
+    margin-left: 10px;
+}
+
+
+
+
+
+tr th {
+    padding: 7px;
+    font-weight: 100;
+    background-color: rgb(34, 40, 49);
+    color: white;
+}
+
+tr td {
+    padding: 7px;
+    font-weight: 100;
+    text-align: center;
+
+}
+
+tr td a {
+    color: black;
+    text-decoration: none;
+    text-align: center;
+}
+
+
+tbody tr:nth-child(odd) {
+    background-color: rgb(185, 185, 185);
+}
+
+tbody tr:nth-child(even) {
+    background-color: rgb(255, 255, 255);
+}
+
+
+table {
+    color: black;
+    font-weight: 100;
+    text-transform: capitalize;
+    margin: auto;
+}
+
+
+@media screen and (max-width:1280px) {
+    .grid {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+}

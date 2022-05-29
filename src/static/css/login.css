@@ -1,21 +1,17 @@
-*{
-    padding: 0px;
-    margin: 0px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
 
-body{
+.body-login {
     background-color: rgb(34, 40, 49);
 }
-.contain{
+
+.contain {
     display: grid;
     grid-template-columns: 1fr 1fr;
     width: 80%;
-    margin: 75px auto;
-    
+    margin: 80px auto;
+
 }
 
-.contain > div{
+.contain>div {
     margin: 25px;
     background-color: rgb(238, 238, 238);
     color: rgb(57, 62, 70);
@@ -23,60 +19,51 @@ body{
     border: 1px solid rgb(0, 172, 181);
 
 }
-.info   {
+
+.info {
     padding: 25px;
-    margin: auto;
 }
-.info .tit {
-    text-align: center;
-}
-.info .text{
+
+.info .text {
     margin-top: 20px;
     text-align: justify;
 }
-.info .imagenes{
+
+.imagenes {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    margin: auto;
-}
-.info .imagenes > div{
-    width: 100px;
-    margin: 25px auto;
-    height: 100px;
-    border: 1px solid ;
 }
 
-.logincontain .tit{
-    font-size: 1.2em;
+.imagenes>img {
+    width: 100px;
+    max-width: 100%;
+    max-height: 100%;
+    margin: 20px auto;
+}
+
+.logincontain h1 {
+    font-size: 1.4em;
     margin-top: 20px;
     text-align: center;
-    
-}
-.logincontain form input{
-    display: block;
-    width: 250px;
-    padding: 12px;
-    margin: 20px auto;
-    border: none;
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.215);
-    transition: .5s;
+    font-weight: 400;
 }
 
-.logincontain form input:focus{
-    border-radius: 5px;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.523);
-    transition: .3s;
+.logincontain form input {
+    display: block;
+    width: 250px;
+    padding: 10px;
+    margin: 20px auto;
 }
-.alerta{
+
+.alerta {
     text-align: center;
     color: red;
     font-size: 12px;
-    text-transform: uppercase;
+    margin: 10px auto 10px;
 }
+
 @media screen and (max-width:768px) {
-    .contain{
-        display: grid;
+    .contain {
         grid-template-columns: 1fr;
-        
     }
 }

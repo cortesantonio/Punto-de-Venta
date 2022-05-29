@@ -2,6 +2,7 @@ from flask import *
 import flask
 from conexion import *
 from flask import session
+from time import strftime,gmtime
 
 dao = DAO()
 app = Flask(__name__)
@@ -65,11 +66,11 @@ def login():
                 else:
                     return '<h1>Su cargo no fue indicado correctamente en el Sistema.</h1> <h5>Póngase en contacto con el Administrador del sistema</h5> '
             else:
-                flash('invalid password')
+                flash('Contraseña invalida')
                 return render_template('login.html')
 
         else:
-            flash('user not found')
+            flash('Usuario no encontrado')
             return render_template('login.html')
     else:
         return render_template('login.html')
@@ -81,7 +82,7 @@ def loggout():
         session.pop('rut')
         return redirect('/login')
 
-# FUNCION DE ADMINISTRADOR: ADMINISTRAR USUARIOS / 15:57 = registro en base de datos funcionando, falta listar en pantalla ,editar y eliminar
+# FUNCION DE ADMINISTRADOR: ADMINISTRAR USUARIOS 
 @app.route('/crud_user', methods=["GET", "POST"])
 def crud_user():
     if request.method == 'POST':
@@ -104,7 +105,6 @@ def crud_user():
             'usuarios': dao.readAllUser()
             }
         return render_template('adm usuarios.html', data=data)
-
 @app.route('/crud_user/edit/<rut>')
 def get_user(rut):
     data= { 
@@ -114,7 +114,6 @@ def get_user(rut):
 
     }
     return render_template('user_edit.html', data = data)
-
 @app.route('/crud_user/updateUser/<rut>', methods=["GET", "POST"])
 def updateUser(rut):
         password = request.form['password']
@@ -127,15 +126,15 @@ def updateUser(rut):
 
         }
         
-        return ' <script >window.close(); </script>  '
-        
+        return ' <script >window.close(); </script>  '     
 @app.route('/crud_user/deleteUser/<rut>', methods=["GET", "POST"])
 def deleteUser(rut):
         dao.deleteUser(rut)
         return redirect('/crud_user')
         
 
-
+    #ADMINISTRAR INVENTARIO 
+#metodo para agregar productos a inventario
 @app.route('/crud_inventario', methods=["GET", "POST"])
 def crud_inventario():
     if request.method == 'POST':
@@ -156,8 +155,7 @@ def crud_inventario():
             'productos': dao.readProduct()
             }
         return render_template('adm inventario.html', data=data)
-
-
+# metodo para editar productos
 @app.route('/crud_inventario/edit/<antiguo_codigo>' , methods=["GET", "POST"] )
 def updateProduct(antiguo_codigo):
     if request.method == 'POST':
@@ -167,20 +165,60 @@ def updateProduct(antiguo_codigo):
         descripcion =request.form['new_descripcion']
         precio = request.form['new_precio']
         img =request.form['new_url']
-        categoria = ''
+        categoria = request.form['categoria']
 
         dao.updateProduct(codigo_antiguo,codigo,nombre,descripcion,precio,img,categoria)
         data = {
-            'productos': dao.listarProducto()
+            'productoSelect': dao.buscarProducto(antiguo_codigo)
 
             }
-        
-        return redirect('/crud_inventario')
+        return render_template('product_edit.html', data=data)
+    else: 
+        data = {
+            'productoSelect': dao.buscarProducto(antiguo_codigo)
 
+            }
+        return render_template('product_edit.html', data=data)
+#elimina productos del inventario.
 @app.route('/crud_inventario/delete/<codigo>' , methods=["GET", "POST"])
 def deleteProduct(codigo):
     dao.deleteProduct(codigo)
     return redirect('/crud_inventario')
+
+
+# FUNCION DE ADMINISTRADOR: Jornadas
+
+@app.route('/gestor de jornada', methods= ['GET','POST'])
+def jornadas():
+    if request.method=='GET':
+        fecha= strftime("%Y-%m-%d", gmtime())
+        data = {
+            'estado':dao.verJornada(fecha),
+            'fecha':fecha
+
+        }
+        return render_template('gestorJornadas.html', data= data)
+
+
+@app.route('/gestor de jornada/switch' , methods=['POST','GET'])
+def activarJornada():
+    if request.method == 'GET':
+        fecha= strftime("%Y-%m-%d", gmtime())
+        verJornada = dao.verJornada(fecha)
+        if verJornada== 'No iniciada':
+            dao.crearJornada(fecha)
+            redirect ('/gestor de jornada')
+        elif verJornada== 'abierta':
+            dao.cerrarJornada(fecha)
+        elif verJornada == 'cerrada':
+            dao.activarJornada(fecha)
+    return redirect('/gestor de jornada')
+
+
+
+
+
+
 
 #   METODO DE ARRANQUE DE SERVIDOR
 if __name__ == '__main__':

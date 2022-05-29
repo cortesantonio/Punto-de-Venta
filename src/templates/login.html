@@ -11,14 +11,16 @@ Login - Supermarket
 {%endblock%}
 
 {%block body%}
+<body class="body-login">
+  
 
 <div class="contain">
   <div class="logincontain">
-    <div class="tit">LOGIN</div>
+    <h1>Inicio de Sesion</h1>
     <form action="/login" method="POST">
-      <input type="text" name="rut" placeholder="Rut" id="">
-      <input type="password" name="password" placeholder="Password" id="">
-      <input style="background-color: rgb(57, 62, 70); color:rgb(255, 255, 255);" type="submit" value="Entrar">
+      <input type="text" name="rut" placeholder="Rut: 12345678-9" id="">
+      <input type="password" name="password" placeholder="Contraseña" id="">
+      <input  style="background-color: rgb(57, 62, 70); color:rgb(255, 255, 255);cursor: pointer;" type="submit" value="Entrar">
     </form>
     <center><a href="/">Volver a Inicio</a></center>
     {%with messages=get_flashed_messages() %}
@@ -38,12 +40,12 @@ Login - Supermarket
       sequi excepturi alias natus qui.
     </div>
     <div class="imagenes">
-      <div></div>
-      <div></div>
-      <div></div>
+      <img src="{{url_for('static', filename='img/flask.png')}}" alt="">
+      <img src="{{url_for('static', filename='img/python.png')}}" alt="">
+      <img src="{{url_for('static', filename='img/html.png')}}" alt="">
     </div>
   </div>
 </div>
-
+</body>
 
 {%endblock%}

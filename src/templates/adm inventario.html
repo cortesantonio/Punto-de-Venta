@@ -1,103 +1,104 @@
-<!DOCTYPE html>
-<html lang="en">
+{%extends './base.html'%}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="../static/css/adm inventario.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
 
-<body>
-    <header class="head">
-        Gestionador de Inventario. <span>SuperMarket.</span>
-    </header>
-    <div class="addProduct">
-        <form action="/crud_inventario" method="POST">
-            <label for="number">Código:</label>
-            <input type="number" name="codigo" id="">
-            <label for="nombre">Nombre de Producto:</label>
-            <input type="text" name="nombreproducto" id="">
-            <label for="precio">Precio:</label>
-            <input type="number" name="precio" id="">
+{%block linkCSS%}
+<link rel="stylesheet" href="../static/css/adm inventario.css">
 
-            <div class="categoria">
-                <label class="block" for="categoria">Categoria:</label>
+{%endblock%}
 
-                <input type="radio" value="1" name="categoria"> <label for="categoria">Frutas y Verduras</label>
 
-                <input type="radio" value="2" name="categoria" id=""><label for="categoria">Carnes y Pescados</label>
-
-                <input type="radio" value="3" name="categoria"><label for="categoria">Panaderia y Pasteleria</label>
-
-                <input type="radio" value="4" name="categoria"><label for="categoria">Abarrotes</label>
-
-            </div>
-
-            <label style="display: block;margin-top: 20px;" for="descripcion">Descripción:</label>
-            <textarea name="descripcion" id="" cols="30" placeholder="Descripcion del Producto..."
-                rows="5"></textarea><br>
-            <label for="url_img">URL de Imagen</label>
-            <input type="url" name="url_img" id="">
-            <input style="display: block; margin: 20px auto;" type="submit" value="Agregar Registro">
-        </form>
-    </div>
-    <div class="crudProduct">
-        <h1>Registro de Productos</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>
-                        img
-                    </th>
-                    <th>
-                        Codigo
-                    </th>
-                    <th>
-                        Nombre Producto
-                    </th>
-                    <th>
-                        Categoria
-                    </th>
-                    <th>
-                        descripcion
-                    </th>
-                    <th>
-                        Precio
-                    </th>
-                    <th colspan="2">
-                        acciones
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-
-                {% for i in data.productos %}
-                <tr>
-                    <td><img src="{{i[0]}}" width="50px" alt=""></td>
-                    <td>{{i[1]}}</td>
-                    <td>{{i[2]}}</td>
-                    <td>{{i[3]}}</td>
-                    <td>{{i[4]}}</td>
-                    <td>${{i[5]}}</td>
-
-                    <td>
-                        <a href="crud_inventario/edit/{{i[1]}}">Editar</a>
-                    </td>
-
-                    <td><a href="crud_inventario/delete/{{i[1]}}">Eliminar</a></td>
-
-                </tr>
-                {%endfor%}
+{%block titulo%} Gestor de Inventario{%endblock%}
 
 
 
+{%block body%}
 
-            </tbody>
-        </table>
-    </div>
-    <script src="../static/js/admInventario.js"></script>
-</body>
 
-</html>
+<header class="head">
+    Gestionador de Inventario. <span>SuperMarket.</span>
+</header>
+<div class="addProduct">
+    <form action="/crud_inventario" method="POST">
+        <label for="number">Código:</label>
+        <input type="number" name="codigo" id="">
+        <label for="nombre">Nombre de Producto:</label>
+        <input type="text" name="nombreproducto" id="">
+        <label for="precio">Precio:</label>
+        <input type="number" name="precio" id="">
+
+        <div class="categoria">
+            <label class="block" for="categoria">Categoria:</label>
+
+            <input type="radio" value="1" name="categoria"> <label for="categoria">Frutas y Verduras</label>
+
+            <input type="radio" value="2" name="categoria" id=""><label for="categoria">Carnes y Pescados</label>
+
+            <input type="radio" value="3" name="categoria"><label for="categoria">Panaderia y Pasteleria</label>
+
+            <input type="radio" value="4" name="categoria"><label for="categoria">Abarrotes</label>
+
+        </div>
+
+        <label style="display: block;margin-top: 20px;" for="descripcion">Descripción:</label>
+        <textarea name="descripcion" id="" cols="30" placeholder="Descripcion del Producto..." rows="5"></textarea><br>
+        <label for="url_img">URL de Imagen</label>
+        <input type="url" name="url_img" id="">
+        <input style="display: block; margin: 20px auto;" type="submit" value="Agregar Registro">
+    </form>
+</div>
+<div class="crudProduct">
+    <h1>Registro de Productos</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    img
+                </th>
+                <th>
+                    Codigo
+                </th>
+                <th>
+                    Nombre Producto
+                </th>
+                <th>
+                    Categoria
+                </th>
+                <th>
+                    descripcion
+                </th>
+                <th>
+                    Precio
+                </th>
+                <th colspan="2">
+                    acciones
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for i in data.productos %}
+            <tr>
+                <td><img src="{{i[0]}}" width="50px" alt=""></td>
+                <td>{{i[1]}}</td>
+                <td>{{i[2]}}</td>
+                <td>{{i[3]}}</td>
+                <td>{{i[4]}}</td>
+                <td>${{i[5]}}</td>
+
+                <td>
+                    <a href="crud_inventario/edit/{{i[1]}}">Editar</a>
+                </td>
+
+                <td><a href="crud_inventario/delete/{{i[1]}}">Eliminar</a></td>
+
+            </tr>
+            {%endfor%}
+
+
+
+
+        </tbody>
+    </table>
+</div>
+<script src="../static/js/admInventario.js"></script>
+{%endblock%}

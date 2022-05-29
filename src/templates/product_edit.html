@@ -1,0 +1,106 @@
+{%extends './base.html'%}
+
+
+{%block linkCSS%}
+<link rel="stylesheet" href="{{url_for('static',filename='css/product_edit.css')}}">
+
+{%endblock%}
+
+
+{%block titulo%}Editor de productos{%endblock%}
+
+{%block body%}
+    <div class="grid">
+        <div class="formulario">
+            <h1>editor de productos </h1>
+            {% for i in data.productoSelect %}
+            <form action="/crud_inventario/edit/{{i[1]}}" method="POST">
+                <label for="number">Código:</label>
+                <input type="number" class="block" name="new_codigo" id="" value="{{i[1]}}">
+                <label for="nombre">Nombre de Producto:</label>
+                <input type="text" class="block" name="new_nombre" value="{{i[2]}}" id="">
+                <label for="precio">Precio:</label>
+                <input type="number" class="block" name="new_precio" value="{{i[5]}}" id="">
+
+                <div class="categoria">
+                    <label class="block" for="categoria">Categoria:</label>
+
+                    <input type="radio" value="1" name="categoria"> <label for="categoria">Frutas y Verduras</label>
+
+                    <input type="radio" value="2" name="categoria" id=""><label for="categoria">Carnes y
+                        Pescados</label>
+
+                    <input type="radio" value="3" name="categoria"><label for="categoria">Panaderia y Pasteleria</label>
+
+                    <input type="radio" value="4" name="categoria"><label for="categoria">Abarrotes</label>
+
+                </div>
+
+                <label style="display: block;margin-top: 20px;" for="descripcion">Descripción:</label>
+                <textarea name="new_descripcion" id="" cols="30" placeholder="Descripcion del Producto..."
+                    rows="5">{{i[4]}}</textarea><br>
+                <label for="url_img">URL de Imagen</label>
+                <input class="block" type="url" name="new_url" id="" value="{{i[0]}}">
+                <input style="display: block; margin: 20px auto;" type="submit" value="Agregar Registro">
+            </form>
+            {%endfor%}
+        </div>
+
+        <div class="registros">
+            <h1>Registros
+                <a href=""><i class="fa-solid fa-arrows-rotate"></i></a>
+            </h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            img
+                        </th>
+                        <th>
+                            Codigo
+                        </th>
+                        <th>
+                            Nombre Producto
+                        </th>
+                        <th>
+                            Categoria
+                        </th>
+                        <th>
+                            descripcion
+                        </th>
+                        <th>
+                            Precio
+                        </th>
+                        <th colspan="2">
+                            acciones
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for i in data.productoSelect %}
+                    <tr>
+                        <td><img src="{{i[0]}}" width="50px" alt=""></td>
+                        <td>{{i[1]}}</td>
+                        <td>{{i[2]}}</td>
+                        <td>{{i[3]}}</td>
+                        <td>{{i[4]}}</td>
+                        <td>${{i[5]}}</td>
+
+
+
+                        <td><a href="crud_inventario/delete/{{i[1]}}">Eliminar</a></td>
+
+                    </tr>
+                    {%endfor%}
+
+
+
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    {%endblock%}

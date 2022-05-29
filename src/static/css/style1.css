@@ -1,8 +1,8 @@
-*{
-    margin:0;
-    padding:0;
+* {
+    padding: 0px;
+    margin: 0px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
-
 .menu{
     
     background: #a22259;
