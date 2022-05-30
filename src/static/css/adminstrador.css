@@ -33,56 +33,118 @@
 
 }
 
-.body-administrador .titulo {
-    position: absolute;
-    right: 5%;
-    bottom: 4%;
-    text-align: right;
-    font-size: 13px;
-    font-weight: 550;
-    color: rgba(57, 62, 70, 0.7);
-}
-
-.body-administrador .titulo span {
-    text-align: right;
-    font-size: 10px;
-    font-weight: 200;
-}
-
-.body-administrador .bienvenida {
-    text-align: center;
-    font-size: 3em;
+.bienvenida {
     text-transform: capitalize;
+    font-size: 3rem;
 
 }
 
-.body-administrador .bienvenida p {
-    margin-top: 10px;
-    font-size: 14px;
-
-}
-
-.opcionesAdm {
-    width: 90%;
-    display: flex;
-    flex-wrap: wrap;
-    text-align: center;
-    justify-content: space-around;
+.widget {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
     margin: auto;
-
 }
 
-.opcionesAdm>a>div {
-    background-color: rgb(57, 62, 70);
-    padding: 10px;
+.widget>div {
+    margin: auto;
+    width: 200px;
+    height: 200px;
+    border-radius: 5px;
+}
+
+.ventas {
+    background-color: rgb(0, 0, 87);
+}
+
+.ventas h1 {
+    margin-top: 25px;
+    font-size: 4rem;
+    font-weight: 500;
+    color: white;
+}
+
+.ventas p {
+    font-size: 1rem;
+    color: white;
+    text-transform: capitalize;
+}
+
+.switch-jornada {
+    background-color: rgb(0, 0, 87);
+    color: white;
+}
+
+.switch-jornada p {
+    margin-top: 25px;
+    text-transform: capitalize;
+    font-size: 1rem;
+}
+.switch-jornada h1 {
+    margin-top: 5px;
+    font-size: 3rem;
+    font-weight: 500;
+    color: white;
+    text-transform: capitalize;
+}
+.switch-jornada form button{
+    margin-top: 10px;
+    width: 50%;
+    height: 40px;
+    border: none;
+    font-size: 18px;
+    border-radius: 5px;
+}
+.recaudacion{
+    color: white;
+    text-transform: capitalize;
+    background-color: rgb(0, 0, 87);
+}
+.recaudacion h1{
+    margin-top: 25px;
+    font-size: 2rem;
+}
+.recaudacion p{
+    margin-top: 25px;
+    font-size: 1rem;
+}
+
+.productos-en-inventario{
+    background-color: rgb(0, 0, 87);
+    color: white;
+}
+
+.productos-en-inventario p,
+.productos-en-inventario a{
+    margin-top: 25px;
+    text-transform: capitalize;
+    font-size: 1rem;
+    color: white;
+    text-decoration: none;
+}
+
+.productos-en-inventario h1{
+    margin-top: 5px;
+    margin-bottom: 20px;
+    font-size: 3rem;
+    font-weight: 500;
+    color: white;
+    text-transform: capitalize;
+}
+.opcionesAdm{
+    margin: 50px auto;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+}
+.opcionesAdm > a {
+    margin: 5px auto;
     width: 250px;
     border-radius: 5px;
-    margin: 5px;
-    transition: .3s;
-    font-size: 15px;
 }
-
-.opcionesAdm>a {
-    color: rgb(238, 238, 238);
+.opcionesAdm a {
+    padding: 20px;
+    border: 1px solid black;
+    background-color: rgb(0, 0, 87);
+    color: white;
     text-decoration: none;
+    font-size: 1rem;
 }

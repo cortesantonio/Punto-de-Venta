@@ -14,10 +14,6 @@ def home():
 
 
 
-
-
-
-
 #CATALOGO DE LA TIENDA. VISIBLE PARA EL PUBLICO EN GENERAL
 @app.route('/catalogo', methods= ['GET','POST'])
 def catalogo():
@@ -38,10 +34,6 @@ def catalogo():
             'productos': dao.listarProducto()
             }
         return render_template('catalogo.html' ,data=data)
-
-
-
-
 
 
 
@@ -102,38 +94,44 @@ def loggout():
 
 
 
+
+
 ### en desarrollo
 @app.route('/puntodeventa', methods=['POST','GET'])
 def puntodeventa():
     if len(session) > 0 :
         if dao.rolUsuario(session['rut']) == 0:
+            fecha= time.strftime('%Y-%m-%d', time.localtime())
             data = {
                 'rut':session['rut'],
-                'nombre':dao.getName(session['rut'])
+                'nombre':dao.getName(session['rut']),
+                'jornada': dao.verJornada(fecha)
             }
+            
             return render_template('vendedor.html', data = data)
+            
         else:
             return redirect('/login')
     else:
         return redirect('/login')
 
-
-
-@app.route('/puntodeventa/opciones', methods=['POST','GET'])
-def puntodeventaOpciones():
-    pass
-
-
-
-
+lista= []
 
 @app.route('/administracion')
 def administracion():
     if len(session) > 0 :
         if dao.rolUsuario(session['rut']) == 1:
+            fechaFormateada = time.strftime('%d-%m-%Y', time.localtime())
+            fecha= time.strftime('%Y-%m-%d', time.localtime())
+
             data = {
                 'rut':session['rut'],
-                'nombre':dao.getName(session['rut'])
+                'nombre':dao.getName(session['rut']),
+                'fecha':fecha,
+                'estadoJornada':dao.verJornada(fecha),
+                'fechaFormateada': fechaFormateada,
+                'totalProductos': dao.totalRegistroProductos(),
+                'totalColaboradores': dao.totalRegistroUsuarios()
             }
             return render_template('administrador.html', data = data)
         else:
@@ -308,12 +306,12 @@ def activarJornada():
         verJornada = dao.verJornada(fecha)
         if verJornada== 'No iniciada':
             dao.crearJornada(fecha)
-            redirect ('/gestor de jornada')
+            redirect ('/administracion')
         elif verJornada== 'abierta':
             dao.cerrarJornada(fecha)
         elif verJornada == 'cerrada':
             dao.activarJornada(fecha)
-    return redirect('/gestor de jornada')
+    return redirect('/administracion')
 
 
 

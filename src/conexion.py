@@ -145,6 +145,10 @@ class DAO:
         data = (rut,)
         cursor.execute(sql, data)
         self.cnx.commit()
+    def totalRegistroUsuarios(self):
+        cursor = self.cnx.cursor()
+        cursor.execute("select count(*) from usuario")
+        return cursor.fetchone()[0]
 # ADMINISTRAR USUARIOS
 
 
@@ -177,6 +181,10 @@ class DAO:
         data = (id, nombre, descripcion, precio, img,id_antiguo)
         cursor.execute(sql, data)
         self.cnx.commit()
+    def totalRegistroProductos(self):
+        cursor = self.cnx.cursor()
+        cursor.execute("select count(*) from producto")
+        return cursor.fetchone()[0]
 # \ADM PRODUCTOS
 
 
@@ -215,4 +223,18 @@ class DAO:
         self.cnx.commit()    
         
 
+
+#### LISTADO DE VENTA: VENDEDOR.
+
+    def buscarProducto_vendedor(self, busqueda):
+        cursor = self.cnx.cursor()
+        sql = ("select id , nombre, precio from producto where nombre like %s or id like %s")
+        bsq_format = str((busqueda+'%'))
+        data = (bsq_format,bsq_format)
+        cursor.execute(sql, data)
+        return cursor.fetchone()
+
+
+dao =DAO()
+print(dao.totalRegistroProductos())
 

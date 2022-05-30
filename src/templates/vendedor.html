@@ -26,17 +26,34 @@ Punto de venta
         <div class="list">
 
             <ul>
-                <li><a href="">Catalogo de Productos</a></li>
+                <li><a href="/catalogo">Catalogo de Productos</a></li>
                 <li><a href="{{url_for('loggout')}}">Cerrar Sesión</a></li>
             </ul>
         </div>
     </div>
 </nav>
+
+{% if data.jornada == 'abierta' %}
+
+<h1>La Jornada esta: <span style="color:green;">{{data.jornada}}</span> </h1>
+<p>ventas habilitadas</p>
+
 <div class="container">
     <button id="myBtn">Nueva Venta</button>
-    <button id="">Consultar Precio</button>
-
+    <a href="/catalogo">Conusltar Precio</a>
 </div>
+
+{% else %}
+<h1>La Jornada esta: <span style="color:red;">{{data.jornada}}</span> </h1>
+<p>ventas deshabilitadas</p>
+
+<div class="container">
+    <button id="myBtn" disabled style="background-color: gray;cursor:auto;">Nueva Venta</button>
+
+    <a href="/catalogo">Conusltar Precio</a>
+</div>
+
+{% endif %}
 
 
 

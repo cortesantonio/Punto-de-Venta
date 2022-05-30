@@ -23,7 +23,7 @@
     <div class="menu">
         <div class="list">
             <ul>
-                <li><a href="">Gestionar Inventario</a></li>
+                <li><a href="{{url_for('crud_inventario')}}">Gestionar Inventario</a></li>
                 <li><a href="{{url_for('loggout')}}">Cerrar Sesión</a></li>
 
             </ul>
@@ -32,16 +32,41 @@
 </nav>
 
 <section class="body-administrador">
-    
-
-
     <div class="bienvenida">
-        Bienvenido <br>
-        <span>{{data.nombre}}</span> <br>
-        <P>Escoja una opción del sistema:</P>
+        Bienvenid@ <br>
+        {{data.nombre}}
     </div>
     <div class="line"></div>
-
+    <div class="widget">
+        <div class="ventas">
+            <h1>-</h1>
+            <br>
+            <p>ventas registradas</p>
+            <p>Hoy {{data.fechaFormateada}}</p>
+        </div>
+        <div class="switch-jornada">
+            <p>la jornada se encuentra </p>
+            <h1>{{data.estadoJornada}}</h1>
+            <form name="jornada" action="/gestor de jornada/switch" method="GET">
+                <button type="submit"><i class="fa-solid fa-power-off"></i></button>
+            </form>
+        </div>
+        <div class="recaudacion">
+            <h1>$-</h1>
+            <p>recaudacion de hoy <br>{{data.fechaFormateada}}</p> 
+            
+        </div>
+        <div class="productos-en-inventario">
+            <p>productos registrados</p>
+            <h1>{{data.totalProductos}}</h1>
+            <a href="{{url_for('crud_inventario')}}">Administrar</a>
+        </div>
+        <div class="productos-en-inventario">
+            <p>colaboradores</p>
+            <h1>{{data.totalColaboradores}}</h1>
+            <a href="{{url_for('crud_user')}}">Administrar</a>
+        </div>
+    </div>
     <div class="opcionesAdm">
         <a href="{{url_for('crud_user')}}" target="_blank">
             <div>Administrar Trabajadores</div>
@@ -49,20 +74,13 @@
         <a href="{{url_for('crud_inventario')}}">
             <div>Gestionar Inventario</div>
         </a>
-        <a href=""target="_blank">
-            <div>Administrar jornada</div>
+        <a href="">
+            <div>Obtener informe de venta</div>
         </a>
-        <a href=""target="_blank">
-            <div>Informes de Ventas</div>
-        </a><a href=""target="_blank">
-            <div>Buscar Ventas</div>
+        <a href="">
+            <div>informe de Trabajadores</div>
         </a>
-        <a href=""target="_blank">
-            <div>Buscar Jornadas</div>
-        </a>
-        <a href=""target="_blank">
-            <div>Registro de Trabajadores</div>
-        </a>
+        
     </div>
 </section>
 
