@@ -228,13 +228,11 @@ class DAO:
 
     def buscarProducto_vendedor(self, busqueda):
         cursor = self.cnx.cursor()
-        sql = ("select id , nombre, precio from producto where nombre like %s or id like %s")
+        sql = ("select id , nombre, precio,1 from producto where nombre like %s or id =%s")
         bsq_format = str((busqueda+'%'))
         data = (bsq_format,bsq_format)
         cursor.execute(sql, data)
-        return cursor.fetchone()
+        resultado =cursor.fetchone()
+        return (resultado)
 
-
-dao =DAO()
-print(dao.totalRegistroProductos())
-
+ 

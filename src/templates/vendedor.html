@@ -34,21 +34,26 @@ Punto de venta
 </nav>
 
 {% if data.jornada == 'abierta' %}
-
-<h1>La Jornada esta: <span style="color:green;">{{data.jornada}}</span> </h1>
-<p>ventas habilitadas</p>
-
+<div class="estado">
+    <h1>La Jornada esta: <span style="color:green;">{{data.jornada}}</span> </h1>
+    <p>ventas habilitadas</p>
+    <div class="line"></div>
+</div>
 <div class="container">
     <button id="myBtn">Nueva Venta</button>
     <a href="/catalogo">Conusltar Precio</a>
 </div>
 
 {% else %}
-<h1>La Jornada esta: <span style="color:red;">{{data.jornada}}</span> </h1>
-<p>ventas deshabilitadas</p>
+<div class="estado">
+    <h1>La Jornada esta: <span style="color:red;">{{data.jornada}}</span> </h1>
+    <p>ventas deshabilitadas</p>
+    <div class="line"></div>
+
+</div>
 
 <div class="container">
-    <button id="myBtn" disabled style="background-color: gray;cursor:auto;">Nueva Venta</button>
+    <button id="" disabled style="background-color: gray;cursor:auto;">Nueva Venta</button>
 
     <a href="/catalogo">Conusltar Precio</a>
 </div>
@@ -68,8 +73,8 @@ Punto de venta
         <span class="close">&times;</span>
         <p>Que tipo de venta desea realizar?</p>
         <div class="flex">
-            <a href="">Factura</a>
-            <a href="">Boleta</a>
+            <a href="{{url_for('venta_factura')}}">Factura</a>
+            <a href="{{url_for('venta_boleta')}}">Boleta</a>
         </div>
 
     </div>

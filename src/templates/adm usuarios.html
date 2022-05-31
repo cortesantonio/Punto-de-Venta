@@ -11,69 +11,70 @@ ADMINISTRADOR DE USUARIO
 
 
 {%block body%}
-    <header class="head">
-        administrador de usuarios <br>
-        <span>SuperMarket</span>
-    </header>
+<header class="head">
+    administrador de usuarios <br>
+    <span>SuperMarket</span>
+</header>
 
-    <div class="grid">
-        <div class="formulario">
-            <h1>ingreso de usuarios </h1>
-            <form action="/crud_user" method="POST">
-                <label for="rut">Rut:</label>
-                <input class="block" type="text" name="rut" id="" required placeholder="Rut">
-                <label class="block" for="nombres"> Nombre Completo:</label>
-                <input type="text" name="nombres" id="" required placeholder="Nombres">
-                <input type="text" name="apellidos" id="" required placeholder="Apellidos">
+<div class="grid">
+    <div class="formulario">
+        <h1>ingreso de usuarios </h1>
+        <form action="/crud_user" method="POST">
+            <label for="rut">Rut:</label>
+            <input class="block" type="text" name="rut" id="" required placeholder="Rut">
+            <label class="block" for="nombres"> Nombre Completo:</label>
+            <input type="text" name="nombres" id="" required placeholder="Nombres">
+            <input type="text" name="apellidos" id="" required placeholder="Apellidos">
 
-                <label class="block" for="rol">Tipo de Usuario:</label>
-                <input type="radio"  name="rol" required value="0" id="">
-                <label for="rol">Vendedor</label>
-                <input type="radio" name="rol" required value="1" id="">
-                <label for="rol">administrador</label>
-                <label class="block" for="password">Contraseña:</label>
-                <input class="block pd-5" type="password" required name="password" placeholder="Password" id="">
-                <input type="submit" class="boton" required value="Registrar Usuario">
-            </form>
-            {%with messages=get_flashed_messages()%}
-            {%if messages%}
-            {%for message in messages%}
-            <div class="alerta" role="alert">
-                {{message}}
-            </div>
-            {%endfor%}
-            {%endif%}
-            {%endwith%}
+            <label class="block" for="rol">Tipo de Usuario:</label>
+            <input type="radio" name="rol" required value="0" id="">
+            <label for="rol">Vendedor</label>
+            <input type="radio" name="rol" required value="1" id="">
+            <label for="rol">administrador</label>
+            <label class="block" for="password">Contraseña:</label>
+            <input class="block pd-5" type="password" required name="password" placeholder="Password" id="">
+            <input type="submit" class="boton" required value="Registrar Usuario">
+        </form>
+        {%with messages=get_flashed_messages()%}
+        {%if messages%}
+        {%for message in messages%}
+        <div class="alerta" role="alert">
+            {{message}}
         </div>
-        <div class="registros">
-            <h1>Registros 
-                <a href="/crud_user"><i class="fa-solid fa-arrows-rotate"></i></a>
-            </h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>RUT</th>
-                        <th>Nombre</th>
-                        <th>rol</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for i in data.usuarios %}
-                    <tr>
-                        <td>{{i[0]}}</td>
-                        <td>{{i[1]}}</td>
-                        <td>{{i[2]}}</td>
-                        <td>
-                            <a href="crud_user/edit/{{i[0]}}" target="_blank"><i class="fa-solid fa-pen-to-square"></i></a> 
-                            /
-                            <a href="/crud_user/deleteUser/{{i[0]}}"><i class="fa-solid fa-trash"></i></a>
-                        </td>
-                    </tr>
-                    {%endfor%}
-                </tbody>
-            </table>
-
-        </div>
+        {%endfor%}
+        {%endif%}
+        {%endwith%}
     </div>
-    {%endblock%}
+    <div class="registros">
+        <h1>Registros
+            <a href="/crud_user"><i class="fa-solid fa-arrows-rotate"></i></a>
+        </h1>
+        <table class="dcf-table dcf-table-responsive dcf-table-striped dcf-w-100%">
+            <caption>Listado</caption>
+            <thead>
+                <tr>
+                    <th class="dcf-txt-center" scope="col">RUT</th>
+                    <th class="dcf-txt-center" scope="col">Nombres</th>
+                    <th class="dcf-txt-center" scope="col">Rol</th>
+                    <th class="dcf-txt-center" scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in data.usuarios %}
+                <tr>
+                    <th class="dcf-txt-center" scope="row">{{i[0]}}</th>
+                    <td class="dcf-txt-center" data-label="nombres">{{i[1]}}</td>
+                    <td class="dcf-txt-center" data-label="Rol">{{i[2]}}</td>
+                    <td class="dcf-txt-center" data-label="acciones">
+                         <a href="crud_user/edit/{{i[0]}}" target="_blank"><i class="fa-solid fa-pen-to-square"></i></a>   
+                        <a href="/crud_user/deleteUser/{{i[0]}}"><i class="fa-solid fa-trash"></i></a> 
+                    </td>
+                </tr>
+
+                {%endfor%}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+{%endblock%}

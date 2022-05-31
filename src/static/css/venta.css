@@ -1,0 +1,25 @@
+.nombreUsuario,
+.rut,
+.tipo-venta {
+    font-size: 1em;
+    text-transform: capitalize;
+
+}
+
+.cont-venta {
+    width: 90%;
+    margin: 20px auto;
+}
+
+.cont-venta form {
+    text-align: center;
+    margin: 40px auto 40px;
+}
+form input{
+    padding: 7px;
+    width: 50%;
+}
+form button{
+    font-size: 18px;
+    border: none;
+}

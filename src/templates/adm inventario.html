@@ -47,56 +47,32 @@
     </form>
 </div>
 <div class="crudProduct">
-    <h1>Registro de Productos</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>
-                    img
-                </th>
-                <th>
-                    Codigo
-                </th>
-                <th>
-                    Nombre Producto
-                </th>
-                <th>
-                    Categoria
-                </th>
-                <th>
-                    descripcion
-                </th>
-                <th>
-                    Precio
-                </th>
-                <th colspan="2">
-                    acciones
-                </th>
-            </tr>
-        </thead>
+    <h1>Registro de Productos     <a href=""><i class="fa-solid fa-arrow-rotate-left"></i></a>
+    </h1>
+    <table class="dcf-table dcf-table-responsive dcf-table-striped dcf-w-100%">
         <tbody>
-
+            <tr>
+                <td class="dcf-txt-center">IMG</td>
+                <td class="dcf-txt-center">CODIGO</td>
+                <td class="dcf-txt-center">NOMBRE</td>
+                <td class="dcf-txt-center">CATEGORIA</td>
+                <td class="dcf-txt-center">PRECIO</td>
+                <td class="dcf-txt-center">ACCIONES</td>
+            </tr>
             {% for i in data.productos %}
             <tr>
-                <td><img src="{{i[0]}}" width="50px" alt=""></td>
-                <td>{{i[1]}}</td>
-                <td>{{i[2]}}</td>
-                <td>{{i[3]}}</td>
-                <td>{{i[4]}}</td>
-                <td>${{i[5]}}</td>
-
-                <td>
+                <td class="dcf-txt-center">
+                    <img src="{{i[0]}}" height="40px" alt=""> </td>
+                <td class="dcf-txt-center">{{i[1]}}</td>
+                <td class="dcf-txt-center">{{i[2]}}</td>
+                <td class="dcf-txt-center">{{i[3]}}</td>
+                <td class="dcf-txt-center">${{i[4]}}</td>
+                <td class="dcf-txt-center">
                     <a href="crud_inventario/edit/{{i[1]}}">Editar</a>
+                    <a href="crud_inventario/delete/{{i[1]}}">Eliminar</a>
                 </td>
-
-                <td><a href="crud_inventario/delete/{{i[1]}}">Eliminar</a></td>
-
             </tr>
             {%endfor%}
-
-
-
-
         </tbody>
     </table>
 </div>

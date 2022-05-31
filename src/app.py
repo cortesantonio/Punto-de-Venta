@@ -1,3 +1,4 @@
+from turtle import pos
 from flask import *
 import flask
 from conexion import *
@@ -94,7 +95,7 @@ def loggout():
 
 
 
-
+# INTERFA DE VENDEDOR
 
 ### en desarrollo
 @app.route('/puntodeventa', methods=['POST','GET'])
@@ -115,7 +116,79 @@ def puntodeventa():
     else:
         return redirect('/login')
 
-lista= []
+
+
+
+
+listado = []
+
+
+@app.route('/puntodeventa/append', methods=['POST'])
+def addListado():
+    if request.method=='POST':
+        busqueda = request.form['busqueda']
+        resultado = dao.buscarProducto_vendedor(busqueda)
+        if str(resultado) == 'None':
+            pass
+        else:
+            if resultado in listado:
+                for i in listado:
+                    if resultado == i:
+                        pass
+
+                    
+            else:
+                listado.append(resultado)
+
+        return redirect('/puntodeventa/venta/boleta')
+
+
+
+
+
+@app.route('/puntodeventa/venta/boleta', methods=['POST','GET'])
+def venta_boleta():
+    if len(session) > 0 :
+        if dao.rolUsuario(session['rut']) == 0:
+            
+            fecha= time.strftime('%Y-%m-%d', time.localtime())
+            data = {
+                    'tipo_venta':'boleta',
+                    'rut':session['rut'],
+                    'nombre':dao.getName(session['rut']),
+                    'listado': listado
+                }
+            
+            return render_template('venta.html', data = data)
+            
+        else:
+            return redirect('/login')
+    else:
+        return redirect('/login')
+        
+@app.route('/puntodeventa/venta/factura', methods=['POST','GET'])
+def venta_factura():
+    if len(session) > 0 :
+        if dao.rolUsuario(session['rut']) == 0:
+            fecha= time.strftime('%Y-%m-%d', time.localtime())
+            data = {
+                'tipo_venta':'factura',
+                'rut':session['rut'],
+                'nombre':dao.getName(session['rut'])
+            }
+            
+            return render_template('venta.html', data = data)
+            
+        else:
+            return redirect('/login')
+    else:
+        return redirect('/login')
+
+
+
+
+
+
 
 @app.route('/administracion')
 def administracion():
@@ -142,6 +215,7 @@ def administracion():
 
 
 # FUNCION DE ADMINISTRADOR: ADMINISTRAR USUARIOS 
+# INTERFAZ Y AGREGADOR DE USUARIOS
 @app.route('/crud_user', methods=["GET", "POST"])
 def crud_user():
     if request.method == 'POST':
@@ -165,8 +239,7 @@ def crud_user():
             }
         return render_template('adm usuarios.html', data=data)
 
-
-
+# EDITAR USUARIO
 @app.route('/crud_user/edit/<rut>')
 def get_user(rut):
     data= { 
@@ -176,9 +249,6 @@ def get_user(rut):
 
     }
     return render_template('user_edit.html', data = data)
-
-
-
 
 @app.route('/crud_user/updateUser/<rut>', methods=["GET", "POST"])
 def updateUser(rut):
@@ -193,10 +263,7 @@ def updateUser(rut):
         }
         
         return ' <script >window.close(); </script>  '     
-
-
-
-
+# ELIMINAR USUARIO
 @app.route('/crud_user/deleteUser/<rut>', methods=["GET", "POST"])
 def deleteUser(rut):
         dao.deleteUser(rut)
@@ -237,9 +304,6 @@ def crud_inventario():
             }
         return render_template('adm inventario.html', data=data)
 
-
-
-
 # metodo para editar productos
 @app.route('/crud_inventario/edit/<antiguo_codigo>' , methods=["GET", "POST"] )
 def updateProduct(antiguo_codigo):
@@ -266,8 +330,6 @@ def updateProduct(antiguo_codigo):
         return render_template('product_edit.html', data=data)
 
 
-
-
 #elimina productos del inventario.
 @app.route('/crud_inventario/delete/<codigo>' , methods=["GET", "POST"])
 def deleteProduct(codigo):
@@ -278,26 +340,7 @@ def deleteProduct(codigo):
 
 
 
-
-
-
-
-# FUNCION DE ADMINISTRADOR: Jornadas
-
-@app.route('/gestor de jornada', methods= ['GET','POST'])
-def jornadas():
-    if request.method=='GET':
-        fecha= time.strftime('%Y-%m-%d', time.localtime())
-        fechaFormateada = time.strftime('%d-%m-%Y', time.localtime())
-        data = {
-            'estado':dao.verJornada(fecha),
-            'fecha':fechaFormateada
-
-        }
-        return render_template('gestorJornadas.html', data= data)
-
-
-
+#Activar y desactivar estado de jornada.
 
 @app.route('/gestor de jornada/switch' , methods=['POST','GET'])
 def activarJornada():
@@ -315,12 +358,7 @@ def activarJornada():
 
 
 
-
-
-
-
-
-#   METODO DE ARRANQUE DE SERVIDOR
+#   METODO DE ARRANQUE DE APLICACION
 if __name__ == '__main__':
     app.secret_key = "123123"
     app.run(debug=True)
