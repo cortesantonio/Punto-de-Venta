@@ -35,10 +35,10 @@
 
 <div class="cont-venta">
     <h4>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+        Numero de Boleta (no declarado): {{data.id_boleta}} <br>memory slot: {{data.cod_temp}}
     </h4>
     <form action="/puntodeventa/append" method="POST">
-        <input type="text" name="busqueda" placeholder="Ingresa el codigo o nombre del producto" id="">
+        <input type="text" required name="busqueda" placeholder="Ingresa el codigo o nombre del producto" id="">
         <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
     </form>
     <div class="line"></div>
@@ -48,8 +48,8 @@
         <thead>
             <tr>
                 <th class="dcf-txt-center" scope="col">codigo</th>
-                <th class="dcf-txt-center" scope="col">nombre</th>
-                <th class="dcf-txt-center" scope="col">precio</th>
+                <th class="dcf-txt-center" scope="col">Producto</th>
+                <th class="dcf-txt-center" scope="col">precio unidad</th>
                 <th class="dcf-txt-center" scope="col">cantidad</th>
                 <th class="dcf-txt-center" scope="col">total</th>
                 <th class="dcf-txt-center" scope="col">acciones</th>
@@ -57,33 +57,48 @@
         </thead>
         <tbody>
             {%for c in data.listado%}
-           
+
 
             <tr>
                 <th class="dcf-txt-center" scope="row">{{c[0]}}</th>
                 <td class="dcf-txt-center" data-label="nombre">{{c[1]}}</td>
-                <td class="dcf-txt-center" data-label="precio">{{c[2]}}</td>
-                <td class="dcf-txt-center" data-label="cantidad">{{c[3]}}</td>
-                <td class="dcf-txt-center" data-label="total">{{c[4]}}</td>
+                <td class="dcf-txt-center" data-label="precio">${{c[2]}}</td>
+                <td class="dcf-txt-center" data-label="cantidad">
+                    <a class="editcantidad-add" href="/puntodeventa/add/{{c[0]}}"><i class="fa-solid fa-plus"></i></a>
+
+                    <strong style="font-weight: 550;font-size: 14px;">{{c[3]}}</strong>
+                    <a class="editcantidad-substrac" href="/puntodeventa/subtract/{{c[0]}}"><i
+                            class="fa-solid fa-minus"></i></a>
+
+                </td>
+                <td class="dcf-txt-center" data-label="total">${{c[4]}}</td>
                 <td class="dcf-txt-center" data-label="acciones">
-                    borrar
+                    <a href="/puntodeventa/delete/{{c[0]}}">Borrar</a>
 
                 </td>
             </tr>
-            
+
 
             {%endfor%}
             <tr>
-                <td class="dcf-txt-center">Neto:</td>
-                <td class="dcf-txt-center" id="neto"></td>
-                <td class="dcf-txt-center" >IVA:</td>
-                <td class="dcf-txt-center" id="iva"></td>
-                <td class="dcf-txt-center" >TOTAL:</td>
-                <td class="dcf-txt-center" id="total"></td>
+                <td class="dcf-txt-center" colspan="2">Neto: ${{data.neto}}</td>
+                <td class="dcf-txt-center" colspan="2">IVA: ${{data.iva}}</td>
+                <td class="dcf-txt-center" colspan="2">TOTAL: ${{data.total}}</td>
             </tr>
         </tbody>
     </table>
+    <div class="finalizarVenta">
+        <a href="/puntodeventa/venta/boleta/cancelar/{{data.cod_temp}}">
+            <div class="cancelar">Cancelar Venta</div>
+        </a>
+        <a href="/puntodeventa/venta/boleta/pagar/{{data.cod_temp}}">
+            <div class="Pagar">Terminar Venta</div>
+        </a>
+
+    </div>
 </div>
+
+
 <script src="static/js/ventaBoleta.js"></script>
 {% else %}
 <!--VENTAS CON FACTURAS-->

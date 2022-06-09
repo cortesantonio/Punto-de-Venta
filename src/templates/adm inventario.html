@@ -20,31 +20,40 @@
 <div class="addProduct">
     <form action="/crud_inventario" method="POST">
         <label for="number">Código:</label>
-        <input type="number" name="codigo" id="">
+        <input type="number" required name="codigo" id="">
         <label for="nombre">Nombre de Producto:</label>
-        <input type="text" name="nombreproducto" id="">
+        <input type="text" required name="nombreproducto" id="">
         <label for="precio">Precio:</label>
-        <input type="number" name="precio" id="">
+        <input type="number" required name="precio" id="">
 
         <div class="categoria">
-            <label class="block" for="categoria">Categoria:</label>
+            <label  class="block" for="categoria">Categoria:</label>
 
-            <input type="radio" value="1" name="categoria"> <label for="categoria">Frutas y Verduras</label>
+            <input required type="radio" value="1" name="categoria"> <label for="categoria">Frutas y Verduras</label>
 
-            <input type="radio" value="2" name="categoria" id=""><label for="categoria">Carnes y Pescados</label>
+            <input required type="radio" value="2" name="categoria" id=""><label for="categoria">Carnes y Pescados</label>
 
-            <input type="radio" value="3" name="categoria"><label for="categoria">Panaderia y Pasteleria</label>
+            <input  required type="radio" value="3" name="categoria"><label for="categoria">Panaderia y Pasteleria</label>
 
-            <input type="radio" value="4" name="categoria"><label for="categoria">Abarrotes</label>
+            <input required type="radio" value="4" name="categoria"><label for="categoria">Abarrotes</label>
 
         </div>
 
         <label style="display: block;margin-top: 20px;" for="descripcion">Descripción:</label>
-        <textarea name="descripcion" id="" cols="30" placeholder="Descripcion del Producto..." rows="5"></textarea><br>
+        <textarea  name="descripcion" id="" cols="30" placeholder="Descripcion del Producto..." rows="5"></textarea><br>
         <label for="url_img">URL de Imagen</label>
-        <input type="url" name="url_img" id="">
-        <input style="display: block; margin: 20px auto;" type="submit" value="Agregar Registro">
+        <input required type="url" name="url_img" id="">
+        <input  style="display: block; margin: 20px auto;" type="submit" value="Agregar Registro">
     </form>
+    {%with messages=get_flashed_messages()%}
+        {%if messages%}
+        {%for message in messages%}
+        <div class="alerta" role="alert">
+            {{message}}
+        </div>
+        {%endfor%}
+        {%endif%}
+        {%endwith%}
 </div>
 <div class="crudProduct">
     <h1>Registro de Productos     <a href=""><i class="fa-solid fa-arrow-rotate-left"></i></a>
@@ -66,7 +75,7 @@
                 <td class="dcf-txt-center">{{i[1]}}</td>
                 <td class="dcf-txt-center">{{i[2]}}</td>
                 <td class="dcf-txt-center">{{i[3]}}</td>
-                <td class="dcf-txt-center">${{i[4]}}</td>
+                <td class="dcf-txt-center">${{i[5]}}</td>
                 <td class="dcf-txt-center">
                     <a href="crud_inventario/edit/{{i[1]}}">Editar</a>
                     <a href="crud_inventario/delete/{{i[1]}}">Eliminar</a>
@@ -75,6 +84,7 @@
             {%endfor%}
         </tbody>
     </table>
+    <a href="/administracion"><h5> <br>   Volver a Interfaz de Administrador</h5></a>
 </div>
 <script src="../static/js/admInventario.js"></script>
 {%endblock%}

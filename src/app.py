@@ -1,9 +1,10 @@
-from turtle import pos
 from flask import *
 import flask
 from conexion import *
 from flask import session
 import time
+import random
+
 
 dao = DAO()
 app = Flask(__name__)
@@ -103,6 +104,8 @@ def puntodeventa():
     if len(session) > 0 :
         if dao.rolUsuario(session['rut']) == 0:
             fecha= time.strftime('%Y-%m-%d', time.localtime())
+            global tempCode 
+            tempCode = random.randint(1111,99999)
             data = {
                 'rut':session['rut'],
                 'nombre':dao.getName(session['rut']),
@@ -118,11 +121,6 @@ def puntodeventa():
 
 
 
-
-
-listado = []
-
-
 @app.route('/puntodeventa/append', methods=['POST'])
 def addListado():
     if request.method=='POST':
@@ -131,18 +129,37 @@ def addListado():
         if str(resultado) == 'None':
             pass
         else:
-            if resultado in listado:
-                for i in listado:
-                    if resultado == i:
-                        pass
+            id = resultado[0]
+            nombre = resultado[1]
+            precio = resultado[2]
+
+            if dao.comprobarExistenciaEnlista(id,tempCode) > 0:
+                dao.aumentarCantidad_deProduto(id,tempCode)
 
                     
             else:
-                listado.append(resultado)
+                id = resultado[0]
+                nombre = resultado[1]
+                precio = resultado[2]
+                dao.addTemp_list(id,nombre,precio,1,precio,tempCode)
+                
 
         return redirect('/puntodeventa/venta/boleta')
 
+@app.route('/puntodeventa/delete/<id>')
+def deleteFromTemp(id):
+    dao.eliminarProducto_temp(id,1)
+    return redirect('/puntodeventa/venta/boleta')
 
+@app.route('/puntodeventa/add/<id>')
+def addProductTemp(id):
+    dao.aumentarCantidad_deProduto(id,1)
+    return redirect('/puntodeventa/venta/boleta')
+
+@app.route('/puntodeventa/subtract/<id>')
+def substracProductTemp(id):
+    dao.restarCantidad_deProduto(id,1)
+    return redirect('/puntodeventa/venta/boleta')
 
 
 
@@ -156,8 +173,15 @@ def venta_boleta():
                     'tipo_venta':'boleta',
                     'rut':session['rut'],
                     'nombre':dao.getName(session['rut']),
-                    'listado': listado
+                    'id_boleta':dao.codNueva_Boleta(),
+                    'listado': dao.readTemp(tempCode),
+                   'cod_temp':tempCode,
+                'total':dao.precioTotal_temp(tempCode),
+                'iva':dao.precioIVA_temp(tempCode),
+                'neto':dao.precioNETO_temp(tempCode)
+
                 }
+            print(tempCode)
             
             return render_template('venta.html', data = data)
             
@@ -165,7 +189,19 @@ def venta_boleta():
             return redirect('/login')
     else:
         return redirect('/login')
+
+@app.route('/puntodeventa/venta/boleta/pagar/<id>')
+def pagar(id):
+    print(id)
+    venta = dao.readTemp(id)
+    for i in venta:
+        print(i[0])
         
+
+
+    return ' ads'
+
+
 @app.route('/puntodeventa/venta/factura', methods=['POST','GET'])
 def venta_factura():
     if len(session) > 0 :

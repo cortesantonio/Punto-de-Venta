@@ -159,6 +159,7 @@ class DAO:
         cursor = self.cnx.cursor()
         cursor.execute("select img, producto.id, nombre,categoria_producto.categoria,descripcion, precio from producto inner join categoria_producto on categoria_producto.id = producto.id_categoria;")
         return cursor.fetchall()
+   
     # agrega nuevos productos a la base de datos
     def addProduct(self,id, nombre, descripcion, precio, img,id_categoria):
         cursor = self.cnx.cursor()
@@ -234,5 +235,87 @@ class DAO:
         cursor.execute(sql, data)
         resultado =cursor.fetchone()
         return (resultado)
+    def codNueva_Boleta(self):
+        cursor = self.cnx.cursor()
+        sql = 'select count(*)+1 from boleta'
+        cursor.execute(sql,)
+        return cursor.fetchone()[0]
+
+    def listTemp_cod(self):
+        cursor = self.cnx.cursor()
+        sql = 'select count(*)+1 from temp'
+        cursor.execute(sql,)
+        return cursor.fetchone()[0]
+    def addTemp_list(self,codProducto,nombreProducto,precio,cantidad,total,id_venta):
+        cursor = self.cnx.cursor()
+        sql = ("insert into temp values(%s,%s,%s,%s,%s,%s)")
+        data = (codProducto,nombreProducto,precio,cantidad,total,id_venta)
+        cursor.execute(sql, data)
+        self.cnx.commit()
+    def readTemp(self,cod):
+        cursor = self.cnx.cursor()
+        cursor.execute("select cod_producto,nombre_producto,precio,cantidad,total from temp where id_venta = %s", (cod,))
+
+        return cursor.fetchall()
+    def comprobarExistenciaEnlista(self, id, codtemp):
+        cursor = self.cnx.cursor()
+        sql = ' select count(*) from temp where cod_producto = %s and id_venta=%s'
+        data = (id,codtemp)
+        cursor.execute(sql,data)
+        return cursor.fetchone()[0]
+    
+    def aumentarCantidad_deProduto(self,id, codtemp):
+        cursor = self.cnx.cursor()
+        sql = 'update temp set cantidad = cantidad+1 , total = precio * cantidad where cod_producto = %s and id_venta=%s'
+        data = (id,codtemp)
+        cursor.execute(sql, data)
+        self.cnx.commit()
+
+    def restarCantidad_deProduto(self,id, codtemp):
+        cursor = self.cnx.cursor()
+        sql = 'update temp set cantidad = cantidad-1 , total = precio * cantidad where cod_producto = %s and id_venta=%s'
+        data = (id,codtemp)
+        cursor.execute(sql, data)
+        self.cnx.commit()
+    def eliminarProducto_temp(self,id, codtemp):
+        cursor = self.cnx.cursor()
+        sql = ("delete from temp where cod_producto=%s and id_venta=%s")
+        data = (id,codtemp)
+        cursor.execute(sql, data)
+        self.cnx.commit()
+    def precioTotal_temp(self,codtemp):
+        cursor = self.cnx.cursor()
+        sql = ' select sum(total) from temp where id_venta=%s'
+        data = (codtemp,)
+        cursor.execute(sql,data)
+        r = cursor.fetchone()
+        if r == None:
+            return '0'
+        else:
+            return r[0]
+    def precioIVA_temp(self,codtemp):
+        cursor = self.cnx.cursor()
+        sql = ' select TRUNCATE(sum(total)*0.19,0) from temp where id_venta=%s'
+        data = (codtemp,)
+        cursor.execute(sql,data)
+        r = cursor.fetchone()
+        if r == None:
+            return '0'
+        else:
+            return r[0]
+    def precioNETO_temp(self,codtemp):
+        cursor = self.cnx.cursor()
+        sql = ' select TRUNCATE(sum(total)*0.81,0) from temp where id_venta=%s'
+        data = (codtemp,)
+        cursor.execute(sql,data)
+        r = cursor.fetchone()
+        if r == None:
+            return '0'
+        else:
+            return r[0]
+
+        
 
  
+dao = DAO()
+#print(dao.readTemp(2147483647))

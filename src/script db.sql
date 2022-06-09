@@ -97,3 +97,22 @@ create table detalles(
     
     
 );
+
+create table temp (
+	cod_producto int,
+	nombre_producto varchar,
+	precio int,
+	cantidad int,
+	total int,
+	id_venta int
+
+)
+
+
+insert into Tipo_Usuario values(0,'vendedor');
+insert into Tipo_Usuario values (1,'administrador');
+
+insert into categoria_Producto(1,'Frutas y Verduras');
+insert into categoria_Producto(2,'Carnes y Pescados');
+insert into categoria_Producto(3,'Panaderia y Pasteleria');
+insert into categoria_Producto(4,'Abarrotes');
