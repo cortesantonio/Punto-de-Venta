@@ -148,17 +148,17 @@ def addListado():
 
 @app.route('/puntodeventa/delete/<id>')
 def deleteFromTemp(id):
-    dao.eliminarProducto_temp(id,1)
+    dao.eliminarProducto_temp(id,tempCode)
     return redirect('/puntodeventa/venta/boleta')
 
 @app.route('/puntodeventa/add/<id>')
 def addProductTemp(id):
-    dao.aumentarCantidad_deProduto(id,1)
+    dao.aumentarCantidad_deProduto(id,tempCode)
     return redirect('/puntodeventa/venta/boleta')
 
 @app.route('/puntodeventa/subtract/<id>')
 def substracProductTemp(id):
-    dao.restarCantidad_deProduto(id,1)
+    dao.restarCantidad_deProduto(id,tempCode)
     return redirect('/puntodeventa/venta/boleta')
 
 
@@ -194,12 +194,22 @@ def venta_boleta():
 def pagar(id):
     print(id)
     venta = dao.readTemp(id)
+
+    id_Boleta = dao.codNueva_Boleta()
+    total = dao.precioTotal_temp(tempCode)
+    fecha = time.strftime('%Y-%m-%d', time.localtime())
+    iva = dao.precioIVA_temp(tempCode)
+    vendedor = session['rut']
+
+    print(id_Boleta,total,fecha,iva,vendedor)
     for i in venta:
-        print(i[0])
-        
-
-
-    return ' ads'
+        id_detalle = ''
+        id_producto = i[0]
+        cantidad =i[3]
+        id_documento = id_Boleta
+        precio = i[2]
+        print(id_detalle,id_producto,cantidad,id_documento,precio)
+    return ' OK'
 
 
 @app.route('/puntodeventa/venta/factura', methods=['POST','GET'])

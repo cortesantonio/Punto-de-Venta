@@ -43,29 +43,22 @@ create table Producto(
 
 );
 
-create table cliente(
-	rut varchar(200),
-    primary key(rut)
-)
 ;
 create table Boleta(
-	id int,
+	id_boleta int,
 	total int,
-	fecha date,
+	fecha varchar(50),
     iva int,
-    id_cliente varchar(200),
     vendedor_emisor varchar(50),
 	primary key (id),
-	FOREIGN KEY (vendedor_emisor) REFERENCES usuario(rut),
-	FOREIGN KEY (id_cliente) REFERENCES cliente(rut)
-
+	FOREIGN KEY (vendedor_emisor) REFERENCES usuario(rut)
 
 
 );
 
 
 create table Factura(
-	id int,
+	id_factura int,
 	razon_social varchar(200),
 	rut varchar(200),
 	direccion varchar(200),
@@ -75,15 +68,12 @@ create table Factura(
 	fecha date,
 	vendedor_emisor varchar(50),
 	FOREIGN KEY (vendedor_emisor) REFERENCES usuario(rut),
-	FOREIGN KEY (rut) REFERENCES cliente(rut),
-	
-
-	primary key (id)
+	primary key (id_factura)
 );
 
 
  
-create table detalles(
+create table detalle_boleta(
 	id int,
     id_producto int,
     cantidad int,
@@ -91,28 +81,40 @@ create table detalles(
     precio int,
     primary key(id),
 	FOREIGN KEY (id_producto) REFERENCES producto(id),
-	FOREIGN KEY (id_documento) REFERENCES  factura(id),
-	FOREIGN KEY (id_documento) REFERENCES  boleta(id)
-
+	FOREIGN KEY (id_documento) REFERENCES  boleta(id_boleta)  
     
+);
+ 
+create table detalle_factura(
+	id int,
+    id_producto int,
+    cantidad int,
+    id_documento int, 
+    precio int,
+    primary key(id),
+	FOREIGN KEY (id_producto) REFERENCES producto(id),
+	FOREIGN KEY (id_documento) REFERENCES  factura(id_factura)
     
 );
 
 create table temp (
 	cod_producto int,
-	nombre_producto varchar,
+	nombre_producto varchar(255),
 	precio int,
 	cantidad int,
 	total int,
 	id_venta int
 
-)
+);
 
 
 insert into Tipo_Usuario values(0,'vendedor');
 insert into Tipo_Usuario values (1,'administrador');
 
-insert into categoria_Producto(1,'Frutas y Verduras');
-insert into categoria_Producto(2,'Carnes y Pescados');
-insert into categoria_Producto(3,'Panaderia y Pasteleria');
-insert into categoria_Producto(4,'Abarrotes');
+insert into usuario values('321','321','antonio cortes sotelo', 0);
+insert into usuario values('123','123','antonio cortes sotelo', 1);
+
+insert into categoria_Producto values(1,'Frutas y Verduras');
+insert into categoria_Producto values(2,'Carnes y Pescados');
+insert into categoria_Producto values(3,'Panaderia y Pasteleria');
+insert into categoria_Producto values(4,'Abarrotes');

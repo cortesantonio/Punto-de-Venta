@@ -314,7 +314,27 @@ class DAO:
         else:
             return r[0]
 
-        
+    
+    def ingresarBoleta(self,id,total,fecha,iva,vendedor):
+        cursor = self.cnx.cursor()
+        sql = ("insert into boleta values(id_boleta= %s, total=  %s,fecha= %s ,iva= %s, vendedor_emisor= %s)")
+        data = (id,total,fecha,iva,vendedor)
+        cursor.execute(sql, data)
+        self.cnx.commit()
+
+    def ingresarDetalles_boleta(self,id,id_producto,cantidad,id_documento,precio):
+        cursor = self.cnx.cursor()
+        sql = ("insert into detalle_boleta  (id,id_producto,cantidad,id_documento,precio ) values(%s,%s,%s,%s,%s)")
+        data = (id,id_producto,cantidad,id_documento,precio)
+        cursor.execute(sql, data)
+        self.cnx.commit()
+    def ingresarDetalles_factura(self,id,id_producto,cantidad,id_documento,precio):
+        cursor = self.cnx.cursor()
+        sql = ("insert into detalle_factura values(%s,%s,%s,%s,%s)")
+        data = (id,id_producto,cantidad,id_documento,precio)
+        cursor.execute(sql, data)
+        self.cnx.commit()
+
 
  
 dao = DAO()
