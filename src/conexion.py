@@ -240,23 +240,39 @@ class DAO:
         sql = 'select count(*)+1 from boleta'
         cursor.execute(sql,)
         return cursor.fetchone()[0]
+    def codNueva_Factura(self):
+        cursor = self.cnx.cursor()
+        sql = 'select count(*)+1 from factura'
+        cursor.execute(sql,)
+        return cursor.fetchone()[0]
+
+
+
+
 
     def listTemp_cod(self):
         cursor = self.cnx.cursor()
         sql = 'select count(*)+1 from temp'
         cursor.execute(sql,)
         return cursor.fetchone()[0]
-    def addTemp_list(self,codProducto,nombreProducto,precio,cantidad,total,id_venta):
+
+    def addTemp_list(self,id_venta,codProducto,nombreProducto,precio,cantidad,total):
         cursor = self.cnx.cursor()
         sql = ("insert into temp values(%s,%s,%s,%s,%s,%s)")
-        data = (codProducto,nombreProducto,precio,cantidad,total,id_venta)
+        data = (id_venta,codProducto,nombreProducto,precio,cantidad,total)
         cursor.execute(sql, data)
         self.cnx.commit()
+
     def readTemp(self,cod):
         cursor = self.cnx.cursor()
         cursor.execute("select cod_producto,nombre_producto,precio,cantidad,total from temp where id_venta = %s", (cod,))
-
         return cursor.fetchall()
+
+    def deleteTemp(self, cod):
+        cursor = self.cnx.cursor()
+        cursor.execute("delete from temp where id_venta = %s", (cod,))
+        self.cnx.commit()
+
     def comprobarExistenciaEnlista(self, id, codtemp):
         cursor = self.cnx.cursor()
         sql = ' select count(*) from temp where cod_producto = %s and id_venta=%s'
@@ -303,6 +319,7 @@ class DAO:
             return '0'
         else:
             return r[0]
+
     def precioNETO_temp(self,codtemp):
         cursor = self.cnx.cursor()
         sql = ' select TRUNCATE(sum(total)*0.81,0) from temp where id_venta=%s'
@@ -314,26 +331,29 @@ class DAO:
         else:
             return r[0]
 
+
     
     def ingresarBoleta(self,id,total,fecha,iva,vendedor):
         cursor = self.cnx.cursor()
-        sql = ("insert into boleta values(id_boleta= %s, total=  %s,fecha= %s ,iva= %s, vendedor_emisor= %s)")
+        sql = ("insert into boleta values(%s,%s,%s,%s,%s)")
         data = (id,total,fecha,iva,vendedor)
         cursor.execute(sql, data)
         self.cnx.commit()
 
-    def ingresarDetalles_boleta(self,id,id_producto,cantidad,id_documento,precio):
+    def ingresarFactura(self, id_Factura,razonSocial,rut,direccion,giro,iva,neto,fecha,vendedor):
         cursor = self.cnx.cursor()
-        sql = ("insert into detalle_boleta  (id,id_producto,cantidad,id_documento,precio ) values(%s,%s,%s,%s,%s)")
-        data = (id,id_producto,cantidad,id_documento,precio)
+        sql = ("insert into factura values(%s,%s,%s,%s,%s,%s,%s,%s,%s)")
+        data = (id_Factura,razonSocial,rut,direccion,giro,iva,neto,fecha,vendedor)
         cursor.execute(sql, data)
         self.cnx.commit()
-    def ingresarDetalles_factura(self,id,id_producto,cantidad,id_documento,precio):
+
+    def ingresarDetalles(self,id_producto,cantidad,id_documento,precio):
         cursor = self.cnx.cursor()
-        sql = ("insert into detalle_factura values(%s,%s,%s,%s,%s)")
-        data = (id,id_producto,cantidad,id_documento,precio)
+        sql = ("insert into detalle  (id_producto,cantidad,id_documento,precio ) values(%s,%s,%s,%s)")
+        data = (id_producto,cantidad,id_documento,precio)
         cursor.execute(sql, data)
         self.cnx.commit()
+    
 
 
  

@@ -50,7 +50,7 @@ create table Boleta(
 	fecha varchar(50),
     iva int,
     vendedor_emisor varchar(50),
-	primary key (id),
+	primary key (id_boleta),
 	FOREIGN KEY (vendedor_emisor) REFERENCES usuario(rut)
 
 
@@ -73,8 +73,8 @@ create table Factura(
 
 
  
-create table detalle_boleta(
-	id int,
+create table detalle(
+	id int NOT NULL AUTO_INCREMENT,
     id_producto int,
     cantidad int,
     id_documento int, 
@@ -85,25 +85,14 @@ create table detalle_boleta(
     
 );
  
-create table detalle_factura(
-	id int,
-    id_producto int,
-    cantidad int,
-    id_documento int, 
-    precio int,
-    primary key(id),
-	FOREIGN KEY (id_producto) REFERENCES producto(id),
-	FOREIGN KEY (id_documento) REFERENCES  factura(id_factura)
-    
-);
 
 create table temp (
+	id_venta int,
 	cod_producto int,
 	nombre_producto varchar(255),
 	precio int,
 	cantidad int,
-	total int,
-	id_venta int
+	total int
 
 );
 
@@ -118,3 +107,13 @@ insert into categoria_Producto values(1,'Frutas y Verduras');
 insert into categoria_Producto values(2,'Carnes y Pescados');
 insert into categoria_Producto values(3,'Panaderia y Pasteleria');
 insert into categoria_Producto values(4,'Abarrotes');
+
+insert into producto values(1,'Limon','limon en malla',1990,'https://7483c243aa9da28f329c-903e05bc00667eb97d832a11f670edad.ssl.cf1.rackcdn.com/20409659-0VhIfGOv-large.jpg',1);
+insert into producto values(2,'Palta Hass Malla','700gr',2190,'https://7483c243aa9da28f329c-903e05bc00667eb97d832a11f670edad.ssl.cf1.rackcdn.com/20411826-gd7EBe-H-large.jpg',1);
+insert into producto values(3,'Zapallo Italiano','1 UN',650,'https://7483c243aa9da28f329c-903e05bc00667eb97d832a11f670edad.ssl.cf1.rackcdn.com/05014004-PKcaDFxZ-large.jpg',1);
+insert into producto values(4,'Lechuga','Lechuga Hidropónica Española Extra',1350,'https://7483c243aa9da28f329c-903e05bc00667eb97d832a11f670edad.ssl.cf1.rackcdn.com/20254265-LwhHK5RO-large.jpg',1);
+insert into producto values(5,'Pasta Spaghetti 3','400gr',1070,'https://7483c243aa9da28f329c-903e05bc00667eb97d832a11f670edad.ssl.cf1.rackcdn.com/1014063-sx68qEPg-large.jpg',4);
+
+
+
+

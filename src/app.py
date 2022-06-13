@@ -141,10 +141,11 @@ def addListado():
                 id = resultado[0]
                 nombre = resultado[1]
                 precio = resultado[2]
-                dao.addTemp_list(id,nombre,precio,1,precio,tempCode)
+                dao.addTemp_list(tempCode,id,nombre,precio,1,precio)
                 
 
         return redirect('/puntodeventa/venta/boleta')
+
 
 @app.route('/puntodeventa/delete/<id>')
 def deleteFromTemp(id):
@@ -180,47 +181,68 @@ def venta_boleta():
                 'iva':dao.precioIVA_temp(tempCode),
                 'neto':dao.precioNETO_temp(tempCode)
 
-                }
-            print(tempCode)
-            
+                }            
             return render_template('venta.html', data = data)
             
         else:
             return redirect('/login')
     else:
         return redirect('/login')
+@app.route('/puntodeventa/venta/boleta/cancelar/<id>')
+def cancelarBoleta(id):
+    dao.deleteTemp(id)
+    return redirect('/puntodeventa')
 
 @app.route('/puntodeventa/venta/boleta/pagar/<id>')
 def pagar(id):
-    print(id)
     venta = dao.readTemp(id)
-
     id_Boleta = dao.codNueva_Boleta()
     total = dao.precioTotal_temp(tempCode)
     fecha = time.strftime('%Y-%m-%d', time.localtime())
     iva = dao.precioIVA_temp(tempCode)
     vendedor = session['rut']
-
-    print(id_Boleta,total,fecha,iva,vendedor)
+    dao.ingresarBoleta(id_Boleta,total,fecha,iva,vendedor)
     for i in venta:
-        id_detalle = ''
         id_producto = i[0]
         cantidad =i[3]
         id_documento = id_Boleta
         precio = i[2]
-        print(id_detalle,id_producto,cantidad,id_documento,precio)
-    return ' OK'
+        dao.ingresarDetalles(id_producto,cantidad,id_documento,precio)
+    
+    data = {
+        'id_boleta': id_Boleta,
+        'total': total,
+        'fecha': time.strftime('%m/%d/%Y, %H:%M:%S', time.localtime()),
+        'iva':iva,
+        'vendedor':vendedor,
+        'nombreVendedor': dao.getName(vendedor),
+        'venta' : venta
+
+    }
+    return render_template('plantilla_boleta.html', data= data)
+
+
+
+
+
 
 
 @app.route('/puntodeventa/venta/factura', methods=['POST','GET'])
 def venta_factura():
     if len(session) > 0 :
         if dao.rolUsuario(session['rut']) == 0:
+
             fecha= time.strftime('%Y-%m-%d', time.localtime())
             data = {
                 'tipo_venta':'factura',
                 'rut':session['rut'],
-                'nombre':dao.getName(session['rut'])
+                'nombre':dao.getName(session['rut']),
+                'id_factura':dao.codNueva_Factura(),
+                'listado': dao.readTemp(tempCode),
+                'cod_temp':tempCode,
+                'total':dao.precioTotal_temp(tempCode),
+                'iva':dao.precioIVA_temp(tempCode),
+                'neto':dao.precioNETO_temp(tempCode)
             }
             
             return render_template('venta.html', data = data)
@@ -232,6 +254,93 @@ def venta_factura():
 
 
 
+
+
+@app.route('/puntodeventa/factura/append', methods=['POST'])
+def addListadFactura():
+    if request.method=='POST':
+        busqueda = request.form['busqueda']
+        resultado = dao.buscarProducto_vendedor(busqueda)
+        if str(resultado) == 'None':
+            pass
+        else:
+            id = resultado[0]
+            nombre = resultado[1]
+            precio = resultado[2]
+
+            if dao.comprobarExistenciaEnlista(id,tempCode) > 0:
+                dao.aumentarCantidad_deProduto(id,tempCode)
+
+                    
+            else:
+                id = resultado[0]
+                nombre = resultado[1]
+                precio = resultado[2]
+                dao.addTemp_list(tempCode,id,nombre,precio,1,precio)
+                
+
+        return redirect('/puntodeventa/venta/factura')
+
+@app.route('/puntodeventa/venta/Factura/cancelar/<id>')
+def cancelarFactura(id):
+    dao.deleteTemp(id)
+    return redirect('/puntodeventa')
+
+
+@app.route('/puntodeventa/delete/factura/<id>')
+def deleteFromTempfac(id):
+    dao.eliminarProducto_temp(id,tempCode)
+    return redirect('/puntodeventa/venta/factura')
+
+@app.route('/puntodeventa/add/factura/<id>')
+def addProductTempfac(id):
+    dao.aumentarCantidad_deProduto(id,tempCode)
+    return redirect('/puntodeventa/venta/factura')
+
+@app.route('/puntodeventa/subtract/factura/<id>')
+def substracProductTempfac(id):
+    dao.restarCantidad_deProduto(id,tempCode)
+    return redirect('/puntodeventa/venta/factura')
+
+@app.route('/puntodeventa/venta/Factura/pagar/<id>')
+def pagarFactura(id):
+    venta = dao.readTemp(id)
+    id_Factura = dao.codNueva_Factura()
+
+    total = dao.precioTotal_temp(tempCode)
+    fecha = time.strftime('%Y-%m-%d', time.localtime())
+    iva = dao.precioIVA_temp(tempCode)
+    vendedor = session['rut']
+    neto = dao.precioNETO_temp(tempCode)
+
+    giro = ''
+    razonSocial = ''
+    rutCliente = ''
+    direccion= ''
+    dao.ingresarFactura(id_Factura,razonSocial,rutCliente,direccion,giro,iva,neto,fecha,vendedor)
+    for i in venta:
+        id_producto = i[0]
+        cantidad =i[3]
+        id_documento = id_Factura
+        precio = i[2]
+        dao.ingresarDetalles(id_producto,cantidad,id_documento,precio)
+    
+    data = {
+        'id_Factura': id_Factura,
+        'giro': giro,
+        'fecha': time.strftime('%m/%d/%Y, %H:%M:%S', time.localtime()),
+        'iva':iva,
+        'neto':neto,
+        'vendedor':vendedor,
+        'total':total,
+        'nombreVendedor': dao.getName(vendedor).capitalize(),
+        'venta' : venta,
+        'razonsocial':razonSocial,
+        'rutCliente':rutCliente,
+        'direccion':direccion
+
+    }
+    return render_template('plantilla_factura.html', data= data)
 
 
 
@@ -271,7 +380,6 @@ def crud_user():
         apellido = request.form['apellidos']
         rol =request.form['rol']
         nombre_completo = nombre+ ' ' + apellido
-        print(rut,password,rol,nombre_completo)
         dao.addUser(rut,password,nombre_completo,rol)
 
         data = {
@@ -382,10 +490,6 @@ def deleteProduct(codigo):
     dao.deleteProduct(codigo)
     return redirect('/crud_inventario')
 
-
-
-
-
 #Activar y desactivar estado de jornada.
 
 @app.route('/gestor de jornada/switch' , methods=['POST','GET'])
@@ -402,9 +506,7 @@ def activarJornada():
             dao.activarJornada(fecha)
     return redirect('/administracion')
 
-
-
 #   METODO DE ARRANQUE DE APLICACION
 if __name__ == '__main__':
-    app.secret_key = "123123"
+    app.secret_key = "s5HKwm5AtlmzLiU0FIrrMsWXsrTdoxco"
     app.run(debug=True)

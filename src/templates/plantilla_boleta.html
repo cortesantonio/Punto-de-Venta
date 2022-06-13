@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/plantilla boleta.css')}}">
+    <title>Boleta N`{{data.id_boleta}}</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="info-empresa">
+            <h1>Los Monitos de la Nona.</h1>
+            <h3>Minimarket</h3>
+            <p>RUT: 99.999.999-0</p>
+            <p>DIRECCION: Juan Fernández 2010, Archipiélago, Curicó, Romeral, Maule</p>
+            <p>TELEFONO: 9 1234 1234</p>
+        </div>
+        <div class="detalles">
+            <h3> BOLETA ELECTRONICA n.{{data.id_boleta}}</h3>
+            <p>FECHA EMISION: {{data.fecha}}</p>
+            <hr>
+            <table>
+                <thead>
+                    <tr>
+                        <th>CODIGO</th>
+                        <th>DESCRIPCION</th>
+                        <th>VALOR</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in data.venta %}
+                    <tr>
+                        <td>{{i[0]}}</td>
+                        <td>{{i[1]}} <br>
+                            {{i[3]}} x ${{i[2]}}</td>
+                        <td>${{i[4]}}</td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+                
+                <tfoot>
+                    <tr>
+                        <td colspan="3">TOTAL: ${{data.total}}</td>
+                    </tr>
+                </tfoot>
+            </table>
+            <caption>Venta generada por {{data.nombreVendedor}}</caption>
+        </div>
+    </div>
+</body>
+
+</html>

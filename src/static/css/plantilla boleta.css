@@ -1,0 +1,28 @@
+*{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    padding: 0px;
+    margin: 0px;
+}
+
+.container{
+    width: 500px;
+    margin: 50px auto;
+    border: 1px solid gray;
+    padding: 15px;
+}
+.info-empresa{
+    margin-bottom: 20px;
+}
+.detalles {
+    text-align: center;
+}
+.detalles table {
+    margin: auto;
+    width: 80%;
+    text-align: left;
+}
+tfoot tr td{
+    border-top: 1px solid black;
+    text-align: right;
+    font-weight: 550;
+}

@@ -1,0 +1,64 @@
+* {
+    padding: 0px;
+    margin: 0;
+
+}
+
+.container {
+    width: 600px;
+    border: 1px solid black;
+    margin:  30px auto;
+    padding: 25px;
+}
+
+.encabezado {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.info-empresa {
+    display: flex;
+    margin-top: 10px;
+    text-align: left;
+}
+
+.logo img {
+    margin-right: 40px;
+}
+
+.idFactura .card {
+    border: 1px solid red;
+    text-align: center;
+    padding: 10px;
+    font-weight: 550;
+}
+
+.info-factura {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.info-factura>div {
+    width: 50%;
+}
+
+.detalle-venta table {
+    text-align: center;
+    margin: 20px auto;
+    border: 1px solid;
+}
+
+table th {
+    width: 200px;
+}
+
+table thead th {
+    border: 1px solid black;
+}
+
+
+
+
+.pie {
+    text-align: center;
+}
