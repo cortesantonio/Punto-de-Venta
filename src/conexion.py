@@ -223,7 +223,49 @@ class DAO:
         cursor.execute(sql, data)
         self.cnx.commit()    
         
+## ver cantidad de ventas.
+    def cantidadDeVentasBoleta(self, fecha):
+        cursor = self.cnx.cursor()
+        sql = ' select count(*) from boleta where fecha = %s'
+        data = (fecha,)
+        cursor.execute(sql,data)
+        r = cursor.fetchone()
+        if r == None:
+            return '0'
+        else:
+            return r[0]
 
+    def cantidadDeVentasFactura(self,fecha):
+        cursor = self.cnx.cursor()
+        sql = ' select count(*) from factura where fecha = %s'
+        data = (fecha,)
+        cursor.execute(sql,data)
+        r = cursor.fetchone()
+        if r == None:
+            return '0'
+        else:
+            return r[0]
+    def recaudacionBoleta(self,fecha):
+        cursor = self.cnx.cursor()
+        sql = ' select sum(total) from boleta where fecha = %s'
+        data = (fecha,)
+        cursor.execute(sql,data)
+        r = cursor.fetchone()
+        if r[0] == 'None':
+            return 0
+        else:
+            return r[0]
+    def recaudacionFactura(self,fecha):
+        cursor = self.cnx.cursor()
+        sql = ' select sum(neto) from factura where fecha = %s'
+        data = (fecha,)
+        cursor.execute(sql,data)
+        r = cursor.fetchone()
+        if r[0] == 'None':
+            return 0
+        else:
+            return r[0]
+        
 
 #### LISTADO DE VENTA: VENDEDOR.
 
@@ -357,5 +399,7 @@ class DAO:
 
 
  
+
 dao = DAO()
 #print(dao.readTemp(2147483647))
+print(dao.recaudacionBoleta('2022-06-13'))

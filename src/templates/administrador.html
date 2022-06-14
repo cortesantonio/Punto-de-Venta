@@ -39,7 +39,7 @@
     <div class="line"></div>
     <div class="widget">
         <div class="ventas">
-            <h1>-</h1>
+            <h1>{{data.totalVentas}}</h1>
             <br>
             <p>ventas registradas</p>
             <p>Hoy {{data.fechaFormateada}}</p>
@@ -52,7 +52,7 @@
             </form>
         </div>
         <div class="recaudacion">
-            <h1>$-</h1>
+            <h1>${{data.recaudacionTolal}}</h1>
             <p>recaudacion de hoy <br>{{data.fechaFormateada}}</p> 
             
         </div>
