@@ -270,15 +270,13 @@ def addListadFactura():
 
             if dao.comprobarExistenciaEnlista(id,tempCode) > 0:
                 dao.aumentarCantidad_deProduto(id,tempCode)
-
-                    
+   
             else:
                 id = resultado[0]
                 nombre = resultado[1]
                 precio = resultado[2]
                 dao.addTemp_list(tempCode,id,nombre,precio,1,precio)
                 
-
         return redirect('/puntodeventa/venta/factura')
 
 @app.route('/puntodeventa/venta/Factura/cancelar/<id>')
@@ -302,45 +300,62 @@ def substracProductTempfac(id):
     dao.restarCantidad_deProduto(id,tempCode)
     return redirect('/puntodeventa/venta/factura')
 
-@app.route('/puntodeventa/venta/Factura/pagar/<id>')
-def pagarFactura(id):
-    venta = dao.readTemp(id)
-    id_Factura = dao.codNueva_Factura()
 
-    total = dao.precioTotal_temp(tempCode)
-    fecha = time.strftime('%Y-%m-%d', time.localtime())
-    iva = dao.precioIVA_temp(tempCode)
-    vendedor = session['rut']
-    neto = dao.precioNETO_temp(tempCode)
-
-    giro = ''
-    razonSocial = ''
-    rutCliente = ''
-    direccion= ''
-    dao.ingresarFactura(id_Factura,razonSocial,rutCliente,direccion,giro,iva,neto,fecha,vendedor)
-    for i in venta:
-        id_producto = i[0]
-        cantidad =i[3]
-        id_documento = id_Factura
-        precio = i[2]
-        dao.ingresarDetalles(id_producto,cantidad,id_documento,precio)
+@app.route('/puntodeventa/venta/Factura/cliente/<id>', methods=['GET','POST'])
+def clienteFactura(id):
+    if request.method == 'GET':
+        data = {
+        'id_Factura': dao.codNueva_Factura(),
+        'iva' : dao.precioIVA_temp(tempCode),
+        'neto':dao.precioNETO_temp(tempCode),
+        'total':dao.precioTotal_temp(tempCode),
+        'venta' : dao.readTemp(id),
+        'listado': dao.readTemp(tempCode),
+        'id': id
+        }
+        return render_template('datosFactura.html', data = data)
     
-    data = {
-        'id_Factura': id_Factura,
-        'giro': giro,
-        'fecha': time.strftime('%m/%d/%Y, %H:%M:%S', time.localtime()),
-        'iva':iva,
-        'neto':neto,
-        'vendedor':vendedor,
-        'total':total,
-        'nombreVendedor': dao.getName(vendedor).capitalize(),
-        'venta' : venta,
-        'razonsocial':razonSocial,
-        'rutCliente':rutCliente,
-        'direccion':direccion
+@app.route('/puntodeventa/venta/Factura/pagar/<id>' , methods=['GET','POST'] )
+def emitirFactura(id):
+    if request.method == 'POST':
+        giro = request.form['giroFactura']
+        razonSocial = request.form['razon']
+        rutCliente = request.form['rut']
+        direccion= request.form['direccion'] 
+        venta = dao.readTemp(id)
+        id_Factura = dao.codNueva_Factura()
 
-    }
-    return render_template('plantilla_factura.html', data= data)
+        total = dao.precioTotal_temp(tempCode)
+        fecha = time.strftime('%Y-%m-%d', time.localtime())
+        iva = dao.precioIVA_temp(tempCode)
+        vendedor = session['rut']
+        neto = dao.precioNETO_temp(tempCode)
+
+        
+        dao.ingresarFactura(id_Factura,razonSocial,rutCliente,direccion,giro,iva,neto,fecha,vendedor)
+        for i in venta:
+            id_producto = i[0]
+            cantidad =i[3]
+            id_documento = id_Factura
+            precio = i[2]
+            dao.ingresarDetalles(id_producto,cantidad,id_documento,precio)
+        
+        data = {
+            'id_Factura': id_Factura,
+            'giro': giro,
+            'fecha': time.strftime('%m/%d/%Y, %H:%M:%S', time.localtime()),
+            'iva':iva,
+            'neto':neto,
+            'vendedor':vendedor,
+            'total':total,
+            'nombreVendedor': dao.getName(vendedor).capitalize(),
+            'venta' : venta,
+            'razonsocial':razonSocial,
+            'rutCliente':rutCliente,
+            'direccion':direccion
+
+        }
+        return render_template('plantilla_factura.html', data= data)
 
 
 

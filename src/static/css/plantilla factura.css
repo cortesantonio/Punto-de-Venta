@@ -36,6 +36,7 @@
 .info-factura {
     display: flex;
     margin-bottom: 20px;
+    text-transform: uppercase;
 }
 
 .info-factura>div {
@@ -43,10 +44,13 @@
 }
 
 .detalle-venta table {
-    text-align: center;
+    text-align: right;
     margin: 20px auto;
     border: 1px solid;
+    padding: 5px;
+    
 }
+
 
 table th {
     width: 200px;
