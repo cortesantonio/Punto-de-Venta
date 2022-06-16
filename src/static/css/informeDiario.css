@@ -1,0 +1,49 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.boleta {
+    margin: 50px auto;
+    text-align: center;
+}
+
+table {
+    margin: auto;
+    width: 100%;
+    padding: 20px;
+    text-transform: capitalize;
+}
+
+tr {
+    background-color: wheat;
+    padding: 4px;
+}
+
+.factura {
+    margin: 50px auto;
+    text-align: center;
+}
+
+.container {
+    display: grid;
+    width: 80%;
+    margin: auto;
+    grid-template-columns: 1fr 1fr;
+}
+
+.busqueda {
+    text-align: center;
+    width: 80%;
+    margin:  auto;
+
+}
+.busqueda form input{
+    width: 80%;
+    padding: 10px;
+}
+.busqueda form button{
+    border-radius: 50%;
+    padding: 5px;
+    border: 1px solid gray;
+}

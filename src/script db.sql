@@ -62,7 +62,7 @@ create table Factura(
 	razon_social varchar(200),
 	rut varchar(200),
 	direccion varchar(200),
-	giro int,
+	giro varchar(200),
 	iva int,
 	neto int,
 	fecha date,

@@ -1,5 +1,6 @@
 
 import re
+import string
 import mysql.connector
 from mysql.connector import errorcode
 
@@ -223,6 +224,34 @@ class DAO:
         cursor.execute(sql, data)
         self.cnx.commit()    
         
+###     INFORME DE VENTA
+    def ventasConFactura(self,fecha):
+        cursor = self.cnx.cursor()
+        sql = "select id_factura,iva,neto,nombre, usuario.rut from factura inner join usuario on factura.vendedor_emisor= usuario.rut where fecha = %s"
+        data = (fecha,)
+        cursor.execute(sql, data)
+        return cursor.fetchall()
+    def ventasConBoleta(self,fecha):
+        cursor = self.cnx.cursor()
+        sql = "select id_boleta,iva,total,nombre, usuario.rut from boleta inner join usuario on boleta.vendedor_emisor= usuario.rut where fecha =%s"
+        data = (fecha,)
+        cursor.execute(sql, data)
+        return cursor.fetchall()
+
+
+    def ventasConFacturaTODAS(self):
+        cursor = self.cnx.cursor()
+        sql = "select id_factura,iva,neto,nombre, usuario.rut from factura inner join usuario on factura.vendedor_emisor= usuario.rut"
+        cursor.execute(sql)
+        return cursor.fetchall()
+    def ventasConBoletaTODAS(self):
+        cursor = self.cnx.cursor()
+        sql = "select id_boleta,iva,total,nombre, usuario.rut from boleta inner join usuario on boleta.vendedor_emisor= usuario.rut"
+        cursor.execute(sql)
+        return cursor.fetchall()
+
+
+
 ## ver cantidad de ventas.
     def cantidadDeVentasBoleta(self, fecha):
         cursor = self.cnx.cursor()
@@ -261,11 +290,46 @@ class DAO:
         data = (fecha,)
         cursor.execute(sql,data)
         r = cursor.fetchone()
-        if r[0] == 'None':
-            return 0
-        else:
-            return r[0]
-        
+        return r[0]
+    def esBoleta(self, cod):
+        cursor = self.cnx.cursor()
+        sql = ' select count(*) from boleta where id_boleta = %s'
+        data = (cod,)
+        cursor.execute(sql,data)
+        r = cursor.fetchone()
+        return r[0]
+    
+    def verBoleta(self,codigo):
+        cursor = self.cnx.cursor()
+        sql = "select  * from boleta  boleta where id_boleta =%s "
+        data = (codigo,)
+        cursor.execute(sql,data)
+        return cursor.fetchall()[0]
+    def verFactura(self,codigo):
+        cursor = self.cnx.cursor()
+        sql = "select  * from factura  boleta where id_factura =%s "
+        data = (codigo,)
+        cursor.execute(sql,data)
+        return cursor.fetchall()[0]
+    def verDetalles(self, cod):
+        cursor = self.cnx.cursor()
+        sql = "select  id_producto, nombre, producto.precio, cantidad,detalle.precio*cantidad from   detalle inner join producto on detalle.id_producto = producto.id where id_documento =  %s"
+        data = (cod,)
+        cursor.execute(sql,data)
+        return cursor.fetchall()
+
+
+
+### trabajador en jornada
+
+
+    def verTrabajadoresEnJornada(self, fecha):
+        cursor = self.cnx.cursor()
+        sql = "select nombre from usuario inner join factura on factura.vendedor_emisor = usuario.rut  where factura.fecha = %s group by nombre;"
+        data = (fecha,)
+        cursor.execute(sql,data)
+        return cursor.fetchall()
+
 
 #### LISTADO DE VENTA: VENDEDOR.
 
@@ -282,12 +346,23 @@ class DAO:
         sql = 'select count(*)+1 from boleta'
         cursor.execute(sql,)
         return cursor.fetchone()[0]
+
     def codNueva_Factura(self):
         cursor = self.cnx.cursor()
         sql = 'select count(*)+1 from factura'
         cursor.execute(sql,)
         return cursor.fetchone()[0]
 
+    def codNuevo_documento(self):
+        cursor = self.cnx.cursor()
+        sql = 'select count(*)+1 from boleta'
+        cursor.execute(sql,)
+        bol = cursor.fetchone()[0]
+        cursor = self.cnx.cursor()
+        sql = 'select count(*)+1 from factura'
+        cursor.execute(sql,)
+        fac = cursor.fetchone()[0]
+        return bol + fac
 
 
 
@@ -402,4 +477,4 @@ class DAO:
 
 dao = DAO()
 #print(dao.readTemp(2147483647))
-print(dao.recaudacionBoleta('2022-06-13'))
+print(dao.verTrabajadoresEnJornada('2022-06-15'))

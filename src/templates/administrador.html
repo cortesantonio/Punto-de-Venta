@@ -47,14 +47,24 @@
         <div class="switch-jornada">
             <p>la jornada se encuentra </p>
             <h1>{{data.estadoJornada}}</h1>
+
+
+
             <form name="jornada" action="/gestor de jornada/switch" method="GET">
                 <button type="submit"><i class="fa-solid fa-power-off"></i></button>
             </form>
+            {% if data.estadoJornada == 'cerrada' %}
+            <a href="/informeventa/hoy">Obtener informe</a>
+            {% else %}
+            {% endif %}
         </div>
         <div class="recaudacion">
-            <h1>${{data.recaudacionTolal}}</h1>
-            <p>recaudacion de hoy <br>{{data.fechaFormateada}}</p> 
-            
+            <div class="monto">
+                <h2><span>Boletas</span> $ {{data.recaudacionBoleta}} </h2>
+                <h2><span>Facturas</span> $ {{data.recaudacionFactura}}</h2>
+            </div>
+            <p>recaudacion de hoy <br>{{data.fechaFormateada}}</p>
+
         </div>
         <div class="productos-en-inventario">
             <p>productos registrados</p>
@@ -74,13 +84,13 @@
         <a href="{{url_for('crud_inventario')}}">
             <div>Gestionar Inventario</div>
         </a>
-        <a href="">
+        <a href="/informeventa">
             <div>Obtener informe de venta</div>
         </a>
         <a href="">
             <div>informe de Trabajadores</div>
         </a>
-        
+
     </div>
 </section>
 

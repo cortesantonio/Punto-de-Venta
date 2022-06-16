@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="../static/css/informeHoy.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <header>
+            <h1>Informe de Jornada</h1>
+            <p>Hoy {{data.fecha}}</p>
+        </header>
+
+        <section>
+            <div class="div1">
+                <div class="ventas">
+                    <p>Cantidad de ventas realizadas hoy.</p>
+
+                    <ul>
+                        <li>
+                            Cantidades de ventas con Boleta: {{data.cantidadVentasBoleta}}
+                        </li>
+                        <li>
+                            Cantidades de Ventas con Factura: {{data.cantidadVentasFactura}}
+                        </li>
+                        <li>Cantidad de Ventas Totales: {{data.cantidadVentasBoleta + data.cantidadVentasFactura}}</li>
+                    </ul>
+
+                </div>
+
+                <div class="recaudacion">
+                    <p>Recaudacion de hoy</p>
+                    <ul>
+                        <li>recaudacion Boletas: ${{data.recaudacionBoleta}}</li>
+                        <li>recaudacion Facturas: ${{data.recaudacionFactura}}</li>
+                    </ul>
+
+                </div>
+                <div class="trabajadores">
+                    <p>Colaboradores que trabajaron hoy</p>
+                    <ul>
+                        <li>{}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="div2">
+
+                <div class="boleta">
+                    <caption>Ventas realizadas con Boleta</caption>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>codigo</th>
+                                <th>IVA</th>
+                                <th>Neto</th>
+                                <th>vendedor</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in data.ventasBoleta %}
+                            <tr>
+                                <td>{{i[0]}}</td>
+                                <td>${{i[1]}}</td>
+                                <td>${{i[2]}}</td>
+                                <td>{{i[3]}} RUT. {{i[4]}}</td>
+                                <td><a href="/informeventa/documentoN/{{i[0]}}">mas detalles boleta n' {{i[0]}}</a></td>
+                            </tr>
+                            {%endfor%}
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div class="factura">
+                    <caption>Ventas realizadas con Factura</caption>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Codigo</th>
+                                <th>IVA</th>
+                                <th>Neto</th>
+                                <th>vendedor</th>
+                                <th>Acciones</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in data.ventasFactura %}
+                            <tr>
+                                <td>{{i[0]}}</td>
+                                <td>${{i[1]}}</td>
+                                <td>${{i[2]}}</td>
+                                <td>{{i[3]}} RUT. {{i[4]}}</td>
+                                <td><a href="/informeventa/documentoN/{{i[0]}}">ver detalles</a></td>
+                            </tr>
+                            {%endfor%}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </section>
+    </div>
+
+</body>
+
+</html>

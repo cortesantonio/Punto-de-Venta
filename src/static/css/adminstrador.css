@@ -1,3 +1,7 @@
+*{
+    padding: 0;
+    margin: 0;
+}
 .user .nombreUsuario {
     font-size: 20px;
     text-transform: capitalize;
@@ -79,6 +83,7 @@
     text-transform: capitalize;
     font-size: 1rem;
 }
+
 .switch-jornada h1 {
     margin-top: 5px;
     font-size: 3rem;
@@ -86,35 +91,50 @@
     color: white;
     text-transform: capitalize;
 }
-.switch-jornada form button{
+.switch-jornada a {
+    color: white;
+    padding-top: 10px;
+}
+
+.switch-jornada form button {
     margin-top: 10px;
+    margin-bottom: 10px;
     width: 50%;
     height: 40px;
     border: none;
     font-size: 18px;
     border-radius: 5px;
 }
-.recaudacion{
+
+.recaudacion {
     color: white;
     text-transform: capitalize;
     background-color: rgb(0, 0, 87);
 }
-.recaudacion h1{
+
+.recaudacion .monto {
     margin-top: 25px;
-    font-size: 2rem;
+    font-size: 1.4rem;
 }
-.recaudacion p{
+
+.recaudacion .monto h2 span {
+    font-size: 12px;
+    padding: 0;
+    margin: 0;
+}
+
+.recaudacion p {
     margin-top: 25px;
     font-size: 1rem;
 }
 
-.productos-en-inventario{
+.productos-en-inventario {
     background-color: rgb(0, 0, 87);
     color: white;
 }
 
 .productos-en-inventario p,
-.productos-en-inventario a{
+.productos-en-inventario a {
     margin-top: 25px;
     text-transform: capitalize;
     font-size: 1rem;
@@ -122,7 +142,7 @@
     text-decoration: none;
 }
 
-.productos-en-inventario h1{
+.productos-en-inventario h1 {
     margin-top: 5px;
     margin-bottom: 20px;
     font-size: 3rem;
@@ -130,16 +150,19 @@
     color: white;
     text-transform: capitalize;
 }
-.opcionesAdm{
+
+.opcionesAdm {
     margin: 50px auto;
     display: grid;
-    grid-template-columns: repeat(4,1fr);
+    grid-template-columns: repeat(4, 1fr);
 }
-.opcionesAdm > a {
+
+.opcionesAdm>a {
     margin: 5px auto;
     width: 250px;
     border-radius: 5px;
 }
+
 .opcionesAdm a {
     padding: 20px;
     border: 1px solid black;

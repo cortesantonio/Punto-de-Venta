@@ -1,0 +1,46 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    width: 80%;
+    border: 1px solid black;
+    margin: 50px auto;
+    text-align: center;
+}
+
+header {
+    background-color: wheat;
+
+}
+section{
+    text-align: left;
+    padding: 25px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+}
+.div1 > div {
+    margin: 15px;
+}
+.div1 > div > p{
+    font-weight: 900;
+    font-size: 18px;
+}
+
+table {
+    margin: auto;
+    text-align: left;
+    text-transform: capitalize;
+    width: 90%;
+    background-color: wheat;
+
+}
+table thead{
+    background-color: rgb(255, 170, 0);
+}
+.div2 > div{
+    margin-bottom: 25px;
+}
+

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/informeDiario.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="busqueda">
+        <h3>BUSQUEADA POR CODIGO</h3>
+        <form action="/informeventa/documentoN/" method="POST">
+            <input type="search" placeholder="Ingrese codigo de Documento." name="codigoDocumento" id="">
+            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
+    </div>
+    <div class="busqueda">
+        <h3>BUSQUEDA POR DIA</h3>
+        <form action="/informeventa" method="POST">
+            <input type="date" name="diaBusqueda">
+            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
+    </div>
+    <div class="container">
+
+
+        <div class="boleta">
+            <h1>Boletas</h1>
+            <caption>Ventas realizadas con Boleta</caption>
+            <table>
+                <thead>
+                    <tr>
+                        <th>codigo</th>
+                        <th>IVA</th>
+                        <th>Neto</th>
+                        <th>vendedor</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in data.ventasBoleta %}
+                    <tr>
+                        <td>{{i[0]}}</td>
+                        <td>${{i[1]}}</td>
+                        <td>${{i[2]}}</td>
+                        <td>{{i[3]}} RUT. {{i[4]}}</td>
+                        <td><a href="/informeventa/documentoN/{{i[0]}}">mas detalles boleta n' {{i[0]}}</a></td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+
+        </div>
+
+        <div class="factura">
+            <h1>Facturas</h1>
+            <caption>Ventas realizadas con Factura</caption>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Codigo</th>
+                        <th>IVA</th>
+                        <th>Neto</th>
+                        <th>vendedor</th>
+                        <th>Acciones</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in data.ventasFactura %}
+                    <tr>
+                        <td>{{i[0]}}</td>
+                        <td>${{i[1]}}</td>
+                        <td>${{i[2]}}</td>
+                        <td>{{i[3]}} RUT. {{i[4]}}</td>
+                        <td><a href="/informeventa/documentoN/{{i[0]}}"> mas detalles factura n' {{i[0]}}</a></td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</body>
+
+</html>

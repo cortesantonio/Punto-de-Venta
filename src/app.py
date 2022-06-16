@@ -174,7 +174,7 @@ def venta_boleta():
                     'tipo_venta':'boleta',
                     'rut':session['rut'],
                     'nombre':dao.getName(session['rut']),
-                    'id_boleta':dao.codNueva_Boleta(),
+                    'id_boleta':dao.codNuevo_documento(),
                     'listado': dao.readTemp(tempCode),
                    'cod_temp':tempCode,
                 'total':dao.precioTotal_temp(tempCode),
@@ -196,7 +196,7 @@ def cancelarBoleta(id):
 @app.route('/puntodeventa/venta/boleta/pagar/<id>')
 def pagar(id):
     venta = dao.readTemp(id)
-    id_Boleta = dao.codNueva_Boleta()
+    id_Boleta = dao.codNuevo_documento()
     total = dao.precioTotal_temp(tempCode)
     fecha = time.strftime('%Y-%m-%d', time.localtime())
     iva = dao.precioIVA_temp(tempCode)
@@ -237,7 +237,7 @@ def venta_factura():
                 'tipo_venta':'factura',
                 'rut':session['rut'],
                 'nombre':dao.getName(session['rut']),
-                'id_factura':dao.codNueva_Factura(),
+                'id_factura':dao.codNuevo_documento(),
                 'listado': dao.readTemp(tempCode),
                 'cod_temp':tempCode,
                 'total':dao.precioTotal_temp(tempCode),
@@ -305,7 +305,7 @@ def substracProductTempfac(id):
 def clienteFactura(id):
     if request.method == 'GET':
         data = {
-        'id_Factura': dao.codNueva_Factura(),
+        'id_Factura': dao.codNuevo_documento(),
         'iva' : dao.precioIVA_temp(tempCode),
         'neto':dao.precioNETO_temp(tempCode),
         'total':dao.precioTotal_temp(tempCode),
@@ -323,7 +323,7 @@ def emitirFactura(id):
         rutCliente = request.form['rut']
         direccion= request.form['direccion'] 
         venta = dao.readTemp(id)
-        id_Factura = dao.codNueva_Factura()
+        id_Factura = dao.codNuevo_documento()
 
         total = dao.precioTotal_temp(tempCode)
         fecha = time.strftime('%Y-%m-%d', time.localtime())
@@ -376,7 +376,6 @@ def administracion():
                 'totalVentas': dao.cantidadDeVentasFactura(fecha) + dao.cantidadDeVentasBoleta(fecha),
                 'recaudacionBoleta':dao.recaudacionBoleta(fecha),
                 'recaudacionFactura':dao.recaudacionFactura(fecha),
-                'recaudacionTolal':dao.recaudacionBoleta(fecha) + dao.recaudacionFactura(fecha) ,
                 'estadoJornada':dao.verJornada(fecha),
                 'fechaFormateada': fechaFormateada,
                 'totalProductos': dao.totalRegistroProductos(),
@@ -388,6 +387,121 @@ def administracion():
     else:
         return redirect('/login')
 
+@app.route('/informeventa', methods=['GET','POST'] )
+def informedeventa():
+    if request.method == 'POST':
+        fecha = request.form['diaBusqueda']
+        data = {
+        'ventasFactura': dao.ventasConFactura(fecha),
+        'ventasBoleta':dao.ventasConBoleta(fecha),
+        'fecha':fecha
+        }
+        return render_template ('informeDiario.html',data=data)
+    else: 
+        data = {
+            'ventasFactura': dao.ventasConFacturaTODAS(),
+            'ventasBoleta':dao.ventasConBoletaTODAS(),
+            'fecha':time.strftime('%Y-%m-%d', time.localtime())
+        }
+        return render_template ('informeDiario.html',data=data)
+
+@app.route('/informeventa/hoy', methods=['GET','POST'] )
+def informedeventaHoy():
+    if request.method == 'GET':
+        fecha = time.strftime('%Y-%m-%d', time.localtime())
+        data = {
+        'ventasFactura': dao.ventasConFactura(fecha),
+        'ventasBoleta':dao.ventasConBoleta(fecha),
+        'cantidadVentasBoleta' : dao.cantidadDeVentasBoleta(fecha),
+        'cantidadVentasFactura' : dao.cantidadDeVentasFactura(fecha),
+        'recaudacionBoleta':dao.recaudacionBoleta(fecha),
+        'recaudacionFactura': dao.recaudacionFactura(fecha),
+        'fecha':fecha
+        }
+        return render_template ('informeHoy.html',data=data)
+    
+
+
+@app.route('/informeventa/documentoN/', methods=['GET','POST'] )
+def busquedaDocumento():
+    if request.method == 'POST':
+        cod = request.form['codigoDocumento']
+        r  = dao.esBoleta(cod)
+        if r ==1:
+            # es boleta 
+            boleta = dao.verBoleta(cod)
+
+            data = {
+            'id_boleta': boleta[0],
+            'total': boleta[1],
+            'fecha': boleta[2],
+            'iva':boleta[3],
+            'vendedor':boleta[4],
+            'venta': dao.verDetalles(boleta[0]), # corregir
+            'nombreVendedor': dao.getName(boleta[4]),
+
+            }
+            return render_template('plantilla_boleta.html', data= data)
+        elif r == 0: 
+            factura = dao.verFactura(cod)
+
+            data = {
+                'id_Factura': factura[0],
+                'giro': factura[4],
+                'fecha': factura[7],
+                'iva':factura[5],
+                'neto':factura[6],
+                'vendedor':factura[8],
+                'total':factura[6],
+                'nombreVendedor': dao.getName(factura[8]).capitalize(),
+                'razonsocial':factura[1],
+                'venta': dao.verDetalles(factura[0]), # corregir
+
+                'rutCliente':factura[2],
+                'direccion':factura[3]
+
+            }
+            return render_template('plantilla_factura.html', data= data)
+
+@app.route('/informeventa/documentoN/<cod>', methods=['GET','POST'] )
+def detalleDocumento(cod):
+        r  = dao.esBoleta(cod)
+        if r ==1:
+            # es boleta 
+            boleta = dao.verBoleta(cod)
+
+            data = {
+            'id_boleta': boleta[0],
+            'total': boleta[1],
+            'fecha': boleta[2],
+            'iva':boleta[3],
+            'vendedor':boleta[4],
+            'venta': dao.verDetalles(boleta[0]), # corregir
+            'nombreVendedor': dao.getName(boleta[4]),
+
+            }
+            return render_template('plantilla_boleta.html', data= data)
+        elif r == 0: 
+            factura = dao.verFactura(cod)
+
+            data = {
+                'id_Factura': factura[0],
+                'giro': factura[4],
+                'fecha': factura[7],
+                'iva':factura[5],
+                'neto':factura[6],
+                'vendedor':factura[8],
+                'total':factura[6],
+                'nombreVendedor': dao.getName(factura[8]).capitalize(),
+                'razonsocial':factura[1],
+                'venta': dao.verDetalles(factura[0]), # corregir
+
+                'rutCliente':factura[2],
+                'direccion':factura[3]
+
+            }
+            return render_template('plantilla_factura.html', data= data)
+    
 
 
 # FUNCION DE ADMINISTRADOR: ADMINISTRAR USUARIOS 
@@ -522,7 +636,8 @@ def activarJornada():
             dao.crearJornada(fecha)
             redirect ('/administracion')
         elif verJornada== 'abierta':
-            dao.cerrarJornada(fecha)
+            dao.cerrarJornada(fecha)  
+            redirect ('/administracion')
         elif verJornada == 'cerrada':
             dao.activarJornada(fecha)
     return redirect('/administracion')
