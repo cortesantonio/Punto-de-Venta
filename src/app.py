@@ -1,7 +1,5 @@
 from flask import *
-import flask
 from conexion import *
-from flask import session
 import time
 import random
 
@@ -265,9 +263,6 @@ def addListadFactura():
             pass
         else:
             id = resultado[0]
-            nombre = resultado[1]
-            precio = resultado[2]
-
             if dao.comprobarExistenciaEnlista(id,tempCode) > 0:
                 dao.aumentarCantidad_deProduto(id,tempCode)
    
@@ -437,7 +432,7 @@ def busquedaDocumento():
             'fecha': boleta[2],
             'iva':boleta[3],
             'vendedor':boleta[4],
-            'venta': dao.verDetalles(boleta[0]), # corregir
+            'venta': dao.verDetalles(boleta[0]), 
             'nombreVendedor': dao.getName(boleta[4]),
 
             }
@@ -455,7 +450,7 @@ def busquedaDocumento():
                 'total':factura[6],
                 'nombreVendedor': dao.getName(factura[8]).capitalize(),
                 'razonsocial':factura[1],
-                'venta': dao.verDetalles(factura[0]), # corregir
+                'venta': dao.verDetalles(factura[0]),
 
                 'rutCliente':factura[2],
                 'direccion':factura[3]

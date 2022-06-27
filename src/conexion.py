@@ -323,9 +323,16 @@ class DAO:
 ### trabajador en jornada
 
 
-    def verTrabajadoresEnJornada(self, fecha):
+    def verTrabajadoresEnJornada_factura(self, fecha):
         cursor = self.cnx.cursor()
-        sql = "select nombre from usuario inner join factura on factura.vendedor_emisor = usuario.rut  where factura.fecha = %s group by nombre;"
+        sql = "select nombre, usuario.rut from usuario inner join factura on factura.vendedor_emisor = usuario.rut  where factura.fecha = %s group by nombre;"
+        data = (fecha,)
+        cursor.execute(sql,data)
+        return cursor.fetchall()
+
+    def verTrabajadoresEnJornada_boelta(self, fecha):
+        cursor = self.cnx.cursor()
+        sql = "select nombre,usuario.rut from usuario inner join boleta on boleta.vendedor_emisor = usuario.rut  where boleta.fecha = %s group by nombre;"
         data = (fecha,)
         cursor.execute(sql,data)
         return cursor.fetchall()
@@ -475,6 +482,3 @@ class DAO:
 
  
 
-dao = DAO()
-#print(dao.readTemp(2147483647))
-print(dao.verTrabajadoresEnJornada('2022-06-15'))

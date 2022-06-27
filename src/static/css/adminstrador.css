@@ -44,9 +44,10 @@
 }
 
 .widget {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    display: flex;
+    flex-wrap: wrap;
     margin: auto;
+    gap: 25px;
 }
 
 .widget>div {
@@ -153,8 +154,9 @@
 
 .opcionesAdm {
     margin: 50px auto;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
 .opcionesAdm>a {
