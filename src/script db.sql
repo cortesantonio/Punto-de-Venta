@@ -79,9 +79,7 @@ create table detalle(
     cantidad int,
     id_documento int, 
     precio int,
-    primary key(id),
-	FOREIGN KEY (id_producto) REFERENCES producto(id),
-	FOREIGN KEY (id_documento) REFERENCES  boleta(id_boleta)  
+    primary key(id)
     
 );
  

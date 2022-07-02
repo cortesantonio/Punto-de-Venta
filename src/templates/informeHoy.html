@@ -30,29 +30,80 @@
                         <li>
                             Cantidades de Ventas con Factura: {{data.cantidadVentasFactura}}
                         </li>
-                        <li>Cantidad de Ventas Totales: </li>
+                        <li>Cantidad de Ventas Totales: {{data.cantidadVentasBoleta + data.cantidadVentasFactura}} </li>
                     </ul>
 
                 </div>
 
                 <div class="recaudacion">
-                    <p>Recaudacion de hoy</p>
+                    <p>Recaudacion con Boletas:</p>
                     <ul>
-                        <li>Recaudacion Boletas: ${{data.recaudacionBoleta}}</li>
+                        <li>NETO: ${{data.recaudacionBoletaNeto}}</li>
+                        <li>IVA: ${{data.recaudacionBoletaIVA}}</li>
+
+                        <li>TOTAL: ${{data.recaudacionBoletaTotal}}</li>
+                    </ul>
+                    <p>Recaudacion Con Facturas:</p>
+                    <ul>
                         <li>Recaudacion Facturas: ${{data.recaudacionFactura}}</li>
 
                     </ul>
 
                 </div>
                 <div class="trabajadores">
-                    <p>Colaboradores que trabajaron hoy</p>
+                    <h3>Listado de trabajadores</h3>
+
+                    <h4>Emitieron Boletas</h4>
                     <ul>
-                        <li>{}</li>
+                        {% for i in data.emisor_boleta %}
+                        <li>{{i[0]}}</li>
+
+                        {%endfor%}
+                    </ul>
+
+                    <h4>Emitieron Facturas</h4>
+
+                    <ul>
+                        {%for i in data.emisor_factura%}
+                        <li>{{i[0]}}</li>
+                        {%endfor%}
+
                     </ul>
                 </div>
             </div>
             <div class="div2">
 
+
+
+                <div class="factura">
+                    <caption>Ventas realizadas con Factura</caption>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Codigo</th>
+                                <th>Neto</th>
+                                <th>IVA</th>
+                                <th>Total</th>
+                                <th>vendedor</th>
+                                <th></th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in data.ventasFactura %}
+                            <tr>
+                                <td>{{i[0]}}</td>
+                                <td>${{i[2]-i[1]}}</td>
+                                <td>${{i[1]}}</td>
+                                <td>${{i[2]}}</td>
+                                <td>{{i[3]}} RUT. {{i[4]}}</td>
+                                <td><a href="/informeventa/documentoN/{{i[0]}}">ver detalles</a></td>
+                            </tr>
+                            {%endfor%}
+                        </tbody>
+                    </table>
+
+                </div>
                 <div class="boleta">
                     <caption>Ventas realizadas con Boleta</caption>
                     <table>
@@ -60,9 +111,9 @@
                             <tr>
                                 <th>codigo</th>
                                 <th>IVA</th>
-                                <th>Neto</th>
+                                <th>Total</th>
                                 <th>vendedor</th>
-                                <th>Acciones</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -72,35 +123,7 @@
                                 <td>${{i[1]}}</td>
                                 <td>${{i[2]}}</td>
                                 <td>{{i[3]}} RUT. {{i[4]}}</td>
-                                <td><a href="/informeventa/documentoN/{{i[0]}}">mas detalles boleta n' {{i[0]}}</a></td>
-                            </tr>
-                            {%endfor%}
-                        </tbody>
-                    </table>
-
-                </div>
-
-                <div class="factura">
-                    <caption>Ventas realizadas con Factura</caption>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Codigo</th>
-                                <th>IVA</th>
-                                <th>Neto</th>
-                                <th>vendedor</th>
-                                <th>Acciones</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for i in data.ventasFactura %}
-                            <tr>
-                                <td>{{i[0]}}</td>
-                                <td>${{i[1]}}</td>
-                                <td>${{i[2]}}</td>
-                                <td>{{i[3]}} RUT. {{i[4]}}</td>
-                                <td><a href="/informeventa/documentoN/{{i[0]}}">ver detalles</a></td>
+                                <td><a href="/informeventa/documentoN/{{i[0]}}">Ver detalles</a></td>
                             </tr>
                             {%endfor%}
                         </tbody>

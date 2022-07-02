@@ -250,7 +250,21 @@ class DAO:
         cursor.execute(sql)
         return cursor.fetchall()
 
+## ver trabajadores de la jornada
+    def trabajador_emisor_boleta(self, fecha):
+        cursor = self.cnx.cursor()
+        sql = "SELECT usuario.nombre from boleta INNER join usuario on usuario.rut = boleta.vendedor_emisor where boleta.fecha = %s GROUP by usuario.nombre "
+        data = (fecha,)
+        cursor.execute(sql,data)
+        return cursor.fetchall()
 
+    def trabajador_emisor_factura(self, fecha):
+        cursor = self.cnx.cursor()
+        sql = "SELECT usuario.nombre from factura INNER join usuario on usuario.rut = factura.vendedor_emisor where factura.fecha = %s GROUP by usuario.nombre "
+        data = (fecha,)
+        cursor.execute(sql,data)
+        return cursor.fetchall()
+        
 
 ## ver cantidad de ventas.
     def cantidadDeVentasBoleta(self, fecha):
@@ -274,16 +288,29 @@ class DAO:
             return '0'
         else:
             return r[0]
-    def recaudacionBoleta(self,fecha):
+    def recaudacionBoletaNeto(self,fecha):
         cursor = self.cnx.cursor()
-        sql = ' select sum(total) from boleta where fecha = %s'
+        sql = ' select TRUNCATE(sum(total)*0.81,0) from boleta where fecha = %s'
         data = (fecha,)
         cursor.execute(sql,data)
         r = cursor.fetchone()
-        if r[0] == 'None':
-            return 0
-        else:
-            return r[0]
+        return r[0]
+    def recaudacionBoletaIVA(self,fecha):
+        cursor = self.cnx.cursor()
+        sql = ' select TRUNCATE(sum(total)*0.19,0) from boleta  where fecha = %s'
+        data = (fecha,)
+        cursor.execute(sql,data)
+        r = cursor.fetchone()
+        return r[0]
+    def recaudacionBoletaTotal(self,fecha):
+        cursor = self.cnx.cursor()
+        sql = ' select sum(total) from boleta  where fecha = %s'
+        data = (fecha,)
+        cursor.execute(sql,data)
+        r = cursor.fetchone()
+        return r[0]
+
+
     def recaudacionFactura(self,fecha):
         cursor = self.cnx.cursor()
         sql = ' select sum(neto) from factura where fecha = %s'
@@ -478,7 +505,5 @@ class DAO:
         cursor.execute(sql, data)
         self.cnx.commit()
     
-
-
  
 

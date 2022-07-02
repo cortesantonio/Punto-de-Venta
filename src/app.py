@@ -369,7 +369,7 @@ def administracion():
                 'ventasBoleta': dao.cantidadDeVentasBoleta(fecha),
                 'ventasFactura':dao.cantidadDeVentasFactura(fecha),
                 'totalVentas': dao.cantidadDeVentasFactura(fecha) + dao.cantidadDeVentasBoleta(fecha),
-                'recaudacionBoleta':dao.recaudacionBoleta(fecha),
+                'recaudacionBoleta':dao.recaudacionBoletaTotal(fecha),
                 'recaudacionFactura':dao.recaudacionFactura(fecha),
                 'estadoJornada':dao.verJornada(fecha),
                 'fechaFormateada': fechaFormateada,
@@ -409,9 +409,36 @@ def informedeventaHoy():
         'ventasBoleta':dao.ventasConBoleta(fecha),
         'cantidadVentasBoleta' : dao.cantidadDeVentasBoleta(fecha),
         'cantidadVentasFactura' : dao.cantidadDeVentasFactura(fecha),
-        'recaudacionBoleta':dao.recaudacionBoleta(fecha),
+        'recaudacionBoletaTotal':dao.recaudacionBoletaTotal(fecha),
+        'recaudacionBoletaIVA': dao.recaudacionBoletaIVA(fecha),
+        'recaudacionBoletaNeto': dao.recaudacionBoletaNeto(fecha),
+
         'recaudacionFactura': dao.recaudacionFactura(fecha),
-        'fecha':fecha
+        'fecha':fecha,
+        
+        'emisor_boleta': dao.trabajador_emisor_boleta(fecha),
+        'emisor_factura': dao.trabajador_emisor_factura(fecha)
+
+        }
+        return render_template ('informeHoy.html',data=data)
+    
+## aregar metodo de llegada
+@app.route('/informeventa/<fecha>', methods=['GET','POST'] )
+def informedeventade(fecha):
+    if request.method == 'GET':
+        fecha = fecha
+        data = {
+        'ventasFactura': dao.ventasConFactura(fecha),
+        'ventasBoleta':dao.ventasConBoleta(fecha),
+        'cantidadVentasBoleta' : dao.cantidadDeVentasBoleta(fecha),
+        'cantidadVentasFactura' : dao.cantidadDeVentasFactura(fecha),
+        'recaudacionBoletaTotal':dao.recaudacionBoletaTotal(fecha),
+        'recaudacionBoletaIVA': dao.recaudacionBoletaIVA(fecha),
+        'recaudacionBoletaNeto': dao.recaudacionBoletaNeto(fecha),
+        'recaudacionFactura': dao.recaudacionFactura(fecha),
+        'fecha':fecha,
+        'emisor_boleta': dao.trabajador_emisor_boleta(fecha),
+        'emisor_factura': dao.trabajador_emisor_factura(fecha)
         }
         return render_template ('informeHoy.html',data=data)
     
