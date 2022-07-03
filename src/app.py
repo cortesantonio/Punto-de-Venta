@@ -382,7 +382,7 @@ def administracion():
     else:
         return redirect('/login')
 
-@app.route('/informeventa', methods=['GET','POST'] )
+@app.route('/registrodeventas', methods=['GET','POST'] )
 def informedeventa():
     if request.method == 'POST':
         fecha = request.form['diaBusqueda']
@@ -399,6 +399,30 @@ def informedeventa():
             'fecha':time.strftime('%Y-%m-%d', time.localtime())
         }
         return render_template ('informeDiario.html',data=data)
+@app.route('/informesdeventas', methods = ['GET','POST' ])
+def informesdeventas():
+    if request.method == 'GET':
+        data = {
+            'listadoJornadas':dao.verJornadas()
+        }
+        return render_template ('informesdeventas.html',data=data)
+
+@app.route('/informesdeventasportrabajador', methods = ['GET','POST' ])
+def informesdeventasXtrabajador():
+    try:
+        if request.method == 'POST':
+            busquedaXrut = request.form['rutenjornada']
+            data = {
+                'listadoJornadas':dao.trabajadoresEnjornadas(busquedaXrut)
+            }
+            return render_template ('informesdeventas.html',data=data)
+    except:
+        data = {
+            'listadoJornadas':dao.verJornadas()
+        }
+        return render_template ('informesdeventas.html',data=data)
+
+
 
 @app.route('/informeventa/hoy', methods=['GET','POST'] )
 def informedeventaHoy():
