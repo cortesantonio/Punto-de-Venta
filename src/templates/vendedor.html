@@ -33,14 +33,15 @@ Punto de venta
     </div>
 </nav>
 
+
 {% if data.jornada == 'abierta' %}
 <div class="estado">
-    <h1>La Jornada esta: <span style="color:green;">{{data.jornada}}</span> </h1>
+    <h1>Estado de Jornada: <span style="color:green;">{{data.jornada}}.</span> </h1>
     <p>ventas habilitadas</p>
     <div class="line"></div>
 </div>
 <div class="container">
-    <button id="myBtn">Nueva Venta</button>
+    <button id="myBtn" style="font-size: 2rem;">Nueva Venta</button>
     <a href="/catalogo">Consultar Precio</a>
 </div>
 
@@ -53,7 +54,7 @@ Punto de venta
 </div>
 
 <div class="container">
-    <button id="" disabled style="background-color: gray;cursor:auto;">Nueva Venta</button>
+    <button id="" disabled style="background-color: gray;cursor:auto;font-size:3rem ;">Nueva Venta</button>
 
     <a href="/catalogo">Consultar Precio</a>
 </div>
@@ -73,8 +74,8 @@ Punto de venta
         <span class="close">&times;</span>
         <p>Que tipo de venta desea realizar?</p>
         <div class="flex">
-            <a href="{{url_for('venta_factura')}}">Factura</a>
-            <a href="{{url_for('venta_boleta')}}">Boleta</a>
+            <a href="{{url_for('venta_boleta')}}" style="font-size: 1.5rem;">Boleta</a>
+            <a href="{{url_for('venta_factura')}}" style="font-size: 1.5rem;">Factura</a> 
         </div>
 
     </div>

@@ -61,7 +61,7 @@
     cursor: pointer;
 }
 
-@media screen and (max-width:550px) {
+@media screen and (max-width:760px) {
     .grid {
         grid-template-columns: 1fr;
     }

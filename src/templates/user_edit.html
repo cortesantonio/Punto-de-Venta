@@ -13,7 +13,7 @@ EDITOR DE USUARIO
     <div class="formulario">
         <h1>editor de usuarios </h1>
         {% for i in data.usuario %}
-        <form action="/crud_user/updateUser/{{i[0]}}" method="POST">
+        <form action="/administrar usuarios/updateUser/{{i[0]}}" method="POST">
             <label for="rut">Rut:</label>
             <input class="block" type="text" name="rut" id="" disabled value="{{i[0]}}" placeholder="Rut">
             <label class="block" for="nombres"> Nombre Completo:</label>
@@ -29,8 +29,10 @@ EDITOR DE USUARIO
             <input type="text" class="w250" name="password" value="{{data.password}}" id="" required
                 placeholder="Contraseña">
 
-            <input type="submit" class="boton block" required value="Editar Usuario">
+            <button type="submit"><i class="fa-solid fa-pen-to-square"></i> Editar Usuario</button>
         </form>
+        <Button onclick="cerrarVentana()">Cerrar Ventana</Button>
+
         {%endfor%}
     </div>
     <div class="registros">
@@ -53,7 +55,7 @@ EDITOR DE USUARIO
                     <td>{{i[1]}}</td>
                     <td>{{i[2]}}</td>
                     <td>
-                        <a href="/crud_user/deleteUser/{{i[0]}}"><i class="fa-solid fa-trash"></i></a>
+                        <a href="/administrar usuarios/deleteUser/{{i[0]}}"><i class="fa-solid fa-trash"></i></a>
                     </td>
                 </tr>
                 {%endfor%}
@@ -61,6 +63,11 @@ EDITOR DE USUARIO
         </table>
 
     </div>
+    <script>
+        function cerrarVentana() {
+            //la referencia de la ventana es el objeto window del popup. Lo utilizo para acceder al método close
+            window.close()
+        }</script>
 </div>
 
 

@@ -1,24 +1,7 @@
-
-import re
-import string
 import mysql.connector
 from mysql.connector import errorcode
 
 
-class User():
-    def __init__(self, rut , password , nombre, rol) -> None:
-        self.rut = rut
-        self.password = password
-        self.nombre = nombre
-        self.rol = rol
-        
-class Producto():
-    def __init__(self,codigo,nombre,descripcion,precio, img='') -> None:
-        self.codigo = codigo
-        self.nombre = nombre
-        self.descripcion = descripcion
-        self.precio = precio
-        self.img=img
 
 # CONEXION A BASE DE DATO MYSQL
 class DAO:
@@ -27,7 +10,6 @@ class DAO:
             self.cnx = mysql.connector.connect(user='root', password='',
                 host='127.0.0.1',
                 database='puntodeventa')
-            print('ok')
         except mysql.connector.Error as err:
             if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
                 print("Something is wrong with your user name or password")
@@ -197,6 +179,14 @@ class DAO:
         sql = 'select id_jornada from estado_jornada'
         cursor.execute(sql,)
         return cursor.fetchall()
+
+    def verJornadaXDIA(self,fecha):
+        cursor = self.cnx.cursor()
+        sql = 'select id_jornada from estado_jornada where id_jornada=%s'
+        data = (fecha,)
+        cursor.execute(sql,data)
+        return cursor.fetchall()
+        
     def trabajadoresEnjornadas(self,rut):
         cursor = self.cnx.cursor()
         sql = 'select id_jornada from estado_jornada inner JOIN boleta on boleta.fecha = estado_jornada.id_Jornada INNER JOIN usuario on usuario.rut = boleta.vendedor_emisor where usuario.rut = %s GROUP BY id_Jornada;'    
@@ -337,7 +327,14 @@ class DAO:
         cursor.execute(sql,data)
         r = cursor.fetchone()
         return r[0]
-    
+    def esFactura(self, cod):
+        cursor = self.cnx.cursor()
+        sql = ' select count(*) from factura where id_factura = %s'
+        data = (cod,)
+        cursor.execute(sql,data)
+        r = cursor.fetchone()
+        return r[0]
+        
     def verBoleta(self,codigo):
         cursor = self.cnx.cursor()
         sql = "select  * from boleta  boleta where id_boleta =%s "

@@ -35,10 +35,11 @@
 
 <div class="cont-venta">
     <h4>
-        Numero de Boleta (no declarado): {{data.id_boleta}} <br>memory slot: {{data.cod_temp}}
+        PUNTO DE VENTA <br> TIPO DE VENTA: <span style="text-transform: uppercase; color: #4c5075;">{{data.tipo_venta}}</span>
     </h4>
     <form action="/puntodeventa/append" method="POST">
-        <input type="text" required name="busqueda" placeholder="Ingresa el codigo o nombre del producto" id="">
+        <input type="text" required name="busqueda" autofocus placeholder="Ingresa el codigo o nombre del producto"
+            id="">
         <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
     </form>
     <div class="line"></div>
@@ -79,14 +80,21 @@
 
 
             {%endfor%}
-            <tr>
+            <tr style="background-color: #4c5075; color: white;">
                 <td class="dcf-txt-center" colspan="2">Neto: ${{data.neto}}</td>
                 <td class="dcf-txt-center" colspan="2">IVA: ${{data.iva}}</td>
                 <td class="dcf-txt-center" colspan="2">TOTAL: ${{data.total}}</td>
             </tr>
         </tbody>
     </table>
+
     <div class="finalizarVenta">
+        <div class="neto">
+            <p>Neto: ${{data.neto}}</p>
+        </div>
+        <div class="total">
+            <p>Total: ${{data.total}}</p>
+        </div>
         <a href="/puntodeventa/venta/boleta/cancelar/{{data.cod_temp}}">
             <div class="cancelar">Cancelar Venta</div>
         </a>
@@ -129,10 +137,11 @@
 
 <div class="cont-venta">
     <h4>
-        Numero de Factura (no declarado): {{data.id_factura}} <br>Memory slot: {{data.cod_temp}}
+        PUNTO DE VENTA <br> TIPO DE VENTA: <span style="text-transform: uppercase; color: #4c5075;">{{data.tipo_venta}}</span>
     </h4>
     <form action="/puntodeventa/factura/append" method="POST">
-        <input type="text" required name="busqueda" placeholder="Ingresa el codigo o nombre del producto" id="">
+        <input type="text" autofocus required name="busqueda" placeholder="Ingresa el codigo o nombre del producto"
+            id="">
         <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
     </form>
     <div class="line"></div>
@@ -155,7 +164,8 @@
                 <td class="dcf-txt-center" data-label="nombre">{{c[1]}}</td>
                 <td class="dcf-txt-center" data-label="precio">${{c[2]}}</td>
                 <td class="dcf-txt-center" data-label="cantidad">
-                    <a class="editcantidad-add" href="/puntodeventa/add/factura/{{c[0]}}"><i class="fa-solid fa-plus"></i></a>
+                    <a class="editcantidad-add" href="/puntodeventa/add/factura/{{c[0]}}"><i
+                            class="fa-solid fa-plus"></i></a>
                     <strong style="font-weight: 550;font-size: 14px;">{{c[3]}}</strong>
                     <a class="editcantidad-substrac" href="/puntodeventa/subtract/factura/{{c[0]}}"><i
                             class="fa-solid fa-minus"></i></a>
@@ -170,8 +180,8 @@
                 </td>
             </tr>
             {%endfor%}
-            
-            <tr>
+
+            <tr style="background-color: #4c5075; color: white;">
                 <td class="dcf-txt-center" colspan="2">Neto: ${{data.neto}}</td>
                 <td class="dcf-txt-center" colspan="2">IVA: ${{data.iva}}</td>
                 <td class="dcf-txt-center" colspan="2">TOTAL: ${{data.total}}</td>
@@ -179,6 +189,12 @@
         </tbody>
     </table>
     <div class="finalizarVenta">
+        <div class="neto">
+            <p>Neto: ${{data.neto}}</p>
+        </div>
+        <div class="total">
+            <p>Total: ${{data.total}}</p>
+        </div>
         <a href="/puntodeventa/venta/Factura/cancelar/{{data.cod_temp}}">
             <div class="cancelar">Cancelar Venta</div>
         </a>

@@ -23,7 +23,7 @@
 <div class="productGrid">
     <div class="addProduct">
         <h2 style="text-align: left; font-weight: 400;">Informacion de nuevo producto</h2>
-        <form action="/crud_inventario" method="POST">
+        <form action="/administrar inventario" method="POST">
             <label for="number">Código:</label>
             <input type="number" class="block" required name="codigo" id="">
             <label for="nombre">Nombre de Producto:</label>
@@ -87,8 +87,8 @@
                     <td class="dcf-txt-center">{{i[3]}}</td>
                     <td class="dcf-txt-center">${{i[5]}}</td>
                     <td class="dcf-txt-center">
-                        <a style="margin: 10px;" href="crud_inventario/edit/{{i[1]}}"> <i class="fa-solid fa-pen-to-square"></i> Editar</a><br>
-                        <a style="margin: 10px;" href="crud_inventario/delete/{{i[1]}}"><i class="fa-solid fa-trash-can"></i>Eliminar</a>
+                        <a style="margin: 10px;" href="administrar inventario/edit/{{i[1]}}" target="_blank"> <i class="fa-solid fa-pen-to-square"></i> Editar</a><br>
+                        <a style="margin: 10px;" href="administrar inventario/delete/{{i[1]}}"><i class="fa-solid fa-trash-can"></i>Eliminar</a>
                     </td>
                 </tr>
                 {%endfor%}

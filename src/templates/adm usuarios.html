@@ -20,7 +20,7 @@ Adm. Usuarios{%endblock%}
 <div class="grid">
     <div class="formulario">
         <h1>ingreso de usuarios </h1>
-        <form action="/crud_user" method="POST">
+        <form action="/administrar usuarios" method="POST">
             <label for="rut">Rut:</label>
             <input class="block" type="text" name="rut" id="" required placeholder="EJ: 12345678-1">
             <label class="block" for="nombres"> Nombre Completo:</label>
@@ -48,7 +48,7 @@ Adm. Usuarios{%endblock%}
     </div>
     <div class="registros">
         <h1>Registros
-            <a href="/crud_user"><i class="fa-solid fa-arrows-rotate"></i></a>
+            <a href="/administrar usuarios"><i class="fa-solid fa-arrows-rotate"></i></a>
         </h1>
         <table class="dcf-table dcf-table-responsive dcf-table-striped dcf-w-100%">
             <caption>Listado</caption>
@@ -67,8 +67,8 @@ Adm. Usuarios{%endblock%}
                     <td class="dcf-txt-center" data-label="nombres">{{i[1]}}</td>
                     <td class="dcf-txt-center" data-label="Rol">{{i[2]}}</td>
                     <td class="dcf-txt-center" data-label="acciones">
-                        <a href="crud_user/edit/{{i[0]}}" target="_blank"><i class="fa-solid fa-pen-to-square"></i></a>
-                        <a href="/crud_user/deleteUser/{{i[0]}}"><i class="fa-solid fa-trash"></i></a>
+                        <a href="administrar usuarios/edit/{{i[0]}}" target="_blank"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a href="/administrar usuarios/deleteUser/{{i[0]}}"><i class="fa-solid fa-trash"></i></a>
                     </td>
                 </tr>
 

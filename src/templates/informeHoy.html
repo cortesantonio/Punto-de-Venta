@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../static/css/informeHoy.css">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>{{data.fecha}}</title>
 </head>
 
 <body>
@@ -84,7 +84,7 @@
                                 <th>IVA</th>
                                 <th>Total</th>
                                 <th>vendedor</th>
-                                <th></th>
+                                
 
                             </tr>
                         </thead>
@@ -96,7 +96,6 @@
                                 <td>${{i[1]}}</td>
                                 <td>${{i[2]}}</td>
                                 <td>{{i[3]}} RUT. {{i[4]}}</td>
-                                <td><a href="/informeventa/documentoN/{{i[0]}}">ver detalles</a></td>
                             </tr>
                             {%endfor%}
                         </tbody>
@@ -112,7 +111,7 @@
                                 <th>IVA</th>
                                 <th>Total</th>
                                 <th>vendedor</th>
-                                <th></th>
+                                
                             </tr>
                         </thead>
                         <tbody>
@@ -122,7 +121,7 @@
                                 <td>${{i[1]}}</td>
                                 <td>${{i[2]}}</td>
                                 <td>{{i[3]}} RUT. {{i[4]}}</td>
-                                <td><a href="/informeventa/documentoN/{{i[0]}}">Ver detalles</a></td>
+                                
                             </tr>
                             {%endfor%}
                         </tbody>

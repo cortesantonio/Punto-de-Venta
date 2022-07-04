@@ -38,8 +38,7 @@ create table Producto(
     precio int,
     img text,
     id_categoria int,
-    primary key (id),
-	FOREIGN KEY (id_categoria) REFERENCES categoria_Producto(id)
+    primary key (id)
 
 );
 
@@ -50,8 +49,7 @@ create table Boleta(
 	fecha varchar(50),
     iva int,
     vendedor_emisor varchar(50),
-	primary key (id_boleta),
-	FOREIGN KEY (vendedor_emisor) REFERENCES usuario(rut)
+	primary key (id_boleta)
 
 
 );
@@ -67,7 +65,6 @@ create table Factura(
 	neto int,
 	fecha date,
 	vendedor_emisor varchar(50),
-	FOREIGN KEY (vendedor_emisor) REFERENCES usuario(rut),
 	primary key (id_factura)
 );
 
@@ -100,6 +97,7 @@ insert into Tipo_Usuario values (1,'administrador');
 
 insert into usuario values('321','321','antonio cortes sotelo', 0);
 insert into usuario values('123','123','antonio cortes sotelo', 1);
+insert into usuario values('ad','asd','anadso', 0);
 
 insert into categoria_Producto values(1,'Frutas y Verduras');
 insert into categoria_Producto values(2,'Carnes y Pescados');

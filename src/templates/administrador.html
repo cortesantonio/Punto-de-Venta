@@ -23,7 +23,7 @@
     <div class="menu">
         <div class="list">
             <ul>
-                <li><a href="{{url_for('crud_inventario')}}">Gestionar Inventario</a></li>
+                <li><a href="{{url_for('administrar_inventario')}}">Gestionar Inventario</a></li>
                 <li><a href="{{url_for('loggout')}}">Cerrar Sesión</a></li>
 
             </ul>
@@ -66,19 +66,19 @@
         <div class="productos-en-inventario">
             <p>productos registrados</p>
             <h1>{{data.totalProductos}}</h1>
-            <a href="{{url_for('crud_inventario')}}">Administrar</a>
+            <a href="{{url_for('administrar_inventario')}}">Administrar</a>
         </div>
         <div class="productos-en-inventario">
             <p>colaboradores</p>
             <h1>{{data.totalColaboradores}}</h1>
-            <a href="{{url_for('crud_user')}}">Administrar</a>
+            <a href="{{url_for('administrar_usuarios')}}">Administrar</a>
         </div>
     </div>
     <div class="opcionesAdm">
-        <a href="{{url_for('crud_user')}}" target="_blank">
+        <a href="{{url_for('administrar_usuarios')}}">
             <div>Administrar Trabajadores</div>
         </a>
-        <a href="{{url_for('crud_inventario')}}">
+        <a href="{{url_for('administrar_inventario')}}">
             <div>Gestionar Inventario</div>
         </a>
         <a href="/registrodeventas">

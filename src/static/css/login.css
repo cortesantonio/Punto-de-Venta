@@ -81,7 +81,10 @@ body {
     margin: 200px auto 0px;
     color: #4b4f95;
 }
-
+.alerta{
+    font-size: 0.8rem;
+    color: red;
+}
 form input {
     display: block;
     margin: 10px auto;

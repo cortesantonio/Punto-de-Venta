@@ -46,9 +46,19 @@ Login - Supermarket
 
       <input type="text" name="rut" placeholder="Rut: 12345678-9" id="">
       <input type="password" name="password" placeholder="Contraseña" id="">
-      <button type="submit"><i class="fa-solid fa-right-to-bracket"></i> Entrar</button>
+      {%with messages=get_flashed_messages()%}
+      {%if messages%}
+      {%for message in messages%}
+      <div class="alerta" role="alert">
+        {{message}}
+      </div>
+      {%endfor%}
+      {%endif%}
+      {%endwith%}
+      <button style="cursor: pointer; " type="submit"><i class="fa-solid fa-right-to-bracket"></i> Entrar</button>
+
     </form>
-    <center><a href="/"><button>Volver atras</button></a></center>
+    <center><a href="/"><button style="cursor: pointer;">Volver atras</button></a></center>
   </div>
 </div>
 

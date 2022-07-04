@@ -8,7 +8,9 @@
 .grid>div {
     margin: 5px;
     padding: 15px;
-    box-shadow: 2px 0px 10px rgba(34, 40, 49, 0.733);
+    box-shadow: 1px 1px 20px rgba(34, 40, 49, 0.303);
+    border-left: 2px solid #78a9ca;
+    border-radius: 10px;
 }
 
 .formulario {
@@ -30,10 +32,41 @@
 
 .formulario form input {
     margin: 5px auto 5px 0px;
-    border-radius: 2px;
-    border: 1px solid rgba(128, 128, 128, 0.517);
     padding: 7px;
 
+
+}
+
+form input {
+    padding: 7px;
+    margin: auto;
+    border: none;
+    border-left: 2px solid #9599E2;
+}
+
+form button {
+    display: block;
+    width: 150px;
+    margin-top: 20px;
+    color: white;
+    background-color: #78a9ca;
+    padding: 5px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+
+}
+
+button {
+    display: block;
+    width: 150px;
+    margin-top: 20px;
+    color: white;
+    background-color: #78a9ca;
+    padding: 5px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
 
 }
 
@@ -76,7 +109,7 @@
     text-align: left;
 }
 
-@media screen and (max-width:550px) {
+@media screen and (max-width:880px) {
     .grid {
         grid-template-columns: 1fr;
     }

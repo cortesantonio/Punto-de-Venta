@@ -59,7 +59,7 @@ def login():
                     
                     return  redirect('/puntodeventa')
                 else:
-                    return '<h1>Su cargo no fue indicado correctamente en el Sistema.</h1> <h5>Póngase en contacto con el Administrador del sistema</h5> '
+                    return '<h1>Su cargo no fue indicado correctamente en el Sistema.</h1> <h5>Póngase en contacto con el Administrador del sistema</h5>'
             else:
                 flash('Contraseña invalida')
                 return render_template('login.html')
@@ -389,310 +389,405 @@ def administracion():
 
 @app.route('/registrodeventas', methods=['GET','POST'] )
 def informedeventa():
-    if request.method == 'POST':
-        fecha = request.form['diaBusqueda']
-        data = {
-        'ventasFactura': dao.ventasConFactura(fecha),
-        'ventasBoleta':dao.ventasConBoleta(fecha),
-        'fecha':fecha
-        }
-        return render_template ('informeDiario.html',data=data)
-    else: 
-        data = {
-            'ventasFactura': dao.ventasConFacturaTODAS(),
-            'ventasBoleta':dao.ventasConBoletaTODAS(),
-            'fecha':time.strftime('%Y-%m-%d', time.localtime())
-        }
-        return render_template ('informeDiario.html',data=data)
+    if len(session) > 0 :
+        if dao.rolUsuario(session['rut']) == 1:
+            if request.method == 'POST':
+                fecha = request.form['diaBusqueda']
+                data = {
+                'ventasFactura': dao.ventasConFactura(fecha),
+                'ventasBoleta':dao.ventasConBoleta(fecha),
+                'fecha':fecha
+                }
+                return render_template ('informeDiario.html',data=data)
+            else: 
+                data = {
+                    'ventasFactura': dao.ventasConFacturaTODAS(),
+                    'ventasBoleta':dao.ventasConBoletaTODAS(),
+                    'fecha':time.strftime('%Y-%m-%d', time.localtime())
+                }
+                return render_template ('informeDiario.html',data=data)
+        else:
+            return redirect('/login')
+    else:
+        return redirect('/login')
+
 @app.route('/informesdeventas', methods = ['GET','POST' ])
 def informesdeventas():
-    if request.method == 'GET':
-        data = {
-            'listadoJornadas':dao.verJornadas()
-        }
-        return render_template ('informesdeventas.html',data=data)
+    if len(session) > 0 :
+        if dao.rolUsuario(session['rut']) == 1:
+            if request.method == 'GET':
+                data = {
+                    'listadoJornadas':dao.verJornadas()
+                }
+                return render_template ('informesdeventas.html',data=data)
+        else:
+            return redirect('/login')
+    else:
+        return redirect('/login')
 
+@app.route('/informesdeventas/fecha', methods = ['GET','POST' ])
+def informesdeventasdia():
+    if len(session) > 0 :
+        if dao.rolUsuario(session['rut']) == 1:
+            if request.method == 'POST':
+                dia = request.form['fecha']
+                data = {
+                    'listadoJornadas':dao.verJornadaXDIA(dia)
+                }
+                return render_template ('informesdeventas.html',data=data)
+        else:
+            return redirect('/login')
+    else:
+        return redirect('/login')
 @app.route('/informesdeventasportrabajador', methods = ['GET','POST' ])
 def informesdeventasXtrabajador():
-    try:
-        if request.method == 'POST':
-            busquedaXrut = request.form['rutenjornada']
-            data = {
-                'listadoJornadas':dao.trabajadoresEnjornadas(busquedaXrut)
-            }
-            return render_template ('informesdeventas.html',data=data)
-    except:
-        data = {
-            'listadoJornadas':dao.verJornadas()
-        }
-        return render_template ('informesdeventas.html',data=data)
-
+    if len(session) > 0 :
+        if dao.rolUsuario(session['rut']) == 1:
+            try:
+                if request.method == 'POST':
+                    busquedaXrut = request.form['rutenjornada']
+                    data = {
+                        'listadoJornadas':dao.trabajadoresEnjornadas(busquedaXrut)
+                    }
+                    return render_template ('informesdeventas.html',data=data)
+            except:
+                data = {
+                    'listadoJornadas':dao.verJornadas()
+                }
+                return render_template ('informesdeventas.html',data=data)
+        else:
+            return redirect('/login')
+    else:
+        return redirect('/login')
 
 
 @app.route('/informeventa/hoy', methods=['GET','POST'] )
 def informedeventaHoy():
-    if request.method == 'GET':
-        fecha = time.strftime('%Y-%m-%d', time.localtime())
-        data = {
-        'ventasFactura': dao.ventasConFactura(fecha),
-        'ventasBoleta':dao.ventasConBoleta(fecha),
-        'cantidadVentasBoleta' : dao.cantidadDeVentasBoleta(fecha),
-        'cantidadVentasFactura' : dao.cantidadDeVentasFactura(fecha),
-        'recaudacionBoletaTotal':dao.recaudacionBoletaTotal(fecha),
-        'recaudacionBoletaIVA': dao.recaudacionBoletaIVA(fecha),
-        'recaudacionBoletaNeto': dao.recaudacionBoletaNeto(fecha),
+    if len(session) > 0 :
+        if dao.rolUsuario(session['rut']) == 1:
+            if request.method == 'GET':
+                fecha = time.strftime('%Y-%m-%d', time.localtime())
+                data = {
+                'ventasFactura': dao.ventasConFactura(fecha),
+                'ventasBoleta':dao.ventasConBoleta(fecha),
+                'cantidadVentasBoleta' : dao.cantidadDeVentasBoleta(fecha),
+                'cantidadVentasFactura' : dao.cantidadDeVentasFactura(fecha),
+                'recaudacionBoletaTotal':dao.recaudacionBoletaTotal(fecha),
+                'recaudacionBoletaIVA': dao.recaudacionBoletaIVA(fecha),
+                'recaudacionBoletaNeto': dao.recaudacionBoletaNeto(fecha),
 
-        'recaudacionFactura': dao.recaudacionFactura(fecha),
-        'fecha':fecha,
-        
-        'emisor_boleta': dao.trabajador_emisor_boleta(fecha),
-        'emisor_factura': dao.trabajador_emisor_factura(fecha)
+                'recaudacionFactura': dao.recaudacionFactura(fecha),
+                'fecha':fecha,
+                
+                'emisor_boleta': dao.trabajador_emisor_boleta(fecha),
+                'emisor_factura': dao.trabajador_emisor_factura(fecha)
 
-        }
-        return render_template ('informeHoy.html',data=data)
-    
+                }
+                return render_template ('informeHoy.html',data=data)
+        else:
+            return redirect('/login')
+    else:
+        return redirect('/login')
 ## aregar metodo de llegada
 @app.route('/informeventa/<fecha>', methods=['GET','POST'] )
 def informedeventade(fecha):
-    if request.method == 'GET':
-        fecha = fecha
-        data = {
-        'ventasFactura': dao.ventasConFactura(fecha),
-        'ventasBoleta':dao.ventasConBoleta(fecha),
-        'cantidadVentasBoleta' : dao.cantidadDeVentasBoleta(fecha),
-        'cantidadVentasFactura' : dao.cantidadDeVentasFactura(fecha),
-        'recaudacionBoletaTotal':dao.recaudacionBoletaTotal(fecha),
-        'recaudacionBoletaIVA': dao.recaudacionBoletaIVA(fecha),
-        'recaudacionBoletaNeto': dao.recaudacionBoletaNeto(fecha),
-        'recaudacionFactura': dao.recaudacionFactura(fecha),
-        'fecha':fecha,
-        'emisor_boleta': dao.trabajador_emisor_boleta(fecha),
-        'emisor_factura': dao.trabajador_emisor_factura(fecha)
-        }
-        return render_template ('informeHoy.html',data=data)
-    
-
+    if len(session) > 0 :
+        if dao.rolUsuario(session['rut']) == 1:
+            if request.method == 'GET':
+                fecha = fecha
+                data = {
+                'ventasFactura': dao.ventasConFactura(fecha),
+                'ventasBoleta':dao.ventasConBoleta(fecha),
+                'cantidadVentasBoleta' : dao.cantidadDeVentasBoleta(fecha),
+                'cantidadVentasFactura' : dao.cantidadDeVentasFactura(fecha),
+                'recaudacionBoletaTotal':dao.recaudacionBoletaTotal(fecha),
+                'recaudacionBoletaIVA': dao.recaudacionBoletaIVA(fecha),
+                'recaudacionBoletaNeto': dao.recaudacionBoletaNeto(fecha),
+                'recaudacionFactura': dao.recaudacionFactura(fecha),
+                'fecha':fecha,
+                'emisor_boleta': dao.trabajador_emisor_boleta(fecha),
+                'emisor_factura': dao.trabajador_emisor_factura(fecha)
+                }
+                return render_template ('informeHoy.html',data=data)
+            else: 
+                data = {
+                    'listadoJornadas':dao.verJornadas()
+                }
+                return render_template ('informesdeventas.html',data=data)
+        else:
+            return redirect('/login')
+    else:
+        return redirect('/login')
 
 @app.route('/informeventa/documentoN/', methods=['GET','POST'] )
 def busquedaDocumento():
-    if request.method == 'POST':
-        cod = request.form['codigoDocumento']
-        r  = dao.esBoleta(cod)
-        if r ==1:
-            # es boleta 
-            boleta = dao.verBoleta(cod)
+    if len(session) > 0 :
+        if dao.rolUsuario(session['rut']) == 1:
+            if request.method == 'POST':
+                cod = request.form['codigoDocumento']
+                b  = dao.esBoleta(cod)
+                f =dao.esFactura(cod)
+                if b ==1:
+                    # es boleta 
+                    boleta = dao.verBoleta(cod)
 
-            data = {
-            'id_boleta': boleta[0],
-            'total': boleta[1],
-            'fecha': boleta[2],
-            'iva':boleta[3],
-            'vendedor':boleta[4],
-            'venta': dao.verDetalles(boleta[0]), 
-            'nombreVendedor': dao.getName(boleta[4]),
+                    data = {
+                    'id_boleta': boleta[0],
+                    'total': boleta[1],
+                    'fecha': boleta[2],
+                    'iva':boleta[3],
+                    'vendedor':boleta[4],
+                    'venta': dao.verDetalles(boleta[0]), 
+                    'nombreVendedor': dao.getName(boleta[4]),
 
-            }
-            return render_template('plantilla_boleta.html', data= data)
-        elif r == 0: 
-            factura = dao.verFactura(cod)
+                    }
+                    return render_template('plantilla_boleta.html', data= data)
+                elif f == 1: 
+                    factura = dao.verFactura(cod)
 
-            data = {
-                'id_Factura': factura[0],
-                'giro': factura[4],
-                'fecha': factura[7],
-                'iva':factura[5],
-                'neto':factura[6],
-                'vendedor':factura[8],
-                'total':factura[6],
-                'nombreVendedor': dao.getName(factura[8]).capitalize(),
-                'razonsocial':factura[1],
-                'venta': dao.verDetalles(factura[0]),
+                    data = {
+                        'id_Factura': factura[0],
+                        'giro': factura[4],
+                        'fecha': factura[7],
+                        'iva':factura[5],
+                        'neto':factura[6],
+                        'vendedor':factura[8],
+                        'total':factura[6],
+                        'nombreVendedor': dao.getName(factura[8]).capitalize(),
+                        'razonsocial':factura[1],
+                        'venta': dao.verDetalles(factura[0]),
 
-                'rutCliente':factura[2],
-                'direccion':factura[3]
+                        'rutCliente':factura[2],
+                        'direccion':factura[3]
 
-            }
-            return render_template('plantilla_factura.html', data= data)
-
+                    }
+                    return render_template('plantilla_factura.html', data= data)
+                else:
+                    flash('Documento tributario no encontrado.')
+                    return redirect('/registrodeventas')
+        else:
+            return redirect('/login')
+    else:
+        return redirect('/login')
 @app.route('/informeventa/documentoN/<cod>', methods=['GET','POST'] )
 def detalleDocumento(cod):
-        r  = dao.esBoleta(cod)
-        if r ==1:
-            # es boleta 
-            boleta = dao.verBoleta(cod)
+    if len(session) > 0 :
+        if dao.rolUsuario(session['rut']) == 1:
+            r  = dao.esBoleta(cod)
+            if r ==1:
+                # es boleta 
+                boleta = dao.verBoleta(cod)
 
-            data = {
-            'id_boleta': boleta[0],
-            'total': boleta[1],
-            'fecha': boleta[2],
-            'iva':boleta[3],
-            'vendedor':boleta[4],
-            'venta': dao.verDetalles(boleta[0]), # corregir
-            'nombreVendedor': dao.getName(boleta[4]),
+                data = {
+                'id_boleta': boleta[0],
+                'total': boleta[1],
+                'fecha': boleta[2],
+                'iva':boleta[3],
+                'vendedor':boleta[4],
+                'venta': dao.verDetalles(boleta[0]), # corregir
+                'nombreVendedor': dao.getName(boleta[4]),
 
-            }
-            return render_template('plantilla_boleta.html', data= data)
-        elif r == 0: 
-            factura = dao.verFactura(cod)
+                }
+                return render_template('plantilla_boleta.html', data= data)
+            elif r == 0: 
+                factura = dao.verFactura(cod)
 
-            data = {
-                'id_Factura': factura[0],
-                'giro': factura[4],
-                'fecha': factura[7],
-                'iva':factura[5],
-                'neto':factura[6],
-                'vendedor':factura[8],
-                'total':factura[6],
-                'nombreVendedor': dao.getName(factura[8]).capitalize(),
-                'razonsocial':factura[1],
-                'venta': dao.verDetalles(factura[0]), # corregir
+                data = {
+                    'id_Factura': factura[0],
+                    'giro': factura[4],
+                    'fecha': factura[7],
+                    'iva':factura[5],
+                    'neto':factura[6],
+                    'vendedor':factura[8],
+                    'total':factura[6],
+                    'nombreVendedor': dao.getName(factura[8]).capitalize(),
+                    'razonsocial':factura[1],
+                    'venta': dao.verDetalles(factura[0]), # corregir
 
-                'rutCliente':factura[2],
-                'direccion':factura[3]
+                    'rutCliente':factura[2],
+                    'direccion':factura[3]
 
-            }
-            return render_template('plantilla_factura.html', data= data)
-    
+                }
+                return render_template('plantilla_factura.html', data= data)
+        else:
+            return redirect('/login')
+    else:
+        return redirect('/login')
 
 
 # FUNCION DE ADMINISTRADOR: ADMINISTRAR USUARIOS 
 # INTERFAZ Y AGREGADOR DE USUARIOS
-@app.route('/crud_user', methods=["GET", "POST"])
-def crud_user():
-    if request.method == 'POST':
-        rut = request.form['rut']
-        password=request.form['password']
-        nombre =request.form['nombres']
-        apellido = request.form['apellidos']
-        rol =request.form['rol']
-        nombre_completo = nombre+ ' ' + apellido
-        dao.addUser(rut,password,nombre_completo,rol)
+@app.route('/administrar usuarios', methods=["GET", "POST"])
+def administrar_usuarios():
+    if len(session) > 0 :
+        if dao.rolUsuario(session['rut']) == 1:
+            if request.method == 'POST':
+                rut = request.form['rut']
+                password=request.form['password']
+                nombre =request.form['nombres']
+                apellido = request.form['apellidos']
+                rol =request.form['rol']
+                nombre_completo = nombre+ ' ' + apellido
+                dao.addUser(rut,password,nombre_completo,rol)
 
-        data = {
-            'usuarios': dao.readAllUser()
-            }
-        flash('User added!')
-        return render_template('adm usuarios.html', data=data)
+                data = {
+                    'usuarios': dao.readAllUser()
+                    }
+                flash('User added!')
+                return render_template('adm usuarios.html', data=data)
+            else:
+                data = {
+                    'usuarios': dao.readAllUser()
+                    }
+                return render_template('adm usuarios.html', data=data)
+        else:
+            return redirect('/login')
     else:
-        data = {
-            'usuarios': dao.readAllUser()
-            }
-        return render_template('adm usuarios.html', data=data)
+        return redirect('/login')
 
 # EDITAR USUARIO
-@app.route('/crud_user/edit/<rut>')
+@app.route('/administrar usuarios/edit/<rut>')
 def get_user(rut):
-    data= { 
-        'usuario': dao.searchUser(rut),
-        'registros':dao.searchUser(rut),
-        'password':dao.getPassword(rut)
+    if len(session) > 0 :
+        if dao.rolUsuario(session['rut']) == 1:
+            data= { 
+                'usuario': dao.searchUser(rut),
+                'registros':dao.searchUser(rut),
+                'password':dao.getPassword(rut)
 
-    }
-    return render_template('user_edit.html', data = data)
+            }
+            return render_template('user_edit.html', data = data)
+        else:
+            return redirect('/login')
+    else:
+        return redirect('/login')
 
-@app.route('/crud_user/updateUser/<rut>', methods=["GET", "POST"])
+@app.route('/administrar usuarios/updateUser/<rut>', methods=["GET", "POST"])
 def updateUser(rut):
-        password = request.form['password']
-        nombre=request.form['nombre']
-        rol=request.form['rol']
-        dao.updateUser(rut,password,nombre,rol)
-        data= { 
-            'usuario': dao.searchUser(rut),
-            'registros':dao.searchUser(rut)
+    if len(session) > 0 :
+        if dao.rolUsuario(session['rut']) == 1:
+            password = request.form['password']
+            nombre=request.form['nombre']
+            rol=request.form['rol']
+            dao.updateUser(rut,password,nombre,rol)
+            data= { 
+                'usuario': dao.searchUser(rut),
+                'registros':dao.searchUser(rut)
 
-        }
-        
-        return ' <script >window.close(); </script>  '     
+            }
+            
+            return ' <script >window.close(); </script>  '     
+        else:
+            return redirect('/login')
+    else:
+        return redirect('/login')
 # ELIMINAR USUARIO
-@app.route('/crud_user/deleteUser/<rut>', methods=["GET", "POST"])
+@app.route('/administrar usuarios/deleteUser/<rut>', methods=["GET", "POST"])
 def deleteUser(rut):
-        dao.deleteUser(rut)
-        return redirect('/crud_user')
+    if len(session) > 0 :
+        if dao.rolUsuario(session['rut']) == 1:
+            dao.deleteUser(rut)
+            return redirect('/administrar usuarios')
+        else:
+            return redirect('/login')
+    else:
+        return redirect('/login')
         
-
-
-
-
-
-
-
-
-
-
 
 
     #ADMINISTRAR INVENTARIO 
 #metodo para agregar productos a inventario
-@app.route('/crud_inventario', methods=["GET", "POST"])
-def crud_inventario():
-    if request.method == 'POST':
-        codigo = request.form['codigo']
-        nombre=request.form['nombreproducto']
-        descripcion =request.form['descripcion']
-        precio = request.form['precio']
-        img =request.form['url_img']
-        categoria = request.form['categoria']
-        dao.addProduct(codigo,nombre,descripcion,precio,img,categoria)
-        data = {
-            'productos': dao.readProduct()
-            }
-        flash('product added!')
-        return render_template('adm inventario.html', data=data)
+@app.route('/administrar inventario', methods=["GET", "POST"])
+def administrar_inventario():
+    if len(session) > 0 :
+        if dao.rolUsuario(session['rut']) == 1:
+            if request.method == 'POST':
+                codigo = request.form['codigo']
+                nombre=request.form['nombreproducto']
+                descripcion =request.form['descripcion']
+                precio = request.form['precio']
+                img =request.form['url_img']
+                categoria = request.form['categoria']
+                dao.addProduct(codigo,nombre,descripcion,precio,img,categoria)
+                data = {
+                    'productos': dao.readProduct()
+                    }
+                flash('product added!')
+                return render_template('adm inventario.html', data=data)
+            else:
+                data = {
+                    'productos': dao.readProduct()
+                    }
+                return render_template('adm inventario.html', data=data)
+        else:
+            return redirect('/login')
     else:
-        data = {
-            'productos': dao.readProduct()
-            }
-        return render_template('adm inventario.html', data=data)
-
+        return redirect('/login')
+ 
 # metodo para editar productos
-@app.route('/crud_inventario/edit/<antiguo_codigo>' , methods=["GET", "POST"] )
+@app.route('/administrar inventario/edit/<antiguo_codigo>' , methods=["GET", "POST"] )
 def updateProduct(antiguo_codigo):
-    if request.method == 'POST':
-        codigo_antiguo = antiguo_codigo
-        codigo = request.form['new_codigo']
-        nombre=request.form['new_nombre']
-        descripcion =request.form['new_descripcion']
-        precio = request.form['new_precio']
-        img =request.form['new_url']
-        categoria = request.form['categoria']
+    if len(session) > 0 :
+        if dao.rolUsuario(session['rut']) == 1:
+            if request.method == 'POST':
+                codigo_antiguo = antiguo_codigo
+                codigo = request.form['new_codigo']
+                nombre=request.form['new_nombre']
+                descripcion =request.form['new_descripcion']
+                precio = request.form['new_precio']
+                img =request.form['new_url']
+                categoria = request.form['categoria']
 
-        dao.updateProduct(codigo_antiguo,codigo,nombre,descripcion,precio,img,categoria)
-        data = {
-            'productoSelect': dao.buscarProducto(antiguo_codigo)
+                dao.updateProduct(codigo_antiguo,codigo,nombre,descripcion,precio,img,categoria)
+                data = {
+                    'productoSelect': dao.buscarProducto(antiguo_codigo)
 
-            }
-        return render_template('product_edit.html', data=data)
-    else: 
-        data = {
-            'productoSelect': dao.buscarProducto(antiguo_codigo)
+                    }
+                return render_template('product_edit.html', data=data)
+            else: 
+                data = {
+                    'productoSelect': dao.buscarProducto(antiguo_codigo)
 
-            }
-        return render_template('product_edit.html', data=data)
-
+                    }
+                return render_template('product_edit.html', data=data)
+        else:
+            return redirect('/login')
+    else:
+        return redirect('/login')
 
 #elimina productos del inventario.
-@app.route('/crud_inventario/delete/<codigo>' , methods=["GET", "POST"])
+@app.route('/administrar inventario/delete/<codigo>' , methods=["GET", "POST"])
 def deleteProduct(codigo):
-    dao.deleteProduct(codigo)
-    return redirect('/crud_inventario')
-
+    if len(session) > 0 :
+        if dao.rolUsuario(session['rut']) == 1:
+            dao.deleteProduct(codigo)
+            return redirect('/administrar inventario')
+        else:
+            return redirect('/login')
+    else:
+        return redirect('/login')
 #Activar y desactivar estado de jornada.
 
 @app.route('/gestor de jornada/switch' , methods=['POST','GET'])
 def activarJornada():
-    if request.method == 'GET':
-        fecha= time.strftime('%Y-%m-%d', time.localtime())
-        verJornada = dao.verJornada(fecha)
-        if verJornada== 'No iniciada':
-            dao.crearJornada(fecha)
-            redirect ('/administracion')
-        elif verJornada== 'abierta':
-            dao.cerrarJornada(fecha)  
-            redirect ('/administracion')
-        elif verJornada == 'cerrada':
-            dao.activarJornada(fecha)
-    return redirect('/administracion')
-
+    if len(session) > 0 :
+        if dao.rolUsuario(session['rut']) == 1:
+            if request.method == 'GET':
+                fecha= time.strftime('%Y-%m-%d', time.localtime())
+                verJornada = dao.verJornada(fecha)
+                if verJornada== 'No iniciada':
+                    dao.crearJornada(fecha)
+                    redirect ('/administracion')
+                elif verJornada== 'abierta':
+                    dao.cerrarJornada(fecha)  
+                    redirect ('/administracion')
+                elif verJornada == 'cerrada':
+                    dao.activarJornada(fecha)
+            return redirect('/administracion')
+        else:
+            return redirect('/login')
+    else:
+        return redirect('/login')
 #   METODO DE ARRANQUE DE APLICACION
 if __name__ == '__main__':
     app.secret_key = "s5HKwm5AtlmzLiU0FIrrMsWXsrTdoxco"

@@ -15,41 +15,65 @@
     text-align: center;
     margin: 40px auto 40px;
 }
-form input{
+
+form input {
     padding: 7px;
     width: 50%;
 }
-form button{
+
+form button {
     font-size: 18px;
     border: none;
 }
-.editcantidad-add{
-    padding: 3px;
+
+.editcantidad-add {
     background-color: rgba(0, 255, 0, 0.15);
     border-radius: 50%;
-    margin-right: 10px;
+    width: 20px ;
+    height: 20px;
+    padding: 5px;
+    margin: 5px;
 }
-.editcantidad-substrac{
-    padding: 3px;
+
+.editcantidad-substrac {
     background-color: rgba(255, 0, 0, 0.156);
     border-radius: 50%;
-    margin-left: 10px;
+    width: 20px ;
+    height: 20px;
+    padding: 5px;
+    margin: 5px;
 }
-.finalizarVenta{
+
+.finalizarVenta {
     position: absolute;
     right: 10%;
-    font-size:18px;
+    font-size: 18px;
+
+
 }
+
 .finalizarVenta a {
     text-decoration: none;
     color: black;
 }
-.cancelar{
+
+
+.neto p {
+    font-size: 1.3rem;
+    margin-top: 30px;
+}
+.total p {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.cancelar {
     background-color: red;
     padding: 10px;
     margin: 10px;
     color: white;
 }
+
 .Pagar {
     background-color: green;
     padding: 10px;
