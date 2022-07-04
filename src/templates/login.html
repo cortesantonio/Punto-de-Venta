@@ -3,7 +3,9 @@
 
 {%block linkCSS%}
 <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/login.css')}}">
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
 {%endblock%}
 
 {%block titulo%}
@@ -11,49 +13,44 @@ Login - Supermarket
 {%endblock%}
 
 {%block body%}
-<body class="body-login">
-  <script>
-    //Script que impide el uso del botón atrás del navegador
-    window.location.hash = "no-back-button";
-    window.location.hash = "Again-No-back-button";
-    window.onhashchange = function () { window.location.hash = ""; }
-  
-    </script>
-  
 
-<div class="contain">
-  <div class="logincontain">
-    <h1>Inicio de Sesion</h1>
+
+<div class="logcontenedor">
+  <div class="presentacionLog">
+    <div class="empresa">
+      <i class="fa-brands fa-opencart"></i> Los monitos de la Nona.
+    </div>
+    <div class="bnvLog">
+      <div class="sisLog"> Sistema de punto de ventas</div>
+
+      <div class="tituloLog">Bienvenido!
+        <div class="line10"></div>
+      </div>
+
+      <div class="infoLog">
+
+        Usted esta ingresando a la plataforma de trabajo de 'Los Monitos de la Nona'. <br>
+        Si usted es parte de esta empresa, ingrese sus datos de inicio de sesion proporcionado por
+        su respectivo jefe en el siguiente formulario.
+      </div>
+      <div class="arrow">
+        <center><i class="fa-solid fa-arrow-down"></i></center>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="formularioLogin">
+    <h2>Inicio de Sesion</h2>
     <form action="/login" method="POST">
+
       <input type="text" name="rut" placeholder="Rut: 12345678-9" id="">
       <input type="password" name="password" placeholder="Contraseña" id="">
-      <input  style="background-color: rgb(57, 62, 70); color:rgb(255, 255, 255);cursor: pointer;" type="submit" value="Entrar">
+      <button type="submit"><i class="fa-solid fa-right-to-bracket"></i> Entrar</button>
     </form>
-    <center><a href="/">Volver a Inicio</a></center>
-    {%with messages=get_flashed_messages() %}
-    {%if messages%}
-    {%for message in messages%}
-    <div class="alerta" role="alert">
-      {{message}}
-    </div>
-    {%endfor%}
-    {%endif%}
-    {%endwith%}
-  </div>
-  <div class="info">
-    <div class="tit">Sistema de Ventas.</div>
-    <div class="text">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint placeat
-      sequi excepturi alias natus qui.
-    </div>
-    <div class="imagenes">
-      <img src="{{url_for('static', filename='img/flask.png')}}" alt="">
-      <img src="{{url_for('static', filename='img/python.png')}}" alt="">
-      <img src="{{url_for('static', filename='img/html.png')}}" alt="">
-    </div>
+    <center><a href="/"><button>Volver atras</button></a></center>
   </div>
 </div>
 
-</body>
 
 {%endblock%}

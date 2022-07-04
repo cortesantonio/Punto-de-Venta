@@ -1,8 +1,7 @@
 {%extends './base.html'%}
 
 {%block titulo%}
-ADMINISTRADOR DE USUARIO
-{%endblock%}
+Adm. Usuarios{%endblock%}
 
 {%block linkCSS%}
 <link rel="stylesheet" href="{{url_for('static',filename='css/adm usuarios.css')}}">
@@ -12,8 +11,10 @@ ADMINISTRADOR DE USUARIO
 
 {%block body%}
 <header class="head">
-    administrador de usuarios <br>
-    <span>SuperMarket</span>
+    <div class="div1">administrador de usuarios <br>
+        <span>SuperMarket</span>
+    </div>
+    <div class="div2"><a href="/administracion">Volver Atras</a></div>
 </header>
 
 <div class="grid">
@@ -21,7 +22,7 @@ ADMINISTRADOR DE USUARIO
         <h1>ingreso de usuarios </h1>
         <form action="/crud_user" method="POST">
             <label for="rut">Rut:</label>
-            <input class="block" type="text" name="rut" id="" required placeholder="Rut">
+            <input class="block" type="text" name="rut" id="" required placeholder="EJ: 12345678-1">
             <label class="block" for="nombres"> Nombre Completo:</label>
             <input type="text" name="nombres" id="" required placeholder="Nombres">
             <input type="text" name="apellidos" id="" required placeholder="Apellidos">
@@ -33,7 +34,7 @@ ADMINISTRADOR DE USUARIO
             <label for="rol">administrador</label>
             <label class="block" for="password">Contraseña:</label>
             <input class="block pd-5" type="password" required name="password" placeholder="Password" id="">
-            <input type="submit" class="boton" required value="Registrar Usuario">
+            <button type="submit" style="cursor:pointer ;"> <i class="fa-solid fa-user-plus"></i> Registrar Usuario</button>
         </form>
         {%with messages=get_flashed_messages()%}
         {%if messages%}
@@ -66,8 +67,8 @@ ADMINISTRADOR DE USUARIO
                     <td class="dcf-txt-center" data-label="nombres">{{i[1]}}</td>
                     <td class="dcf-txt-center" data-label="Rol">{{i[2]}}</td>
                     <td class="dcf-txt-center" data-label="acciones">
-                         <a href="crud_user/edit/{{i[0]}}" target="_blank"><i class="fa-solid fa-pen-to-square"></i></a>   
-                        <a href="/crud_user/deleteUser/{{i[0]}}"><i class="fa-solid fa-trash"></i></a> 
+                        <a href="crud_user/edit/{{i[0]}}" target="_blank"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a href="/crud_user/deleteUser/{{i[0]}}"><i class="fa-solid fa-trash"></i></a>
                     </td>
                 </tr>
 

@@ -69,16 +69,21 @@ def login():
             return render_template('login.html')
     else:
         if len(session) > 0 :
-            usuarioActivo = session['rut']
-            r = dao.rolUsuario(usuarioActivo)
-            if r ==1:   
-                    # 1 for admin
-                return  redirect('/administracion')
-            elif r==0:
-                    
-                return  redirect('/puntodeventa')
-            else:
+            try: 
+                usuarioActivo = session['rut']
+                r = dao.rolUsuario(usuarioActivo)
+                if r ==1:   
+                        # 1 for admin
+                    return  redirect('/administracion')
+                elif r==0:
+                        
+                    return  redirect('/puntodeventa')
+                else:
+                    return render_template('login.html')
+            except:
+                loggout()
                 return render_template('login.html')
+
         else:
             return render_template('login.html')
 
