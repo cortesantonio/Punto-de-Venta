@@ -4,22 +4,47 @@
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 
 }
-form{
-    margin: auto    ;
-    text-align: center;
+
+.gridFacturacion {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     width: 80%;
-    border: 1px solid black;
+    margin: 100px auto;
 }
-table{
-    margin: auto;
-    width: 80%;
-    text-align: left;
-    border: 1px solid black;
-}
-form input{
+
+form input {
+    margin: 10px auto;
+    padding: 10px;
+    border: none;
+    border-left: 3px solid #9599E2;
     display: block;
-    margin: auto;
+
+    border-radius: 10px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.341);
+    width: 80%;
+
+}
+
+
+ button {
+    width: 150px;
+    margin-top: 20px;
+    color: white;
+    background-color: #8BC6EC;
+    background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
     padding: 5px;
-    width: 250px;
-    margin-bottom: 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+
+
+}
+
+@media screen and (max-width:720px) {
+    .gridFacturacion {
+        display: grid;
+        grid-template-columns: 1fr;
+        width: 90%;
+        margin: 100px auto;
+    }
 }

@@ -15,6 +15,7 @@ body {
     grid-template-columns: 1fr 1fr;
     width: 60%;
     margin: 50px auto;
+    background-color: white;
     border-radius: 40px;
     box-shadow: 1px 1px 50px rgba(70, 70, 70, 0.19);
 }

@@ -1,65 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
+{%extends './base.html'%}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='../static/css/datosFactura.css') }}">
+{%block titulo%}
+Datos de Factura
+{%endblock%}
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+{%block linkCSS%}
+<link rel="stylesheet" href="{{url_for('static',filename='css/datosFactura.css')}}">
 
-<body>
-    <form action="/puntodeventa/venta/Factura/pagar/{{data.id}}" method="post">
-        <h1>datos factura</h1>
-
-        <label for="">Razon social:</label>
-        <input required type="text" name="razon" id="">
-        <label for="">RUT Cliente:</label>
-        <input required type="text" name="rut" id="">
-        <label for="">Giro</label>
-        <input type="text" name="giroFactura" required id="">
-        <label for="">Direccion</label>
-        <input type="text" name="direccion" id="">
-        <input type="submit" value="Emitir Factura">
-
-    </form>
-    <table>
-        <caption>Resumen de Venta</caption>
-        <thead>
-            <tr>
-                <th class="dcf-txt-center" scope="col">codigo</th>
-                <th class="dcf-txt-center" scope="col">Producto</th>
-                <th class="dcf-txt-center" scope="col">precio unidad</th>
-                <th class="dcf-txt-center" scope="col">cantidad</th>
-                <th class="dcf-txt-center" scope="col">total</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for c in data.listado%}
-            <tr>
-                <th class="dcf-txt-center" scope="row">{{c[0]}}</th>
-                <td class="dcf-txt-center" data-label="nombre">{{c[1]}}</td>
-                <td class="dcf-txt-center" data-label="precio">${{c[2]}}</td>
-                <td class="dcf-txt-center" data-label="cantidad">
-
-                    <strong style="font-weight: 550;font-size: 14px;">{{c[3]}}</strong>
+{%endblock%}
 
 
-                </td>
-                <td class="dcf-txt-center" data-label="total">${{c[4]}}</td>
+{%block body%}
+<div class="gridFacturacion">
+    <div class="formularioFactura">
+        <form action="/puntodeventa/venta/Factura/pagar/{{data.id}}" method="post">
+            <h2 style="font-weight: 300;">Datos de Factura</h2>
 
-            </tr>
-            {%endfor%}
+            <label for="">Razon social:</label>
+            <input required type="text" name="razon" id="">
+            <label for="">RUT Cliente:</label>
+            <input required type="text" name="rut" id="">
+            <label for="">Giro</label>
+            <input type="text" name="giroFactura" required id="">
+            <label for="">Direccion</label>
+            <input type="text" name="direccion" id="">
 
-            <tr>
-                <td class="dcf-txt-center" colspan="2">Neto: ${{data.neto}}</td>
-                <td class="dcf-txt-center" colspan="2">IVA: ${{data.iva}}</td>
-                <td class="dcf-txt-center" colspan="2">TOTAL: ${{data.total}}</td>
-            </tr>
-        </tbody>
-    </table>
-</body>
+            <button type="submit">Enviar datos</button>
+        </form>
+        <button onclick="window.close()">Cancelar</button>
+    </div>
+    <div class="tablaResumen">
+        <table>
+            <caption>Resumen de Venta</caption>
+            <thead>
+                <tr>
+                    <th class="dcf-txt-center" scope="col">codigo</th>
+                    <th class="dcf-txt-center" scope="col">Producto</th>
+                    <th class="dcf-txt-center" scope="col">precio unidad</th>
+                    <th class="dcf-txt-center" scope="col">cantidad</th>
+                    <th class="dcf-txt-center" scope="col">total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for c in data.listado%}
+                <tr>
+                    <th class="dcf-txt-center" scope="row">{{c[0]}}</th>
+                    <td class="dcf-txt-center" data-label="nombre">{{c[1]}}</td>
+                    <td class="dcf-txt-center" data-label="precio">${{c[2]}}</td>
+                    <td class="dcf-txt-center" data-label="cantidad">
 
-</html>
+                        <strong style="font-weight: 550;font-size: 14px;">{{c[3]}}</strong>
+
+
+                    </td>
+                    <td class="dcf-txt-center" data-label="total">${{c[4]}}</td>
+
+                </tr>
+                {%endfor%}
+
+                <tr>
+                    <td class="dcf-txt-center" colspan="2">Neto: ${{data.neto}}</td>
+                    <td class="dcf-txt-center" colspan="2">IVA: ${{data.iva}}</td>
+                    <td class="dcf-txt-center" colspan="2">TOTAL: ${{data.total}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{%endblock%}

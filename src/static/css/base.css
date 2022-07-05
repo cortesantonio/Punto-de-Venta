@@ -16,6 +16,7 @@
     background-color: #4c5075;
 }
 
+button{cursor: pointer;}
 
 .list ul li {
     text-transform: capitalize;
@@ -28,7 +29,13 @@
     text-decoration: none;
 
 }
-
+.c{
+    position: fixed;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    bottom: 20px;
+    right: 20px;
+    color: rgba(0, 0, 0, 0.233);
+}
 #toggler,
 .navbar label {
     display: none;
