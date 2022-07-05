@@ -95,20 +95,19 @@ create table temp (
 insert into Tipo_Usuario values(0,'vendedor');
 insert into Tipo_Usuario values (1,'administrador');
 
-insert into usuario values('321','321','antonio cortes sotelo', 0);
-insert into usuario values('123','123','antonio cortes sotelo', 1);
-insert into usuario values('ad','asd','anadso', 0);
+insert into Usuario values('321','321','antonio cortes sotelo', 0);
+insert into Usuario values('123','123','antonio cortes sotelo', 1);
 
 insert into categoria_Producto values(1,'Frutas y Verduras');
 insert into categoria_Producto values(2,'Carnes y Pescados');
 insert into categoria_Producto values(3,'Panaderia y Pasteleria');
 insert into categoria_Producto values(4,'Abarrotes');
 
-insert into producto values(1,'Limon','limon en malla',1990,'https://7483c243aa9da28f329c-903e05bc00667eb97d832a11f670edad.ssl.cf1.rackcdn.com/20409659-0VhIfGOv-large.jpg',1);
-insert into producto values(2,'Palta Hass Malla','700gr',2190,'https://7483c243aa9da28f329c-903e05bc00667eb97d832a11f670edad.ssl.cf1.rackcdn.com/20411826-gd7EBe-H-large.jpg',1);
-insert into producto values(3,'Zapallo Italiano','1 UN',650,'https://7483c243aa9da28f329c-903e05bc00667eb97d832a11f670edad.ssl.cf1.rackcdn.com/05014004-PKcaDFxZ-large.jpg',1);
-insert into producto values(4,'Lechuga','Lechuga Hidropónica Española Extra',1350,'https://7483c243aa9da28f329c-903e05bc00667eb97d832a11f670edad.ssl.cf1.rackcdn.com/20254265-LwhHK5RO-large.jpg',1);
-insert into producto values(5,'Pasta Spaghetti 3','400gr',1070,'https://7483c243aa9da28f329c-903e05bc00667eb97d832a11f670edad.ssl.cf1.rackcdn.com/1014063-sx68qEPg-large.jpg',4);
+insert into Producto values(1,'Limon','limon en malla',1990,'https://7483c243aa9da28f329c-903e05bc00667eb97d832a11f670edad.ssl.cf1.rackcdn.com/20409659-0VhIfGOv-large.jpg',1);
+insert into Producto values(2,'Palta Hass Malla','700gr',2190,'https://7483c243aa9da28f329c-903e05bc00667eb97d832a11f670edad.ssl.cf1.rackcdn.com/20411826-gd7EBe-H-large.jpg',1);
+insert into Producto values(3,'Zapallo Italiano','1 UN',650,'https://7483c243aa9da28f329c-903e05bc00667eb97d832a11f670edad.ssl.cf1.rackcdn.com/05014004-PKcaDFxZ-large.jpg',1);
+insert into Producto values(4,'Lechuga','Lechuga Hidropónica Española Extra',1350,'https://7483c243aa9da28f329c-903e05bc00667eb97d832a11f670edad.ssl.cf1.rackcdn.com/20254265-LwhHK5RO-large.jpg',1);
+insert into Producto values(5,'Pasta Spaghetti 3','400gr',1070,'https://7483c243aa9da28f329c-903e05bc00667eb97d832a11f670edad.ssl.cf1.rackcdn.com/1014063-sx68qEPg-large.jpg',4);
 
 
 
