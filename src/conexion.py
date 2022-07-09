@@ -189,7 +189,7 @@ class DAO:
         
     def trabajadoresEnjornadas(self,rut):
         cursor = self.cnx.cursor()
-        sql = 'select id_jornada from estado_jornada inner JOIN boleta on boleta.fecha = estado_jornada.id_Jornada INNER JOIN usuario on usuario.rut = boleta.vendedor_emisor where usuario.rut = %s GROUP BY id_Jornada;'    
+        sql = 'select id_jornada from estado_jornada inner JOIN boleta on boleta.fecha = estado_jornada.id_jornada INNER JOIN usuario on usuario.rut = boleta.vendedor_emisor where usuario.rut = %s GROUP BY id_jornada;'    
         data = (rut,)
         cursor.execute(sql,data)
         return cursor.fetchall()
