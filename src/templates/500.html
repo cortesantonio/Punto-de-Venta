@@ -1,0 +1,25 @@
+{%extends './base.html'%}
+
+{%block linkCSS%}
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='../static/css/error.css') }}">
+<link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Passion+One:900" rel="stylesheet">
+
+{%endblock%}
+
+{%block titulo%}Error 500{%endblock%}
+
+{%block body%}
+<div id="notfound">
+    <div class="notfound">
+        <div class="notfound-404">
+            <h1>:(</h1>
+        </div>
+        <h2>500 - Error interno</h2>
+        <p>
+            El servidor encontró un error interno y no pudo completar su solicitud. O el servidor está sobrecargado o hay un error en la aplicación. <br>
+        concidere esperar un momento. </p>
+        <a href="/">Volver a inicio</a>
+    </div>
+</div>
+{%endblock%}

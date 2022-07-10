@@ -6,6 +6,7 @@ import random
 
 dao = DAO()
 app = Flask(__name__)
+app.secret_key = "s5HKwm5AtlmzLiU0FIrrMsWXsrTdoxco"
 
 # DIRECCION RAIZ. VISIBLE PARA TODOS. 
 @app.route('/')
@@ -788,7 +789,15 @@ def activarJornada():
             return redirect('/login')
     else:
         return redirect('/login')
+
+
+@app.errorhandler(404)
+def notFound(err):
+    return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def error500(err):
+    return render_template('500.html'), 500
 #   METODO DE ARRANQUE DE APLICACION
 if __name__ == '__main__':
-    app.secret_key = "s5HKwm5AtlmzLiU0FIrrMsWXsrTdoxco"
     app.run(debug=True)
