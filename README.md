@@ -6,3 +6,4 @@
 - Framework Flask --- pip install Flask
 - MySQL connector --- pip install mysql-connector
 
+https://puntodeventa.pythonanywhere.com/
