@@ -95,8 +95,7 @@ create table temp (
 insert into tipo_usuario values(0,'vendedor');
 insert into tipo_usuario values (1,'administrador');
 
-insert into usuario values('321','321','antonio cortes sotelo', 0);
-insert into usuario values('123','123','antonio cortes sotelo', 1);
+insert into usuario values('admin-0','admin-0','Administrador', 1);
 
 insert into categoria_producto values(1,'Frutas y Verduras');
 insert into categoria_producto values(2,'Carnes y Pescados');
